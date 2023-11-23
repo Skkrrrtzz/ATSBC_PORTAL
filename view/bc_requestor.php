@@ -126,7 +126,9 @@
                 <div class="row mx-0">
                     <div class="col-sm col-md-12 col-lg-6 my-1">
                         <div class="card">
-                            <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Vendor 1</h5>
+                            <div class="d-flex justify-content-between pt-1 align-items-center text-bg-primary border-bottom border-2 border-dark rounded-top mb-2">
+                                <h5 class="fw-bold ps-2"> Vendor 1</h5>
+                            </div>
                             <div class="row g-2 mx-2 mb-2">
                                 <div class="col-sm col-md-6 col-lg-5 form-floating">
                                     <input type="text" class="form-control" name="Current_Vendor" id="Current_Vendor" required>
@@ -169,19 +171,23 @@
                         </div>
                     </div>
                     <div class="col-sm col-md-12 col-lg-6 my-1">
-                        <div class="card">
-                            <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Vendor 2</h5>
+                        <div class="card" id="vendor2">
+                            <div class="d-flex justify-content-between pt-1 align-items-center text-bg-primary border-bottom border-2 border-dark rounded-top mb-2">
+                                <h5 class="fw-bold ps-2"> Vendor 2</h5>
+                                <button class="btn btn-primary btn-sm fa-solid fa-minus" type="button" id="close">
+                                </button>
+                            </div>
                             <div class="row g-2 mx-2 mb-2">
                                 <div class="col-sm-2 col-md-6 col-lg-4 form-floating">
-                                    <input type="text" class="form-control" name="New_Vendor" id="New_Vendor" required>
+                                    <input type="text" class="form-control" name="New_Vendor" id="New_Vendor">
                                     <label class="form-label fw-bold text-black" for="New_Vendor">New Vendor</label>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-lg-4 form-floating">
-                                    <input type="text" class="form-control" name="New_Vendor_Price" id="New_Vendor_Price" required>
+                                    <input type="text" class="form-control" name="New_Vendor_Price" id="New_Vendor_Price">
                                     <label class="form-label fw-bold text-black" for="New_Vendor_Price">New Vendor Price</label>
                                 </div>
                                 <div class="col-7 col-md-3 col-lg-4 form-floating">
-                                    <select class="form-select" name="Currency2" id="Currency2" required>
+                                    <select class="form-select" name="Currency2" id="Currency2">
                                         <option value="" selected>Select Currency</option>
                                         <option value="USD">USD</option>
                                         <option value="PHP">PHP</option>
@@ -190,24 +196,37 @@
                                     <label class="form-label fw-bold text-black" for="Currency2">Currency</label>
                                 </div>
                                 <div class="col-5 col-md-2 form-floating">
-                                    <input type="number" class="form-control" name="LT2" id="LT2" required>
+                                    <input type="number" class="form-control" name="LT2" id="LT2">
                                     <label class="form-label fw-bold text-black" for="LT2">LT</label>
                                 </div>
                                 <div class="col-6 col-md-2 form-floating">
-                                    <input type="number" class="form-control" name="SPQ2" id="SPQ2" required>
+                                    <input type="number" class="form-control" name="SPQ2" id="SPQ2">
                                     <label class="form-label fw-bold text-black" for="SPQ2">SPQ</label>
                                 </div>
                                 <div class="col-6 col-md-2 form-floating">
-                                    <input type="number" class="form-control" name="MOQ2" id="MOQ2" required>
+                                    <input type="number" class="form-control" name="MOQ2" id="MOQ2">
                                     <label class="form-label fw-bold text-black" for="MOQ2">MOQ</label>
                                 </div>
                                 <div class="col-7 col-md-4 col-lg-4 form-floating">
-                                    <input type="number" class="form-control" name="Qty_to_Purchase_from_Vendor_2" id="Qty_to_Purchase_from_Vendor_2" required>
+                                    <input type="number" class="form-control" name="Qty_to_Purchase_from_Vendor_2" id="Qty_to_Purchase_from_Vendor_2">
                                     <label class="form-label fw-bold text-black" for="Qty_to_Purchase_from_Vendor_2">Qty to Purchase from Vendor 2</label>
                                 </div>
                                 <div class="col-5 col-md-2 col-lg-2 form-floating">
                                     <input type="text" class="form-control" name="Total_Amt_2" id="Total_Amt_2">
                                     <label class="form-label fw-bold text-black" for="Total_Amt_2">Total Amt</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" id="reasonCard" style="display: none;">
+                            <div class="row g-2 m-2">
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary btn-sm" type="button" id="open">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-floating">
+                                    <input type="text" class="form-control" name="Reason" id="Reason" required>
+                                    <label class="form-label fw-bold text-black" for="Reason">Reason</label>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +244,7 @@
             </div>
         </form>
     </div>
-    <script src="../js/requestor_js.js"></script>
+    <script src="../js/requestor.js"></script>
 </body>
 
 </html>

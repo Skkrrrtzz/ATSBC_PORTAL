@@ -120,7 +120,7 @@ if ($Role === "Requestor") {
         </div>
         <!-- Approved Modal -->
         <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header text-bg-success">
                         <h1 class="modal-title fs-5" id="approvedModalLabel">Approved Request/s</h1>
@@ -128,7 +128,7 @@ if ($Role === "Requestor") {
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered table-sm text-nowrap">
                                 <thead class="table-success">
                                     <tr>
                                         <th>Request No</th>
@@ -149,7 +149,7 @@ if ($Role === "Requestor") {
                                             <td><?= $row['Requestor'] ?></td>
                                             <td><?= $row['Project'] ?></td>
                                             <td><span class="badge badge-success"><?= $row['Status'] ?></span></td>
-                                            <td><?= $row['Approver']; ?></td>
+                                            <td><?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?></td>
                                             <td><?= formatApprovalDate($row['Date_Approved_1']); ?></td>
                                             <td><button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button></td>
                                         </tr>
@@ -357,58 +357,62 @@ if ($Role === "Requestor") {
                                 </div>
                             </div>
                             <div class="col-sm col-md-6 my-2">
-                                <div class=" bg-secondary-subtle">
+                                <div class=" bg-secondary-subtle" id="Vendor2">
                                     <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Vendor 2</h5>
                                     <div class="row m-1 g-2 mb-2">
                                         <div class="col-md-6 ">
                                             <div class="form-outline">
-                                                <input type="text" class="form-control bg-light" id="New_Vendor" value="" readonly>
+                                                <input type="text" class="form-control bg-light" id="New_Vendor" readonly>
                                                 <label class="form-label fw-bold text-dark" for="New_Vendor">New Vendor</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-outline">
-                                                <input type="number" class="form-control bg-light" id="New_Vendor_Price" value="" readonly>
+                                                <input type="number" class="form-control bg-light" id="New_Vendor_Price" readonly>
                                                 <label class="form-label fw-bold text-dark" for="New_Vendor_Price">New Vendor Price</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-outline">
-                                                <input type="text" class="form-control bg-light" id="Currency_2" value="" readonly>
+                                                <input type="text" class="form-control bg-light" id="Currency_2" readonly>
                                                 <label class="form-label fw-bold text-dark" for="Currency_2">Currency</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-outline">
-                                                <input type="number" class="form-control bg-light" id="LT_2" value="" readonly>
+                                                <input type="number" class="form-control bg-light" id="LT_2" readonly>
                                                 <label class="form-label fw-bold text-dark" for="LT_2">LT</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-outline">
-                                                <input type="number" class="form-control bg-light" id="SPQ_2" value="" readonly>
+                                                <input type="number" class="form-control bg-light" id="SPQ_2" readonly>
                                                 <label class="form-label fw-bold text-dark" for="SPQ_2">SPQ</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-outline">
-                                                <input type="number" class="form-control bg-light" id="MOQ_2" value="" readonly>
+                                                <input type="number" class="form-control bg-light" id="MOQ_2" readonly>
                                                 <label class="form-label fw-bold text-dark" for="MOQ_2">MOQ</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-outline">
-                                                <input type="number" class="form-control bg-light" id="Qty_to_Purchase_from_Vendor_2" value="" readonly>
+                                                <input type="number" class="form-control bg-light" id="Qty_to_Purchase_from_Vendor_2" readonly>
                                                 <label class="form-label fw-bold text-dark" for="Qty_to_Purchase_from_Vendor_2">Qty to Purchase from Vendor</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-outline">
-                                                <input type="number" class="form-control bg-light" id="Total_Amt_2" value="" readonly>
+                                                <input type="number" class="form-control bg-light" id="Total_Amt_2" readonly>
                                                 <label class="form-label fw-bold text-dark" for="Total_Amt_2">Total Amt</label>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 form-outline" id="theReason">
+                                    <input type="text" class="form-control" id="Reason" autocomplete="FALSE" readonly>
+                                    <label class="form-label fw-bold text-black" for="Reason">Reason</label>
                                 </div>
                             </div>
                             <div class="row g-2">
@@ -447,6 +451,8 @@ if ($Role === "Requestor") {
                         $("#Currency").val(response.Currency);
                         $("#PPV_Type").val(response.PPV_Type);
                         $("#other_ppv_types").val(response.other_ppv_type);
+
+                        // Vendor 1
                         $("#Current_Vendor").val(response.Current_Vendor);
                         $("#Current_Vendor_Price").val(response.New_Price_1);
                         $("#Currency_1").val(response.Currency_1);
@@ -455,14 +461,25 @@ if ($Role === "Requestor") {
                         $("#MOQ_1").val(response.MOQ_1);
                         $("#Qty_to_Purchase_from_Vendor_1").val(response.Qty2PurchasetoVendor_1);
                         $("#Total_Amt_1").val(response.Total_Amt_1);
-                        $("#New_Vendor").val(response.New_Vendor);
-                        $("#New_Vendor_Price").val(response.New_Price_2);
-                        $("#Currency_2").val(response.Currency_2);
-                        $("#LT_2").val(response.LT_2);
-                        $("#SPQ_2").val(response.SPQ_2);
-                        $("#MOQ_2").val(response.MOQ_2);
-                        $("#Qty_to_Purchase_from_Vendor_2").val(response.Qty2PurchasetoVendor_2);
-                        $("#Total_Amt_2").val(response.Total_Amt_2);
+                        // console.log(response.New_Vendor);
+                        // Vendor 2
+                        if (response.New_Vendor !== null && response.New_Vendor.trim() !== '') {
+                            $("#New_Vendor").val(response.New_Vendor);
+                            $("#New_Vendor_Price").val(response.New_Price_2);
+                            $("#Currency_2").val(response.Currency_2);
+                            $("#LT_2").val(response.LT_2);
+                            $("#SPQ_2").val(response.SPQ_2);
+                            $("#MOQ_2").val(response.MOQ_2);
+                            $("#Qty_to_Purchase_from_Vendor_2").val(response.Qty2PurchasetoVendor_2);
+                            $("#Total_Amt_2").val(response.Total_Amt_2);
+                            $("#Vendor2").show(); // Show the Vendor2 element
+                            $("#theReason").hide();
+                        } else {
+                            // Hide the Vendor2 element if New_Vendor is empty or null
+                            $("#Vendor2").hide();
+                            $("#Reason").val(response.reason);
+                            $("#theReason").show();
+                        }
                         $("#Purchasing_Recom").val(response.Purchasing_Recom);
                         // Initially hide the "other_ppv_type" input field
                         $("#other_ppv_type").hide();

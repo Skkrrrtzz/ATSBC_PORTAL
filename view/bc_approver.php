@@ -582,6 +582,23 @@ include_once '../controllers/apv_commands.php';
                                 showConfirmButton: false,
                                 timer: 5000
                             });
+                            // Remove the readonly attribute
+                            $("#QBOM_Unit_Price").prop("readonly", false);
+                            // Attach an event listener to the #QBOM_Unit_Price input
+                            $("#QBOM_Unit_Price").on("input", function() {
+
+                                // Get the QBOM_Unit_Price value
+                                var QBOM_Unit_Price = parseFloat($(this).val()) || 0;
+
+                                // Get the purchase qty
+                                var Purchase_Qty = parseFloat($("#Purchase_Qty").val()) || 0;
+
+                                // Calculate the total amount
+                                var Total_QBOM_Price = Purchase_Qty * QBOM_Unit_Price;
+
+                                // Update the Total_QBOM_Price field
+                                $("#Total_QBOM_Price").val(Total_QBOM_Price.toFixed(2));
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
@@ -619,7 +636,7 @@ include_once '../controllers/apv_commands.php';
                             // Calculate variance
                             let totalQBOMPrice = parseFloat($("#Total_QBOM_Price").val()) || 0;
                             let qty = parseFloat($(qtyInput).val()) || 0;
-                            var variance = totalQBOMPrice - (convertedPrice * qty);
+                            var variance = ((convertedPrice * qty) - totalQBOMPrice);
                             $(varianceInput).val(variance.toFixed(2));
                         } else {
                             $(convertedPriceInput).val('0');
@@ -746,7 +763,8 @@ include_once '../controllers/apv_commands.php';
                     let Business_Control_Recommendation = $('#Business_Control_Recommendation').val();
                     let Variance_VS_QBOM_Price = $('#Variance_VS_QBOM_Price').val();
                     let approved_check1 = $('#approved_check1').is(':checked');
-                    if (!approved_check1) {
+                    let disapproved_check = $('#disapproved').is(':checked');
+                    if (!approved_check1 && !disapproved_check) {
                         // If checkbox is not checked, show a SweetAlert toast
                         Swal.fire({
                             icon: 'info',
@@ -756,7 +774,6 @@ include_once '../controllers/apv_commands.php';
                         return false; // Prevent form submission
                     }
                     let approved_by_1 = $('#approved_by_1').val();
-                    let disapproved_check = $('#disapproved').is(':checked');
                     let disapproved_by = $('#disapproved_by').val();
                     let date_1 = $('#date_1').val();
                     let remarks = $('#Remarks').val();
@@ -1884,9 +1901,9 @@ include_once '../controllers/apv_commands.php';
                                     </div>
                                     <div class="col-sm col-md-12 form-check mb-1">
                                         <input class="form-check-input" type="checkbox" id="approved_check2" name="approved_check2" <?= $ApvCheck1 === 'true' ? 'checked disabled' : '' ?>>
-                                        <input class="form-control form-control-sm" type="text" name="approved_by_2" id="approved_by_2" readonly>
+                                        <input class="form-control form-control-sm" type="text" name="approved_by_2" id="approved_by_2" value="<?= $ApvName2; ?>" readonly>
                                     </div>
-                                    <div class="col-sm col-md-12 form-check mb-1">
+                                    <div class=" col-sm col-md-12 form-check mb-1">
                                         <input class="form-check-input" type="checkbox" id="approved_check3" name="approved_check3">
                                         <input class="form-control form-control-sm" type="text" name="approved_by_3" id="approved_by_3" readonly>
                                     </div>

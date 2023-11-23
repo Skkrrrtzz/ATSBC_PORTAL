@@ -28,20 +28,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $Qty_to_Purchase_from_Vendor_1 = $_POST['Qty_to_Purchase_from_Vendor_1'];
         $Total_Amt_1 = $_POST['Total_Amt_1'];
         // VENDOR 2
-        $New_Vendor = $_POST['New_Vendor'];
-        $New_Vendor_Price = $_POST['New_Vendor_Price'];
-        $Currency2 = $_POST['Currency2'];
-        $LT2 = $_POST['LT2'];
-        $SPQ2 = $_POST['SPQ2'];
-        $MOQ2 = $_POST['MOQ2'];
-        $Qty_to_Purchase_from_Vendor_2 = $_POST['Qty_to_Purchase_from_Vendor_2'];
-        $Total_Amt_2 = $_POST['Total_Amt_2'];
-        $Purchasing_Recom = $_POST['Purchasing_Recom'];
+        $New_Vendor = $_POST['New_Vendor'] ?? null;
+        $New_Vendor_Price = $_POST['New_Vendor_Price'] ?? null;
+        $Currency2 = $_POST['Currency2'] ?? null;
+        $LT2 = $_POST['LT2'] ?? null;
+        $SPQ2 = $_POST['SPQ2'] ?? null;
+        $MOQ2 = $_POST['MOQ2'] ?? null;
+        $Qty_to_Purchase_from_Vendor_2 = $_POST['Qty_to_Purchase_from_Vendor_2'] ?? null;
+        $Total_Amt_2 = $_POST['Total_Amt_2'] ?? null;
+        $Reason = $_POST['Reason'] ?? null;
+        $Purchasing_Recom = $_POST['Purchasing_Recom'] ?? null;
 
         $For_Approver_1 = "Approver 1";
 
         try {
-            $insertReqSql = "INSERT INTO ppv (Date_Received,Requestor,Project,SAP_PN,Delta_PN,Description,QPA,PR_Qty,Purchase_Qty,UoM,Prev_Price,Currency,PPV_Type,other_ppv_type,Current_Vendor,New_Price_1,Currency_1,LT_1,SPQ_1,MOQ_1,Qty2PurchasetoVendor_1,Total_Amt_1,New_Vendor,New_Price_2,Currency_2,LT_2,SPQ_2,MOQ_2,Qty2PurchasetoVendor_2,Total_Amt_2,Purchasing_Recom,Approver) VALUES (:date,:name,:proj,:sap_no,:delta_no,:desc,:QPA,:PR_Qty,:Purchase_Qty,:UOM,:Prev_price,:Currency,:PPV_Type,:other_ppv_type,:Current_Vendor,:Current_Vendor_Price,:Currency1,:LT1,:SPQ1,:MOQ1,:Qty_to_Purchase_from_Vendor_1,:Total_Amt_1,:New_Vendor,:New_Vendor_Price,:Currency2,:LT2,:SPQ2,:MOQ2,:Qty_to_Purchase_from_Vendor_2,:Total_Amt_2,:Purchasing_Recom,:For_Approver_1)";
+            $insertReqSql = "INSERT INTO ppv (Date_Received,Requestor,Project,SAP_PN,Delta_PN,Description,QPA,PR_Qty,Purchase_Qty,UoM,Prev_Price,Currency,PPV_Type,other_ppv_type,Current_Vendor,New_Price_1,Currency_1,LT_1,SPQ_1,MOQ_1,Qty2PurchasetoVendor_1,Total_Amt_1,reason,New_Vendor,New_Price_2,Currency_2,LT_2,SPQ_2,MOQ_2,Qty2PurchasetoVendor_2,Total_Amt_2,Purchasing_Recom,Approver) VALUES (:date,:name,:proj,:sap_no,:delta_no,:desc,:QPA,:PR_Qty,:Purchase_Qty,:UOM,:Prev_price,:Currency,:PPV_Type,:other_ppv_type,:Current_Vendor,:Current_Vendor_Price,:Currency1,:LT1,:SPQ1,:MOQ1,:Qty_to_Purchase_from_Vendor_1,:Total_Amt_1,:Reason,:New_Vendor,:New_Vendor_Price,:Currency2,:LT2,:SPQ2,:MOQ2,:Qty_to_Purchase_from_Vendor_2,:Total_Amt_2,:Purchasing_Recom,:For_Approver_1)";
 
             $stmt = $pdo->prepare($insertReqSql);
             if (!$stmt) {
@@ -79,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':MOQ2', $MOQ2);
             $stmt->bindParam(':Qty_to_Purchase_from_Vendor_2', $Qty_to_Purchase_from_Vendor_2);
             $stmt->bindParam(':Total_Amt_2', $Total_Amt_2);
+            $stmt->bindParam(':Reason', $Reason);
             $stmt->bindParam(':Purchasing_Recom', $Purchasing_Recom);
             $stmt->bindParam(':For_Approver_1', $For_Approver_1);
 

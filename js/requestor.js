@@ -13,6 +13,23 @@ $(document).ready(function () {
       $("#other_ppv_type").hide();
     }
   });
+
+  // Add click event listener to the open button
+  $("#open").click(function () {
+    // Show #vendor2
+    $("#vendor2").show();
+    // Hide the Reason input field
+    $("#reasonCard").hide();
+  });
+
+  // Add click event listener to the close icon
+  $("#close").click(function () {
+    // Hide #vendor2
+    $("#vendor2").hide();
+    // Show the Reason input field
+    $("#reasonCard").show();
+  });
+
   $("#requestForm").submit(function (e) {
     e.preventDefault(); // Prevent the default form submission
 

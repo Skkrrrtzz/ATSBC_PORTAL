@@ -6,19 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Users</title>
-
+    <style>
+        /* table.dataTable td {
+            font-size: 12px;
+            padding: 2px;
+        } */
+    </style>
 </head>
 
-<body>
-    <div class="container-fluid">
-        <div class=" mx-1 mt-3" role="group" aria-label="Add-User">
+<body class="bg-light">
+    <div class="container my-2">
+        <div class="mb-2" role="group" aria-label="Add-User">
             <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#addUserModal"><i class="fa-solid fa-circle-plus"></i> Add User</button>
         </div>
-        <div class="table-responsive py-2 my-2 border border-2 rounded text-nowrap">
-            <table id="admin_users" class="table table-hover table-sm" style="width: 100%">
-                <thead class="table-primary fw-bold">
-                    <tr>
-                        <!-- <th>ID</th> -->
+        <div class="table-responsive">
+            <table id="admin_users" class="table table-hover table-sm rounded text-nowrap" style="width: 100%">
+                <thead>
+                    <tr class="table-primary">
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -27,11 +31,9 @@
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
-
     </div>
 
     <!-- Add user Modal -->
@@ -181,26 +183,26 @@
     <script>
         $(document).ready(function() {
             var table = $('#admin_users').DataTable({
-                "ajax": {
-                    "url": "../controllers/commands.php",
-                    "dataType": "json",
-                    "dataSrc": ""
+                ajax: {
+                    url: "../controllers/commands.php",
+                    dataType: "json",
+                    dataSrc: ""
                 },
-                "columns": [{
-                        "data": "username"
+                columns: [{
+                        data: "username"
                     },
                     {
-                        "data": "name"
+                        data: "name"
                     },
                     {
-                        "data": "email"
+                        data: "email"
                     },
                     {
-                        "data": "dept"
+                        data: "dept"
                     },
                     {
-                        "data": "role",
-                        "render": function(data, type, row) {
+                        data: "role",
+                        render: function(data, type, row) {
                             if (data === "Approver 1" || data === "Approver 2" || data === "Approver 3") {
                                 return '<span class="badge badge-pill badge-success">' + data + '</span>';
                             } else if (data === "Optional Approver") {
@@ -212,13 +214,13 @@
                         }
                     },
                     {
-                        "data": null,
-                        "render": function(data, type, row) {
+                        data: null,
+                        render: function(data, type, row) {
                             return '<a href="javascript:void();" class="text-primary edit-btn fs-4" data-id="' + row.ID + '" data-mdb-toggle="modal" data-mdb-target="#editUserModal"><i class="fa-solid fa-pen-to-square"></i></a>' + ' <a href="javascript:void();" class="text-danger delete-btn fs-4" data-id= "' + row.ID + '" ><i class="fa-solid fa-trash"></i></a>';
                         }
                     }
                 ],
-                "order": [
+                order: [
                     [4, "asc"]
                 ],
                 "paging": true,
