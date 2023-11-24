@@ -59,7 +59,7 @@ if (isset($_GET['No'])) {
             $BC_Recomm = $row['bc_recomm'];
             $Variance_VS_QBOM_Price = $row['variance_vs_qbomprice'];
             $CCP_Name = $row['CCP_Name'];
-
+            $Reason = $row['reason'];
             $originalDate = $row['CCP_Checked_date'];
             $timestamp = strtotime($originalDate);
             $CCP_date = date('m/d/y h:i A', $timestamp);
@@ -105,6 +105,7 @@ if (isset($_GET['No'])) {
         $MOQ_1 = "";
         $Qty2PurchasetoVendor_1 = "";
         $Total_Amt_1 = "";
+        $Reason = "";
         $New_Vendor = "";
         $New_Price_2 = "";
         $Currency_2 = "";
@@ -213,10 +214,10 @@ if (isset($_GET['No'])) {
         $Total_QBOM_Price = $_POST['Total_QBOM_Price'];
         $Conversion_Rate_Vendor_1 = $_POST['Conversion_Rate_Vendor_1'];
         $Vendor_1_Converted_Price = $_POST['Vendor_1_Converted_Price'];
-        $Conversion_Rate_Vendor_2 = $_POST['Conversion_Rate_Vendor_2'];
-        $Vendor_2_Converted_Price = $_POST['Vendor_2_Converted_Price'];
+        $Conversion_Rate_Vendor_2 = $_POST['Conversion_Rate_Vendor_2'] ?? null;
+        $Vendor_2_Converted_Price = $_POST['Vendor_2_Converted_Price'] ?? null;
         $Vendor_1_VarianceVSQBOM = $_POST['Vendor_1_Variance_VS_QBOM'];
-        $Vendor_2_VarianceVSQBOM = $_POST['Vendor_2_Variance_VS_QBOM'];
+        $Vendor_2_VarianceVSQBOM = $_POST['Vendor_2_Variance_VS_QBOM'] ?? null;
         $Variance_Chargable2_Cohu = $_POST['Variance_Chargable_to_Cohu'];
         $C2C_value = $_POST['Chargable_to_Customer'];
         $BC_Recomm = $_POST['Business_Control_Recommendation'];

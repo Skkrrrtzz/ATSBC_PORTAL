@@ -250,7 +250,7 @@
                           <ul class="dropdown-menu dropdown-menu-end" id="profileDropdown">
                               <li class="dropdown-item active fw-bold"><?php echo $Name; ?></li>
                               <li><a class="dropdown-item " href="bc_profile.php"><i class="fa-regular fa-circle-user"></i> Profile</a></li>
-                              <?php if ($Role === "Approver 1" && $Dept === "Business Control") { ?>
+                              <?php if ($Position === "Admin") { ?>
 
                                   <li><a class="dropdown-item" href="bc_add_user.php"><i class="fa-solid fa-plus"></i> Add User</a></li>
                               <?php  } ?>

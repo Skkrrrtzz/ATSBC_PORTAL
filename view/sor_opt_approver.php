@@ -172,56 +172,63 @@ if ($Role === "Optional Approver") {
                 </div>
                 <div class="col-sm rounded mb-2">
                     <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top">Vendor 2</h5>
-                    <div class="row g-2">
-                        <div class="col-sm col-md-6 col-lg-5">
-                            <div class="form-outline">
-                                <input type="text" class="form-control bg-white" name="New_Vendor" id="New_Vendor" value="<?= $New_Vendor; ?>" readonly>
-                                <label class="form-label fw-bold" for="New_Vendor">New Vendor</label>
+                    <?php if (!empty($New_Vendor)) { ?>
+                        <div class="row g-2">
+                            <div class="col-sm col-md-6 col-lg-5">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-white" name="New_Vendor" id="New_Vendor" value="<?= $New_Vendor; ?>" readonly>
+                                    <label class="form-label fw-bold" for="New_Vendor">New Vendor</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-6 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="New_Vendor_Price" id="New_Vendor_Price" value="<?= $New_Price_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="New_Vendor_Price">New Vendor Price</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-white" name="Currency_2" id="Currency_2" value="<?= $Currency_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="Currency_2">Currency</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-3 col-lg-2">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="LT_2" id="LT_2" value="<?= $LT_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="LT_2">LT</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-3 col-lg-2">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="SPQ_2" id="SPQ_2" value="<?= $SPQ_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="SPQ_2">SPQ</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-3 col-lg-2">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="MOQ_2" id="MOQ_2" value="<?= $MOQ_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="MOQ_2">MOQ</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-8 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="Qty_to_Purchase_from_Vendor_2" id="Qty_to_Purchase_from_Vendor_2" value="<?= $Qty2PurchasetoVendor_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="Qty_to_Purchase_from_Vendor_2">Qty to Purchase from Vendor</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-2">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="Total_Amt_2" id="Total_Amt_2" value="<?= $Total_Amt_2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="Total_Amt_2">Total Amt</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4 col-md-6 col-lg-4">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="New_Vendor_Price" id="New_Vendor_Price" value="<?= $New_Price_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="New_Vendor_Price">New Vendor Price</label>
-                            </div>
+                    <?php } else { ?>
+                        <div class="col-sm-12 col-md-12 col-lg-12 form-floating"">
+                            <input type=" text" class="form-control" id="Reason" autocomplete="FALSE" value="<?= $Reason; ?>" readonly>
+                            <label class="form-label fw-bold text-black" for="Reason">Reason</label>
                         </div>
-                        <div class="col-sm-3 col-md-3 col-lg-3">
-                            <div class="form-outline">
-                                <input type="text" class="form-control bg-white" name="Currency_2" id="Currency_2" value="<?= $Currency_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="Currency_2">Currency</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-3 col-lg-2">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="LT_2" id="LT_2" value="<?= $LT_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="LT_2">LT</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-3 col-lg-2">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="SPQ_2" id="SPQ_2" value="<?= $SPQ_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="SPQ_2">SPQ</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-3 col-lg-2">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="MOQ_2" id="MOQ_2" value="<?= $MOQ_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="MOQ_2">MOQ</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-8 col-lg-4">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="Qty_to_Purchase_from_Vendor_2" id="Qty_to_Purchase_from_Vendor_2" value="<?= $Qty2PurchasetoVendor_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="Qty_to_Purchase_from_Vendor_2">Qty to Purchase from Vendor</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-4 col-lg-2">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="Total_Amt_2" id="Total_Amt_2" value="<?= $Total_Amt_2; ?>" readonly>
-                                <label class="form-label fw-bold" for="Total_Amt_2">Total Amt</label>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
             <div class="row g-2 justify-content-between">
@@ -269,26 +276,28 @@ if ($Role === "Optional Approver") {
                             </div>
                         </div>
                     </div>
-                    <div class="row g-2 mb-2">
-                        <div class="col-sm col-md-4 col-lg-4">
-                            <div class="form-outline">
-                                <input type="number" class="form-control bg-white" name="Conversion_Rate_Vendor_2" id="Conversion_Rate_Vendor_2" value="<?= $Conversion_Rate_V2; ?>" readonly>
-                                <label class="form-label fw-bold" for="Conversion_Rate_Vendor_2">Conversion Rate Vendor 2</label>
+                    <?php if (!empty($New_Vendor)) { ?>
+                        <div class="row g-2 mb-2">
+                            <div class="col-sm col-md-4 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="number" class="form-control bg-white" name="Conversion_Rate_Vendor_2" id="Conversion_Rate_Vendor_2" value="<?= $Conversion_Rate_V2; ?>" readonly>
+                                    <label class="form-label fw-bold" for="Conversion_Rate_Vendor_2">Conversion Rate Vendor 2</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-white" name="Vendor_2_Converted_Price" id="Vendor_2_Converted_Price" value="<?= $V2_Converted_Price; ?>" readonly>
+                                    <label class="form-label fw-bold" for="Vendor_2_Converted_Price">Vendor 2 Converted Price</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-white" name="Vendor_2_Variance_VS_QBOM" id="Vendor_2_Variance_VS_QBOM" value="<?= $V2_VarianceVSQBOM; ?>" readonly>
+                                    <label class="form-label fw-bold" for="Vendor_2_Variance_VS_QBOM">Vendor 2 Variance VS QBOM</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4 col-md-4 col-lg-4">
-                            <div class="form-outline">
-                                <input type="text" class="form-control bg-white" name="Vendor_2_Converted_Price" id="Vendor_2_Converted_Price" value="<?= $V2_Converted_Price; ?>" readonly>
-                                <label class="form-label fw-bold" for="Vendor_2_Converted_Price">Vendor 2 Converted Price</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-md-4 col-lg-4">
-                            <div class="form-outline">
-                                <input type="text" class="form-control bg-white" name="Vendor_2_Variance_VS_QBOM" id="Vendor_2_Variance_VS_QBOM" value="<?= $V2_VarianceVSQBOM; ?>" readonly>
-                                <label class="form-label fw-bold" for="Vendor_2_Variance_VS_QBOM">Vendor 2 Variance VS QBOM</label>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
                 <div class="col-sm col-md col-lg-6">
                     <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Action to do</h5>

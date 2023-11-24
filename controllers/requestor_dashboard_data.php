@@ -1,7 +1,7 @@
 <?php
 include_once 'db.php';
 // Define the conditions for pending and approved records
-$pendingCondition = "SELECT * FROM `ppv` WHERE Requestor = :requestor AND Status ='IN-PROCESS' OR Status IS NULL";
+$pendingCondition = "SELECT * FROM `ppv` WHERE Requestor = :requestor AND (Status = 'IN-PROCESS' OR Status IS NULL)";
 $approvedCondition = "SELECT * FROM `ppv` WHERE Requestor = :requestor AND Status = 'DONE' AND Request_Status = 'Approved'";
 $disapprovedCondition = "SELECT * FROM `ppv` WHERE Requestor = :requestor AND Status = 'DONE' AND Request_Status = 'Disapproved'";
 // Prepare and execute the query for pending records

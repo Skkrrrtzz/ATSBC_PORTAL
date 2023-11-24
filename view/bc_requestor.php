@@ -219,13 +219,14 @@
                         </div>
                         <div class="card" id="reasonCard" style="display: none;">
                             <div class="row g-2 m-2">
-                                <div class="d-flex justify-content-end">
+                                <div class="d-flex justify-content-between">
+                                    <i>Please indicate the reason why there is no Vendor 2</i>
                                     <button class="btn btn-primary btn-sm" type="button" id="open">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 form-floating">
-                                    <input type="text" class="form-control" name="Reason" id="Reason" required>
+                                    <input type="text" class="form-control" name="Reason" id="Reason">
                                     <label class="form-label fw-bold text-black" for="Reason">Reason</label>
                                 </div>
                             </div>
