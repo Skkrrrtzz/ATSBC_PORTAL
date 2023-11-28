@@ -273,8 +273,8 @@
                       icon: "warning",
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
-                      confirmButtonText: "Yes, log me out!",
-                      cancelButtonText: "No, keep me signed in",
+                      confirmButtonText: "Logout",
+                      cancelButtonText: "Cancel",
                   }).then((result) => {
                       if (result.value) {
                           window.location.href = "../controllers/logout.php";

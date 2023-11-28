@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <span class="input-group-text">
                                         <i class="fa-solid fa-user"></i>
                                     </span>
-                                    <input type="text" name="empid" class="form-control" id="inputEmpID" placeholder="Employee ID" required>
+                                    <input type="text" name="empid" class="form-control" id="inputEmpID" placeholder="Employee ID" autocomplete="username" required>
                                     <label for="inputEmpID" class="visually-hidden">Employee ID</label>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <span class="input-group-text">
                                         <i class="fa-solid fa-lock"></i>
                                     </span>
-                                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" autocomplete="new-password" required>
                                     <label for="inputPassword" class="visually-hidden">Password</label>
                                 </div>
                             </div>
