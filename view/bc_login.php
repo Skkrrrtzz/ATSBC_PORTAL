@@ -2,7 +2,7 @@
 session_start();
 function displayError($message)
 {
-    echo '<div class="alert alert-danger" role="alert"><i class="bi bi-exclamation-triangle-fill"></i> ' . $message . '</div>';
+    echo '<div class="alert alert-danger" role="alert" id="errAlert"><i class="fa-solid fa-triangle-exclamation"></i> ' . $message . '</div>';
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -77,9 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main class="container mt-5 ">
         <div class="row justify-content-center">
             <div class="col-sm col-md-5 col-lg-4 col-xl-3">
-                <div class="card border-3 border-dark">
+                <div class="card">
                     <div class="card-body">
-                        <h1 class="h3 mb-3 fw-bold text-start">Login</h1>
+                        <h1 class="h3 fw-bold text-center text-primary">Welcome! </h1>
+                        <h5 class="mb-3 text-center">Sign in to your account</h5>
                         <?php
                         // Call the displayError function when there's an error message to display
                         if (isset($errorMessage)) {
@@ -89,27 +90,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <form method="POST">
                             <div class="mb-3">
                                 <div class="input-group">
-                                    <span class="input-group-text">
+                                    <span class="input-group-text text-bg-light">
                                         <i class="fa-solid fa-user"></i>
                                     </span>
                                     <input type="text" name="empid" class="form-control" id="inputEmpID" placeholder="Employee ID" autocomplete="username" required>
                                     <label for="inputEmpID" class="visually-hidden">Employee ID</label>
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <div class="input-group">
-                                    <span class="input-group-text">
+                                    <span class="input-group-text text-bg-light">
                                         <i class="fa-solid fa-lock"></i>
                                     </span>
                                     <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" autocomplete="new-password" required>
                                     <label for="inputPassword" class="visually-hidden">Password</label>
                                 </div>
                             </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            <div class="mb-3">
+                                <a href="#" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Forgot password?</a>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Log in</button>
+                            <button type="submit" class="btn btn-primary w-100 rounded-pill" data-mdb-ripple-color="dark">Log in <i class="fa-solid fa-arrow-right"></i></button>
                         </form>
                     </div>
                 </div>
