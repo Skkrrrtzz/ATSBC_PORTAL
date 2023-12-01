@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'JTP' => 'jtp_qbom',
             'OLB' => 'olb_qbom',
             'PNP' => 'pnp_qbom',
-            'PNP CABLE' => 'pnpcable_qbom'
+            'PNP CABLE' => 'pnpcable_qbom',
+            'SWAP' => 'swap_qbom'
         ];
 
         // Initialize an empty array to store all the data
@@ -63,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $sql = "SELECT * FROM ionizer_qbom";
         } elseif (isset($_GET['rcmtp'])) {
             $sql = "SELECT * FROM rcmtp_qbom";
+        } elseif (isset($_GET['swap'])) {
+            $sql = "SELECT * FROM swap_qbom";
         } else {
             // Handle the case where no specific table is requested
             die("Invalid request");

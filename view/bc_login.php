@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <main class="container mt-5 ">
         <div class="row justify-content-center">
-            <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="col-sm col-md-5 col-lg-4 col-xl-3">
                 <div class="card border-3 border-dark">
                     <div class="card-body">
                         <h1 class="h3 mb-3 fw-bold text-start">Login</h1>

@@ -64,6 +64,9 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="rcmtp-tab" data-mdb-toggle="tab" data-mdb-target="#rcmtp_tab_pane" type="button" role="tab" aria-controls="rcmtp_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> RCMTP QBOM</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="swap-tab" data-mdb-toggle="tab" data-mdb-target="#swap_tab_pane" type="button" role="tab" aria-controls="swap_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> SWAP QBOM</button>
+        </li>
         <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="spares-tab" data-mdb-toggle="tab" data-mdb-target="#spares_tab_pane" type="button" role="tab" aria-controls="spares_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> SPARES QBOM</button>
         </li> -->
@@ -1056,6 +1059,91 @@
                 </table>
             </div>
         </div>
+        <div class="tab-pane fade" id="swap_tab_pane" role="tabpanel" aria-labelledby="swap-tab" tabindex="0">
+            <div class="table-responsive my-2 mx-1">
+                <table class="table table-striped table-hover table-bordered table-sm text-nowrap" style="width:100%" id="swap_qbom_table">
+                    <thead class="table-primary fw-bold">
+                        <tr>
+                            <th>ID</th>
+                            <th>Changes Analysis</th>
+                            <th>Level</th>
+                            <th>Item</th>
+                            <th>Item Description</th>
+                            <th>Item class</th>
+                            <th>Qty</th>
+                            <th>EXT Qty</th>
+                            <th>QPA 0</th>
+                            <th>UoM</th>
+                            <th>Rev</th>
+                            <th>Drawing Sequence Number</th>
+                            <th>Sequence</th>
+                            <th>Original Unit Price</th>
+                            <th>Original Currency</th>
+                            <th>Unit Price USD before Mark Up</th>
+                            <th>Standard Part Price</th>
+                            <th>Purchase Identification</th>
+                            <th>Mark Up</th>
+                            <th>Unit Price USD after Mark Up</th>
+                            <th>Total Price USD</th>
+                            <th>Agreement</th>
+                            <th>Agreement Price</th>
+                            <th>Agreement Currency</th>
+                            <th>Spare Part Price USD</th>
+                            <th>Supplier MOQ</th>
+                            <th>Lead Time</th>
+                            <th>Supplier Vendor</th>
+                            <th>Supplier Vendor Reference</th>
+                            <th>Manufacturer</th>
+                            <th>Manufacturer Reference MPN</th>
+                            <th>Agreement Supplier Name</th>
+                            <th>Agreement Supplier Code</th>
+                            <th>Life Cycle</th>
+                            <th>Purchasing Restriction</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot class="table-primary fw-bold">
+                        <tr>
+                            <th>ID</th>
+                            <th>Changes Analysis</th>
+                            <th>Level</th>
+                            <th>Item</th>
+                            <th>Item Description</th>
+                            <th>Item class</th>
+                            <th>Qty</th>
+                            <th>EXT Qty</th>
+                            <th>QPA 0</th>
+                            <th>UoM</th>
+                            <th>Rev</th>
+                            <th>Drawing Sequence Number</th>
+                            <th>Sequence</th>
+                            <th>Original Unit Price</th>
+                            <th>Original Currency</th>
+                            <th>Unit Price USD before Mark Up</th>
+                            <th>Standard Part Price</th>
+                            <th>Purchase Identification</th>
+                            <th>Mark Up</th>
+                            <th>Unit Price USD after Mark Up</th>
+                            <th>Total Price USD</th>
+                            <th>Agreement</th>
+                            <th>Agreement Price</th>
+                            <th>Agreement Currency</th>
+                            <th>Spare Part Price USD</th>
+                            <th>Supplier MOQ</th>
+                            <th>Lead Time</th>
+                            <th>Supplier Vendor</th>
+                            <th>Supplier Vendor Reference</th>
+                            <th>Manufacturer</th>
+                            <th>Manufacturer Reference MPN</th>
+                            <th>Agreement Supplier Name</th>
+                            <th>Agreement Supplier Code</th>
+                            <th>Life Cycle</th>
+                            <th>Purchasing Restriction</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
         <!-- <div class="tab-pane fade" id="spares_tab_pane" role="tabpanel" aria-labelledby="spares-tab" tabindex="0">
             <div class="table-responsive py-2 my-2 mx-1">
                 <table class="table table-striped table-hover text-nowrap" style="width:100%" id="spares_qbom_table">
@@ -1171,7 +1259,7 @@
                         {
                             data: "Item_class",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('Item_class')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('Item_class')) {
                                     return row.Item_class;
                                 }
                                 return null;
@@ -1183,7 +1271,7 @@
                         {
                             data: "EXT_Qty",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('EXT_Qty')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('EXT_Qty')) {
                                     return row.EXT_Qty;
                                 }
                                 return null;
@@ -1192,7 +1280,7 @@
                         {
                             data: "QPA_0",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('QPA_0')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('QPA_0')) {
                                     return row.QPA_0;
                                 }
                                 return null;
@@ -1201,7 +1289,7 @@
                         {
                             data: "UoM",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('UoM')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('UoM')) {
                                     return row.UoM;
                                 }
                                 return null;
@@ -1210,7 +1298,7 @@
                         {
                             data: "Rev",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('Rev')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('Rev')) {
                                     return row.Rev;
                                 }
                                 return null;
@@ -1219,7 +1307,7 @@
                         {
                             data: "Drawing_Sequence_Number",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('Drawing_Sequence_Number')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('Drawing_Sequence_Number')) {
                                     return row.Drawing_Sequence_Number;
                                 }
                                 return null;
@@ -1228,7 +1316,7 @@
                         {
                             data: "Sequence",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('Sequence')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('Sequence')) {
                                     return row.Sequence;
                                 }
                                 return null;
@@ -1278,7 +1366,7 @@
                         {
                             data: "Supplier_Vendor",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor')) {
                                     return row.Supplier_Vendor;
                                 }
                                 return null;
@@ -1287,7 +1375,7 @@
                         {
                             data: "Supplier_Vendor_Reference",
                             render: function(data, type, row) {
-                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor_Reference')) {
+                                if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor_Reference')) {
                                     return row.Supplier_Vendor_Reference;
                                 }
                                 return null;

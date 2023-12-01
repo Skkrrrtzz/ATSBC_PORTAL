@@ -39,6 +39,8 @@
                                     <option value="HIGHMAG">HIGHMAG</option>
                                     <option value="IONIZER">IONIZER</option>
                                     <option value="RCMTP">RCMTP</option>
+                                    <option value="SWAP">SWAP</option>
+                                    <option value="SWAP CABLE">SWAP CABLE</option>
                                 </select>
                                 <label for="selectProduct">Product</label>
                             </div>

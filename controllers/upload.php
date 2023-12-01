@@ -22,6 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 // Truncate (clear) the specific QBOM table before inserting new data
                 switch ($qbomType) {
+                    case 'SWAP':
+                        $table = 'swap_qbom';
+                        $insertQuery = "INSERT INTO swap_qbom (`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`,`Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        break;
                     case 'PNP':
                         $table = 'pnp_qbom';
                         $insertQuery = "INSERT INTO pnp_qbom (`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`,`Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -81,91 +85,112 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Create a new Spreadsheet object
                         $spreadsheet = IOFactory::load($file);
 
-                        // Get the active sheet
-                        $worksheet = $spreadsheet->getActiveSheet();
-                        // // Get the highest column (assuming headers are in the first row)
-                        // $highestColumn = $worksheet->getHighestColumn();
+                        if (
+                            $qbomType === 'SWAP'
+                        ) {
+                            // Iterate through worksheets 1 to 5
+                            for ($i = 0; $i <= 5; $i++) {
+                                $worksheet = $spreadsheet->getSheet($i);
 
-                        // // Convert the column letter to a numeric index
-                        // $columnCount = Coordinate::columnIndexFromString($highestColumn);
+                                // Echo out the name of the worksheet
+                                // echo "Processing Worksheet: " . $worksheet->getTitle() . PHP_EOL;
+                                // Initialize a column count variable
+                                $columnCount = 0;
 
-                        // // Prepare the insert query
-                        // $placeholders = implode(',', array_fill(1, $columnCount, '?'));
+                                foreach ($worksheet->getRowIterator() as $row) {
+                                    // Skip the first row (headers)
+                                    if ($row->getRowIndex() === 1) {
+                                        continue;
+                                    }
 
-                        // $insertStmt = $pdo->prepare($insertQuery);
+                                    // Increment the row counter
+                                    $data = [];
+                                    $cellIterator = $row->getCellIterator();
+                                    $cellIterator->setIterateOnlyExistingCells(true);
 
-                        // // Iterate through rows and insert data
-                        // foreach ($worksheet->getRowIterator() as $row) {
-                        //     // Skip the header row
-                        //     if ($row->getRowIndex() === 1) {
-                        //         continue;
-                        //     }
+                                    foreach ($cellIterator as $cell) {
+                                        // Check if the column is hidden
+                                        $columnIndex = $cell->getColumn();
+                                        if ($worksheet->getColumnDimension($columnIndex)->getVisible()) {
+                                            $columnCount++;
+                                            $cellValue = $cell->getCalculatedValue();
+                                            // Handle empty values by replacing them with NULL or an empty string
+                                            $data[] = ($cellValue === null) ? null : $cellValue;
+                                        }
+                                    }
+                                    // Check if the row has fewer values than the total number of columns
+                                    $missingColumns = 34 - count($data);
 
-                        //     $rowData = [];
-                        //     foreach ($row->getCellIterator() as $cell) {
-                        //         $rowData[] = $cell->getValue();
-                        //     }
-                        //     echo '<pre>';
-                        //     print_r($rowData);
-                        //     echo '</pre>';
-                        //     // Bind parameters and execute the statement
-                        //     $insertStmt->execute($rowData);
-                        // }
+                                    // Add null or empty values for the missing columns
+                                    for ($j = 0; $j < $missingColumns; $j++) {
+                                        $data[] = null;
+                                    }
+                                    // echo count($data);
+                                    // print_r($data);
+                                    // Prepare and Execute Insert Query
+                                    $stmt = $pdo->prepare($insertQuery);
 
+                                    // Bind parameters as needed
+                                    for ($j = 1; $j <= count($data); $j++) {
+                                        $stmt->bindParam($j, $data[$j - 1]);
+                                    }
 
-                        // Add a counter variable to track the current row number
-                        $rowCounter = 0;
-
-                        // Initialize a column count variable
-                        $columnCount = 0;
-
-                        foreach ($worksheet->getRowIterator() as $row) {
-                            // Increment the row counter
-                            $rowCounter++;
-
-                            // Skip the first row (header row)
-                            if ($rowCounter === 1) {
-                                continue;
-                            }
-
-                            $data = [];
-                            $cellIterator = $row->getCellIterator();
-                            $cellIterator->setIterateOnlyExistingCells(false);
-
-                            foreach ($cellIterator as $cell) {
-                                // Check if the column is hidden
-                                $columnIndex = $cell->getColumn();
-                                if ($worksheet->getColumnDimension($columnIndex)->getVisible()) {
-                                    $columnCount++;
-                                    $cellValue = $cell->getCalculatedValue();
-                                    // Handle empty values by replacing them with NULL or an empty string
-                                    $data[] = ($cellValue === null) ? null : $cellValue;
-                                    // Check if the cell is not empty
-                                    if ($cellValue !== null && $cellValue !== '') {
-                                        $isRowEmpty = false;
+                                    if (!$stmt->execute()) {
+                                        throw new Exception("Error inserting data into the database.");
                                     }
                                 }
                             }
+                        } else {
+                            // Get the active sheet
+                            $worksheet = $spreadsheet->getActiveSheet();
 
-                            // Remove the last element if it's empty
-                            if (!empty($data) && end($data) === null && $qbomType !== "IONIZER") {
-                                array_pop($data);
-                            }
+                            // Initialize a column count variable
+                            $columnCount = 0;
 
-                            // echo count($data);
-                            if (!$isRowEmpty) {
-                                $stmt = $pdo->prepare($insertQuery);
-                                // Bind parameters as needed
-                                for ($i = 1; $i <= count($data); $i++) {
-                                    $stmt->bindParam($i, $data[$i - 1]);
+                            foreach ($worksheet->getRowIterator() as $row) {
+                                // Skip the first row (headers)
+                                if ($row->getRowIndex() === 1) {
+                                    continue;
                                 }
 
-                                if (!$stmt->execute()) {
-                                    throw new Exception("Error inserting data into the database.");
+                                $data = [];
+                                $cellIterator = $row->getCellIterator();
+                                $cellIterator->setIterateOnlyExistingCells(true);
+
+                                foreach ($cellIterator as $cell) {
+                                    // Check if the column is hidden
+                                    $columnIndex = $cell->getColumn();
+                                    if ($worksheet->getColumnDimension($columnIndex)->getVisible()) {
+                                        $columnCount++;
+                                        $cellValue = $cell->getCalculatedValue();
+                                        // Handle empty values by replacing them with NULL or an empty string
+                                        $data[] = ($cellValue === null) ? null : $cellValue;
+                                        // Check if the cell is not empty
+                                        if ($cellValue !== null && $cellValue !== '') {
+                                            $isRowEmpty = false;
+                                        }
+                                    }
+                                }
+
+                                // Remove the last element if it's empty
+                                // if (!empty($data) && end($data) === null && $qbomType !== "IONIZER") {
+                                //     array_pop($data);
+                                // }
+                                // print_r($data);
+                                // echo count($data);
+                                if (!$isRowEmpty) {
+                                    $stmt = $pdo->prepare($insertQuery);
+                                    // Bind parameters as needed
+                                    for ($i = 1; $i <= count($data); $i++) {
+                                        $stmt->bindParam($i, $data[$i - 1]);
+                                    }
+
+                                    if (!$stmt->execute()) {
+                                        throw new Exception("Error inserting data into the database.");
+                                    }
                                 }
                             }
                         }
-
                         // If the loop completes without errors, set a success message
                         $message = "Data imported successfully for $qbomType QBOM.";
                         $response['status'] = 'success';
@@ -182,6 +207,116 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $response['status'] = 'error';
                     $response['message'] = $message;
                 }
+                // if ($table && $insertQuery) {
+                //     try {
+                //         $truncateQuery = "TRUNCATE TABLE `ats_bc`.`$table`";
+                //         $truncateStmt = $pdo->prepare($truncateQuery);
+                //         $truncateStmt->execute();
+
+                //         // Create a new Spreadsheet object
+                //         $spreadsheet = IOFactory::load($file);
+
+                //         // Get the active sheet
+                //         $worksheet = $spreadsheet->getActiveSheet();
+                //         // // Get the highest column (assuming headers are in the first row)
+                //         // $highestColumn = $worksheet->getHighestColumn();
+
+                //         // // Convert the column letter to a numeric index
+                //         // $columnCount = Coordinate::columnIndexFromString($highestColumn);
+
+                //         // // Prepare the insert query
+                //         // $placeholders = implode(',', array_fill(1, $columnCount, '?'));
+
+                //         // $insertStmt = $pdo->prepare($insertQuery);
+
+                //         // // Iterate through rows and insert data
+                //         // foreach ($worksheet->getRowIterator() as $row) {
+                //         //     // Skip the header row
+                //         //     if ($row->getRowIndex() === 1) {
+                //         //         continue;
+                //         //     }
+
+                //         //     $rowData = [];
+                //         //     foreach ($row->getCellIterator() as $cell) {
+                //         //         $rowData[] = $cell->getValue();
+                //         //     }
+                //         //     echo '<pre>';
+                //         //     print_r($rowData);
+                //         //     echo '</pre>';
+                //         //     // Bind parameters and execute the statement
+                //         //     $insertStmt->execute($rowData);
+                //         // }
+
+
+                //         // Add a counter variable to track the current row number
+                //         $rowCounter = 0;
+
+                //         // Initialize a column count variable
+                //         $columnCount = 0;
+
+                //         foreach ($worksheet->getRowIterator() as $row) {
+                //             // Increment the row counter
+                //             $rowCounter++;
+
+                //             // Skip the first row (header row)
+                //             if ($rowCounter === 1) {
+                //                 continue;
+                //             }
+
+                //             $data = [];
+                //             $cellIterator = $row->getCellIterator();
+                //             $cellIterator->setIterateOnlyExistingCells(false);
+
+                //             foreach ($cellIterator as $cell) {
+                //                 // Check if the column is hidden
+                //                 $columnIndex = $cell->getColumn();
+                //                 if ($worksheet->getColumnDimension($columnIndex)->getVisible()) {
+                //                     $columnCount++;
+                //                     $cellValue = $cell->getCalculatedValue();
+                //                     // Handle empty values by replacing them with NULL or an empty string
+                //                     $data[] = ($cellValue === null) ? null : $cellValue;
+                //                     // Check if the cell is not empty
+                //                     if ($cellValue !== null && $cellValue !== '') {
+                //                         $isRowEmpty = false;
+                //                     }
+                //                 }
+                //             }
+
+                //             // Remove the last element if it's empty
+                //             if (!empty($data) && end($data) === null && $qbomType !== "IONIZER") {
+                //                 array_pop($data);
+                //             }
+
+                //             // echo count($data);
+                //             if (!$isRowEmpty) {
+                //                 $stmt = $pdo->prepare($insertQuery);
+                //                 // Bind parameters as needed
+                //                 for ($i = 1; $i <= count($data); $i++) {
+                //                     $stmt->bindParam($i, $data[$i - 1]);
+                //                 }
+
+                //                 if (!$stmt->execute()) {
+                //                     throw new Exception("Error inserting data into the database.");
+                //                 }
+                //             }
+                //         }
+
+                //         // If the loop completes without errors, set a success message
+                //         $message = "Data imported successfully for $qbomType QBOM.";
+                //         $response['status'] = 'success';
+                //         $response['message'] = $message;
+                //     } catch (Exception $e) {
+                //         // Handle the exception
+                //         $message = $e->getMessage();
+                //         $response['status'] = 'error';
+                //         $response['message'] = $message;
+                //     }
+                // } else {
+                //     // Handle the case when $qbomType is not recognized
+                //     $message = "Invalid QBOM type: $qbomType";
+                //     $response['status'] = 'error';
+                //     $response['message'] = $message;
+                // }
                 // if ($table && $insertQuery) {
                 //     $truncateQuery = "TRUNCATE TABLE `ats_bc`.`$table`";
                 //     $truncateStmt = $pdo->prepare($truncateQuery);
