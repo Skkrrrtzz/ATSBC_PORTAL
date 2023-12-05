@@ -62,7 +62,7 @@
                                 <label class="form-label" for="Dept">Department</label>
                             </div>
                             <div class="form-outline mb-4">
-                                <input type="text" id="Role" value="<?= $Role ?>" class="form-control bg-light" readonly />
+                                <input type="text" id="Role" value="<?= $Role === 'Optional Approver' ? 'CCP Analyst' : $Role ?>" class="form-control bg-light" readonly />
                                 <label class="form-label" for="Role">Role</label>
                             </div>
                             <div class="d-flex justify-content-between">

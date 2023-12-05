@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file = $_FILES['file']['tmp_name'];
         $fileType = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
         $qbomType = $_POST['product']; // Get the QBOM type from the hidden input field
-
+        $swapModule = $_POST['swapOption'];
         // Define an array of allowed file extensions
         $allowedExtensions = ['xlsx', 'xls', 'csv'];
 
@@ -23,8 +23,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Truncate (clear) the specific QBOM table before inserting new data
                 switch ($qbomType) {
                     case 'SWAP':
-                        $table = 'swap_qbom';
-                        $insertQuery = "INSERT INTO swap_qbom (`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`,`Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        switch ($swapModule) {
+                            case 'Swap Housing':
+                                $table = 'swap1_qbom';
+                                break;
+                            case 'Preciser':
+                                $table = 'swap2_qbom';
+                                break;
+                            case 'Robot Add On':
+                                $table = 'swap3_qbom';
+                                break;
+                            case 'Gripper Robot':
+                                $table = 'swap4_qbom';
+                                break;
+                            case 'Service Station':
+                                $table = 'swap5_qbom';
+                                break;
+                            case 'Accessories':
+                                $table = 'swap6_qbom';
+                                break;
+                            default:
+                                $table = '';
+                                break;
+                        }
+                        $insertQuery = "INSERT INTO $table (`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`,`Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         break;
                     case 'PNP':
                         $table = 'pnp_qbom';
@@ -85,61 +107,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Create a new Spreadsheet object
                         $spreadsheet = IOFactory::load($file);
 
-                        if (
-                            $qbomType === 'SWAP'
-                        ) {
+                        if ($qbomType === 'SWAP') {
                             // Iterate through worksheets 1 to 5
-                            for ($i = 0; $i <= 5; $i++) {
-                                $worksheet = $spreadsheet->getSheet($i);
+                            // for ($i = 0; $i <= 5; $i++) {
+                            //     $worksheet = $spreadsheet->getSheet($i);
+                            $worksheet = $spreadsheet->getActiveSheet();
 
-                                // Echo out the name of the worksheet
-                                // echo "Processing Worksheet: " . $worksheet->getTitle() . PHP_EOL;
-                                // Initialize a column count variable
-                                $columnCount = 0;
+                            // Echo out the name of the worksheet
+                            // echo "Processing Worksheet: " . $worksheet->getTitle() . PHP_EOL;
+                            // Initialize a column count variable
+                            $columnCount = 0;
 
-                                foreach ($worksheet->getRowIterator() as $row) {
-                                    // Skip the first row (headers)
-                                    if ($row->getRowIndex() === 1) {
-                                        continue;
-                                    }
+                            foreach ($worksheet->getRowIterator() as $row) {
+                                // Skip the first row (headers)
+                                if ($row->getRowIndex() === 1) {
+                                    continue;
+                                }
 
-                                    // Increment the row counter
-                                    $data = [];
-                                    $cellIterator = $row->getCellIterator();
-                                    $cellIterator->setIterateOnlyExistingCells(true);
+                                // Increment the row counter
+                                $data = [];
+                                $cellIterator = $row->getCellIterator();
+                                $cellIterator->setIterateOnlyExistingCells(true);
 
-                                    foreach ($cellIterator as $cell) {
-                                        // Check if the column is hidden
-                                        $columnIndex = $cell->getColumn();
-                                        if ($worksheet->getColumnDimension($columnIndex)->getVisible()) {
-                                            $columnCount++;
-                                            $cellValue = $cell->getCalculatedValue();
-                                            // Handle empty values by replacing them with NULL or an empty string
-                                            $data[] = ($cellValue === null) ? null : $cellValue;
-                                        }
-                                    }
-                                    // Check if the row has fewer values than the total number of columns
-                                    $missingColumns = 34 - count($data);
-
-                                    // Add null or empty values for the missing columns
-                                    for ($j = 0; $j < $missingColumns; $j++) {
-                                        $data[] = null;
-                                    }
-                                    // echo count($data);
-                                    // print_r($data);
-                                    // Prepare and Execute Insert Query
-                                    $stmt = $pdo->prepare($insertQuery);
-
-                                    // Bind parameters as needed
-                                    for ($j = 1; $j <= count($data); $j++) {
-                                        $stmt->bindParam($j, $data[$j - 1]);
-                                    }
-
-                                    if (!$stmt->execute()) {
-                                        throw new Exception("Error inserting data into the database.");
+                                foreach ($cellIterator as $cell) {
+                                    // Check if the column is hidden
+                                    $columnIndex = $cell->getColumn();
+                                    if ($worksheet->getColumnDimension($columnIndex)->getVisible()) {
+                                        $columnCount++;
+                                        $cellValue = $cell->getCalculatedValue();
+                                        // Handle empty values by replacing them with NULL or an empty string
+                                        $data[] = ($cellValue === null) ? null : $cellValue;
                                     }
                                 }
+                                // Check if the row has fewer values than the total number of columns
+                                $missingColumns = 34 - count($data);
+
+                                // Add null or empty values for the missing columns
+                                for ($j = 0; $j < $missingColumns; $j++) {
+                                    $data[] = null;
+                                }
+                                // echo count($data);
+                                // print_r($data);
+                                // Prepare and Execute Insert Query
+                                $stmt = $pdo->prepare($insertQuery);
+
+                                // Bind parameters as needed
+                                for ($j = 1; $j <= count($data); $j++) {
+                                    $stmt->bindParam($j, $data[$j - 1]);
+                                }
+
+                                if (!$stmt->execute()) {
+                                    throw new Exception("Error inserting data into the database.");
+                                }
                             }
+                            // }
                         } else {
                             // Get the active sheet
                             $worksheet = $spreadsheet->getActiveSheet();

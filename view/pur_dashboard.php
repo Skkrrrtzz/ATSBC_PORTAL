@@ -412,7 +412,7 @@ if ($Role === "Requestor") {
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 form-outline" id="theReason">
                                     <input type="text" class="form-control" id="Reason" autocomplete="FALSE" readonly>
-                                    <label class="form-label fw-bold text-black" for="Reason">Reason</label>
+                                    <label class="form-label fw-bold text-black" for="Reason">No Vendor 2</label>
                                 </div>
                             </div>
                             <div class="row g-2">

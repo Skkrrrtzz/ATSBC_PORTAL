@@ -44,6 +44,21 @@
                                 </select>
                                 <label for="selectProduct">Product</label>
                             </div>
+                            <div id="swapOptions" style="display: none;">
+                                <!-- Options for SWAP -->
+                                <div class="form-floating mb-2">
+                                    <select class="form-select" id="swapSelect" name="swapOption">
+                                        <option value="">Select SWAP Modules</option>
+                                        <option value="Swap Housing">302094384 - Swap Housing</option>
+                                        <option value="Preciser">302081509 - Preciser</option>
+                                        <option value="Robot Add On">302061549 - Robot Add On</option>
+                                        <option value="Gripper Robot">302092392 - Gripper Robot</option>
+                                        <option value="Service Station">302071430 - Service Station</option>
+                                        <option value="Accessories">302087662 - Accessories</option>
+                                    </select>
+                                    <label for="swapSelect">SWAP Modules</label>
+                                </div>
+                            </div>
                             <div class="mb-2" id="fileInputContainer" style="display: none;">
                                 <input type="file" class="form-control" name="file" accept=".xlsx, .xls" id="inputFile">
                             </div>
@@ -74,6 +89,7 @@
 
                 // Check if the selected product is empty
                 var selectedProduct = $("#selectProduct").val();
+                var swapModules = $('#swapSelect').val();
                 if (!selectedProduct) {
                     Swal.fire({
                         icon: 'error',
@@ -84,7 +100,7 @@
                     $("#uploadButton").prop("disabled", false);
                     return;
                 }
-                selectedProductText.text(selectedProduct);
+                var dbName = swapModules != '' ? swapModules : selectedProduct;
                 // Check if the file input is empty
                 if (!fileInput.val()) {
                     Swal.fire({
@@ -99,7 +115,7 @@
                 uploadingText.show();
                 var fullPath = fileInput.val();
                 var fileName = fullPath.split('\\').pop();
-                var formattedText = '<div class="text-center">Are you sure you want to upload this file: <span class="text-danger fw-bold">' + fileName + '</span> to <span class="fw-bold">' + selectedProduct + '</span> Database? , once uploaded it will be changed!</div>';
+                var formattedText = '<div class="text-center">Are you sure you want to upload this file: <span class="text-danger fw-bold">' + fileName + '</span> to <span class="fw-bold">' + dbName + '</span> Database? , once uploaded it will be changed!</div>';
                 // Show a confirmation dialog before uploading
                 Swal.fire({
                     icon: 'question',
@@ -144,6 +160,7 @@
                                     // Reset the file input field
                                     fileInput.val(''); // Clear the file input value
                                     $("#selectProduct").val(''); // Clear the selection value
+                                    $("#swapOptions").hide();
                                     fileInputContainer.hide();
                                 } else if (response.status === "error") {
                                     // Display a SweetAlert2 error message
@@ -178,14 +195,36 @@
             });
 
             // Show/hide the file input based on the selected product
+            // $("#selectProduct").change(function() {
+            //     var selectedProduct = $(this).val();
+
+            //     if (selectedProduct) {
+            //         fileInputContainer.show();
+            //     } else {
+            //         fileInputContainer.hide();
+            //     }
+            // });
             $("#selectProduct").change(function() {
                 var selectedProduct = $(this).val();
 
-                if (selectedProduct) {
-                    fileInputContainer.show();
+                // Hide both containers by default
+                $("#swapOptions").hide();
+                fileInputContainer.hide();
+
+                if (selectedProduct === "SWAP") {
+                    // Show the SWAP options container
+                    $("#swapOptions").show();
                 } else {
-                    fileInputContainer.hide();
+                    // For other products, show the file input container
+                    fileInputContainer.show();
+                    $("#swapSelect").val('');
                 }
+            });
+
+            // Add change event for SWAP options
+            $("#swapSelect").change(function() {
+                // Show the file input container when a SWAP option is selected
+                fileInputContainer.show();
             });
         });
     </script>

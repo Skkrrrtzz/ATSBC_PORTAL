@@ -15,7 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'OLB' => 'olb_qbom',
             'PNP' => 'pnp_qbom',
             'PNP CABLE' => 'pnpcable_qbom',
-            'SWAP' => 'swap_qbom'
+            // 'SWAP' => 'swap_qbom'
+            'SWAP Housing' => 'swap1_qbom',
+            'SWAP Preciser' => 'swap2_qbom',
+            'SWAP Robot Add On' => 'swap3_qbom',
+            'SWAP Gripper Robot' => 'swap4_qbom',
+            'SWAP Service Station' => 'swap5_qbom',
+            'SWAP Accessories' => 'swap6_qbom',
         ];
 
         // Initialize an empty array to store all the data
@@ -64,8 +70,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $sql = "SELECT * FROM ionizer_qbom";
         } elseif (isset($_GET['rcmtp'])) {
             $sql = "SELECT * FROM rcmtp_qbom";
-        } elseif (isset($_GET['swap'])) {
-            $sql = "SELECT * FROM swap_qbom";
+        } elseif (isset($_GET['swap1'])) {
+            $sql = "SELECT * FROM swap1_qbom";
+        } elseif (isset($_GET['swap2'])) {
+            $sql = "SELECT * FROM swap2_qbom";
+        } elseif (isset($_GET['swap3'])) {
+            $sql = "SELECT * FROM swap3_qbom";
+        } elseif (isset($_GET['swap4'])) {
+            $sql = "SELECT * FROM swap4_qbom";
+        } elseif (isset($_GET['swap5'])) {
+            $sql = "SELECT * FROM swap5_qbom";
+        } elseif (isset($_GET['swap6'])) {
+            $sql = "SELECT * FROM swap6_qbom";
         } else {
             // Handle the case where no specific table is requested
             die("Invalid request");
@@ -78,11 +94,180 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         exit();
     }
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['Delta_PN']) && isset($_POST['projects'])) {
-        $deltaPN = $_POST['Delta_PN'];
-        $projects = $_POST['projects'];
+    // if (isset($_POST['Delta_PN']) && isset($_POST['projects'])) {
+    //     $projects = isset($_POST['projects']) ? $_POST['projects'] : '';
+    //     $deltaPN = isset($_POST['Delta_PN']) ? $_POST['Delta_PN'] : '';
 
-        // Define an associative array to map project names to table names
+    //     // Define an associative array to map project names to table names
+    //     $tableMappings = [
+    //         'JLP' => 'jlp_qbom',
+    //         'JLP CABLE' => 'jlpcable_qbom',
+    //         'MTP' => 'mtp_qbom',
+    //         'FLIPPER' => 'flipper_qbom',
+    //         'HIGHMAG' => 'highmag_qbom',
+    //         'IONIZER' => 'ionizer_qbom',
+    //         'RCMTP' => 'rcmtp_qbom',
+    //         'JTP' => 'jtp_qbom',
+    //         'OLB' => 'olb_qbom',
+    //         'PNP' => 'pnp_qbom',
+    //         'PNP CABLE' => 'pnpcable_qbom',
+    //         'SWAP' => ['swap1_qbom', 'swap2_qbom', 'swap3_qbom', 'swap4_qbom', 'swap5_qbom', 'swap6_qbom']
+    //     ];
+
+    //     $result = null;
+    //     $table_value = "";
+
+    //     // Iterate through all projects
+    //     foreach ($tableMappings as $project => $table) {
+    //         // Skip the initial project if specified
+    //         if ($project === $projects) {
+    //             continue;
+    //         }
+    //         echo $project;
+
+    //         $selectSql = "SELECT Unit_Price_USD_before_Mark_Up FROM $table WHERE Item = :deltaPN";
+    //         $stmt = $pdo->prepare($selectSql);
+    //         $stmt->bindParam(':deltaPN', $deltaPN);
+    //         $stmt->execute();
+    //         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //         if ($row && $row['Unit_Price_USD_before_Mark_Up'] !== null) {
+    //             // If the value is found and not null, set it as the result and break the loop
+    //             $result = $row['Unit_Price_USD_before_Mark_Up'];
+    //             $table_value = $project;
+    //             echo "Found result in $table for $project\n";
+    //             break;
+    //         }
+    //     }
+    //     if ($result !== null) {
+    //         // Return the result as JSON response
+    //         echo json_encode([
+    //             'success' => true,
+    //             'message' => $result,
+    //             'table' => 'QBOM Price found in ' . $table_value
+    //         ]);
+    //     } else {
+    //         echo json_encode([
+    //             'success' => false,
+    //             'message' => 'Unit Price USD before Mark Up not found in any project table.'
+    //         ]);
+    //     }
+    // } else {
+    //     // Handle the case where Delta_PN is not provided in the POST request
+    //     echo json_encode([
+    //         'success' => false,
+    //         'message' => 'Delta_PN not provided in the request.'
+    //     ]);
+    // }
+    // if (isset($_POST['Delta_PN']) && isset($_POST['projects'])) {
+    //     $deltaPN = $_POST['Delta_PN'];
+    //     $projects = $_POST['projects'];
+
+    //     // Define an associative array to map project names to table names
+    //     $tableMappings = [
+    //         'JLP' => 'jlp_qbom',
+    //         'JLP CABLE' => 'jlpcable_qbom',
+    //         'MTP' => 'mtp_qbom',
+    //         'FLIPPER' => 'flipper_qbom',
+    //         'HIGHMAG' => 'highmag_qbom',
+    //         'IONIZER' => 'ionizer_qbom',
+    //         'RCMTP' => 'rcmtp_qbom',
+    //         'JTP' => 'jtp_qbom',
+    //         'OLB' => 'olb_qbom',
+    //         'PNP' => 'pnp_qbom',
+    //         'PNP CABLE' => 'pnpcable_qbom',
+    //         // 'SPARES' => 'spares_qbom'
+    //     ];
+
+    //     if (isset($tableMappings[$projects])) {
+    //         $table = $tableMappings[$projects];
+    //         $selectSql = "SELECT Unit_Price_USD_before_Mark_Up FROM $table WHERE Item = :deltaPN";
+    //         $stmt = $pdo->prepare($selectSql);
+    //         $stmt->bindParam(':deltaPN', $deltaPN);
+    //         $stmt->execute();
+    //         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //         if ($row !== false && $row['Unit_Price_USD_before_Mark_Up'] !== null) {
+    //             // Return the result as JSON response
+    //             echo json_encode([
+    //                 'success' => true,
+    //                 'message' => $row['Unit_Price_USD_before_Mark_Up'],
+    //                 'table' => 'QBOM Price found in ' . $projects
+    //             ]);
+    //         } else {
+    //             $result = null; // Initialize result variable
+    //             $table_value = "";
+    //             // Iterate through the tables
+    //             foreach ($tableMappings as $project => $table) {
+    //                 if (isset($tableMappings[$projects])) {
+    //                     $selectSql = "SELECT Unit_Price_USD_before_Mark_Up FROM $table WHERE Item = :deltaPN";
+    //                     $stmt = $pdo->prepare($selectSql);
+    //                     $stmt->bindParam(':deltaPN', $deltaPN);
+    //                     $stmt->execute();
+    //                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //                     if ($row && $row['Unit_Price_USD_before_Mark_Up'] !== null) {
+    //                         // If the value is found and not null, set it as the result and break the loop
+    //                         $result = $row['Unit_Price_USD_before_Mark_Up'];
+    //                         $table_value = $project;
+    //                         break;
+    //                     }
+    //                 }
+    //             }
+
+    //             if ($result !== null) {
+    //                 // Return the result as JSON response
+    //                 echo json_encode([
+    //                     'success' => true,
+    //                     'message' => $result,
+    //                     'table' => 'QBOM Price found in ' . $table_value
+    //                 ]);
+    //             } else {
+    //                 echo json_encode([
+    //                     'success' => false,
+    //                     'message' => 'Unit Price USD before Mark Up not found in the selected or alternate project.'
+    //                 ]);
+    //             }
+    //         }
+    //     } else {
+    //         // Handle the case where the project name is not recognized
+    //         echo json_encode([
+    //             'success' => false,
+    //             'message' => 'Invalid project name provided.'
+    //         ]);
+    //     }
+    // } else {
+    //     // Handle the case where Delta_PN is not provided in the POST request
+    //     echo json_encode([
+    //         'success' => false,
+    //         'message' => 'Delta_PN not provided in the request.'
+    //     ]);
+    // }
+    function checkTable($pdo, $table, $deltaPN, $project)
+    {
+        $selectSql = "SELECT Unit_Price_USD_before_Mark_Up FROM $table WHERE Item = :deltaPN";
+        $stmt = $pdo->prepare($selectSql);
+        $stmt->bindParam(':deltaPN', $deltaPN);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row && $row['Unit_Price_USD_before_Mark_Up'] !== null) {
+            return [
+                'result' => $row['Unit_Price_USD_before_Mark_Up'],
+                'table_value' => $project
+            ];
+        }
+
+        return [
+            'result' => null,
+            'table_value' => null
+        ];
+    }
+
+    if (isset($_POST['Delta_PN']) && isset($_POST['projects'])) {
+        $projects = isset($_POST['projects']) ? $_POST['projects'] : '';
+        $deltaPN = isset($_POST['Delta_PN']) ? $_POST['Delta_PN'] : '';
+
         $tableMappings = [
             'JLP' => 'jlp_qbom',
             'JLP CABLE' => 'jlpcable_qbom',
@@ -94,65 +279,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'JTP' => 'jtp_qbom',
             'OLB' => 'olb_qbom',
             'PNP' => 'pnp_qbom',
-            'PNP CABLE' => 'pnpcable_qbom'
-            // 'SPARES' => 'spares_qbom'
+            'PNP CABLE' => 'pnpcable_qbom',
         ];
 
-        if (isset($tableMappings[$projects])) {
-            $table = $tableMappings[$projects];
-            $selectSql = "SELECT Unit_Price_USD_before_Mark_Up FROM $table WHERE Item = :deltaPN";
-            $stmt = $pdo->prepare($selectSql);
-            $stmt->bindParam(':deltaPN', $deltaPN);
-            $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $swapTables = ['SWAP' => ['swap1_qbom', 'swap2_qbom', 'swap3_qbom', 'swap4_qbom', 'swap5_qbom', 'swap6_qbom']];
 
-            if ($row !== false && $row['Unit_Price_USD_before_Mark_Up'] !== null) {
-                // Return the result as JSON response
-                echo json_encode([
-                    'success' => true,
-                    'message' => $row['Unit_Price_USD_before_Mark_Up'],
-                    'table' => 'QBOM Price found in ' . $projects
-                ]);
-            } else {
-                $result = null; // Initialize result variable
-                $table_value = "";
-                // Iterate through the tables
-                foreach ($tableMappings as $project => $table) {
-                    if (isset($tableMappings[$projects])) {
-                        $selectSql = "SELECT Unit_Price_USD_before_Mark_Up FROM $table WHERE Item = :deltaPN";
-                        $stmt = $pdo->prepare($selectSql);
-                        $stmt->bindParam(':deltaPN', $deltaPN);
-                        $stmt->execute();
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = null;
+        $table_value = null;
 
-                        if ($row && $row['Unit_Price_USD_before_Mark_Up'] !== null) {
-                            // If the value is found and not null, set it as the result and break the loop
-                            $result = $row['Unit_Price_USD_before_Mark_Up'];
-                            $table_value = $project;
-                            break;
-                        }
-                    }
-                }
-
+        // Check swap tables
+        if ($projects === 'SWAP') {
+            foreach ($swapTables['SWAP'] as $swapTable) {
+                $resultData = checkTable($pdo, $swapTable, $deltaPN, $projects);
+                $result = $resultData['result'];
+                $table_value = $resultData['table_value'];
                 if ($result !== null) {
-                    // Return the result as JSON response
-                    echo json_encode([
-                        'success' => true,
-                        'message' => $result,
-                        'table' => 'QBOM Price found in ' . $table_value
-                    ]);
-                } else {
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Unit Price USD before Mark Up not found in the selected or alternate project.'
-                    ]);
+                    break;
                 }
             }
         } else {
-            // Handle the case where the project name is not recognized
+            // Check the specified project table
+            if (isset($tableMappings[$projects])) {
+                $resultData = checkTable($pdo, $tableMappings[$projects], $deltaPN, $projects);
+                $result = $resultData['result'];
+                $table_value = $resultData['table_value'];
+
+                if ($result === null) {
+                    // Check all project tables
+                    foreach ($tableMappings as $project => $table) {
+                        if (
+                            $project !== $projects
+                        ) {
+                            $resultData = checkTable($pdo, $table, $deltaPN, $project);
+                            $result = $resultData['result'];
+                            $table_value = $resultData['table_value'];
+                            if (
+                                $result !== null
+                            ) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Output result
+        if ($result !== null) {
+            echo json_encode([
+                'success' => true,
+                'message' => $result,
+                'table' => "QBOM Price found in $table_value"
+            ]);
+        } else {
             echo json_encode([
                 'success' => false,
-                'message' => 'Invalid project name provided.'
+                'message' => 'Unit Price USD before Mark Up not found in project table.'
             ]);
         }
     } else {

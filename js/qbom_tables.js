@@ -1238,7 +1238,660 @@ $(document).ready(function () {
   ];
 
   // Define columns for swap_qbom_table
-  var swapColumns = [
+  // var swapColumns = [
+  //   {
+  //     data: "ID",
+  //   },
+  //   {
+  //     data: "Changes_Analysis",
+  //   },
+  //   {
+  //     data: "Level",
+  //   },
+  //   {
+  //     data: "Item",
+  //   },
+  //   {
+  //     data: "Item_Description",
+  //   },
+  //   {
+  //     data: "Item_class",
+  //   },
+  //   {
+  //     data: "Qty",
+  //   },
+  //   {
+  //     data: "EXT_Qty",
+  //   },
+  //   {
+  //     data: "QPA_0",
+  //   },
+  //   {
+  //     data: "UoM",
+  //   },
+  //   {
+  //     data: "Rev",
+  //   },
+  //   {
+  //     data: "Drawing_Sequence_Number",
+  //   },
+  //   {
+  //     data: "Sequence",
+  //   },
+  //   {
+  //     data: "Original_Unit_Price",
+  //   },
+  //   {
+  //     data: "Original_Currency",
+  //   },
+  //   {
+  //     data: "Unit_Price_USD_before_Mark_Up",
+  //   },
+  //   {
+  //     data: "Standard_Part_Price",
+  //   },
+  //   {
+  //     data: "Purchase_Identification",
+  //   },
+  //   {
+  //     data: "Mark_Up",
+  //   },
+  //   {
+  //     data: "Unit_Price_USD_after_Mark_Up",
+  //   },
+  //   {
+  //     data: "Total_Price_USD",
+  //   },
+  //   {
+  //     data: "Agreement",
+  //   },
+  //   {
+  //     data: "Agreement_Price",
+  //   },
+  //   {
+  //     data: "Agreement_Currency",
+  //   },
+  //   {
+  //     data: "Spare_Part_Price_USD",
+  //   },
+  //   {
+  //     data: "Supplier_MOQ",
+  //   },
+  //   {
+  //     data: "Lead_Time",
+  //   },
+  //   {
+  //     data: "Supplier_Vendor",
+  //   },
+  //   {
+  //     data: "Supplier_Vendor_Reference",
+  //   },
+  //   {
+  //     data: "Manufacturer",
+  //   },
+  //   {
+  //     data: "Manufacturer_Reference_MPN",
+  //   },
+  //   {
+  //     data: "Agreement_Supplier_Name",
+  //   },
+  //   {
+  //     data: "Agreement_Supplier_Code",
+  //   },
+  //   {
+  //     data: "Life_Cycle",
+  //   },
+  //   {
+  //     data: "Purchasing_Restriction",
+  //   },
+  // ];
+  // Define columns for swap1_qbom_table
+  var swap1Columns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Agreement",
+    },
+    {
+      data: "Agreement_Price",
+    },
+    {
+      data: "Agreement_Currency",
+    },
+    {
+      data: "Spare_Part_Price_USD",
+    },
+    {
+      data: "Supplier_MOQ",
+    },
+    {
+      data: "Lead_Time",
+    },
+    {
+      data: "Supplier_Vendor",
+    },
+    {
+      data: "Supplier_Vendor_Reference",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
+  // Define columns for swap2_qbom_table
+  var swap2Columns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Agreement",
+    },
+    {
+      data: "Agreement_Price",
+    },
+    {
+      data: "Agreement_Currency",
+    },
+    {
+      data: "Spare_Part_Price_USD",
+    },
+    {
+      data: "Supplier_MOQ",
+    },
+    {
+      data: "Lead_Time",
+    },
+    {
+      data: "Supplier_Vendor",
+    },
+    {
+      data: "Supplier_Vendor_Reference",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
+  // Define columns for swap3_qbom_table
+  var swap3Columns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Agreement",
+    },
+    {
+      data: "Agreement_Price",
+    },
+    {
+      data: "Agreement_Currency",
+    },
+    {
+      data: "Spare_Part_Price_USD",
+    },
+    {
+      data: "Supplier_MOQ",
+    },
+    {
+      data: "Lead_Time",
+    },
+    {
+      data: "Supplier_Vendor",
+    },
+    {
+      data: "Supplier_Vendor_Reference",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
+  // Define columns for swap4_qbom_table
+  var swap4Columns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Agreement",
+    },
+    {
+      data: "Agreement_Price",
+    },
+    {
+      data: "Agreement_Currency",
+    },
+    {
+      data: "Spare_Part_Price_USD",
+    },
+    {
+      data: "Supplier_MOQ",
+    },
+    {
+      data: "Lead_Time",
+    },
+    {
+      data: "Supplier_Vendor",
+    },
+    {
+      data: "Supplier_Vendor_Reference",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
+  // Define columns for swap5_qbom_table
+  var swap5Columns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Agreement",
+    },
+    {
+      data: "Agreement_Price",
+    },
+    {
+      data: "Agreement_Currency",
+    },
+    {
+      data: "Spare_Part_Price_USD",
+    },
+    {
+      data: "Supplier_MOQ",
+    },
+    {
+      data: "Lead_Time",
+    },
+    {
+      data: "Supplier_Vendor",
+    },
+    {
+      data: "Supplier_Vendor_Reference",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
+  // Define columns for swap6_qbom_table
+  var swap6Columns = [
     {
       data: "ID",
     },
@@ -1401,9 +2054,44 @@ $(document).ready(function () {
     "../controllers/get_qbom_datas.php?rcmtp=1",
     rcmtpColumns
   );
+  // initializeDataTable(
+  //   "#swap_qbom_table",
+  //   "../controllers/get_qbom_datas.php?swap=1",
+  //   swapColumns
+  // );
   initializeDataTable(
-    "#swap_qbom_table",
-    "../controllers/get_qbom_datas.php?swap=1",
-    swapColumns
+    "#swap1_qbom_table",
+    "../controllers/get_qbom_datas.php?swap1=1",
+    swap1Columns
+  );
+
+  initializeDataTable(
+    "#swap2_qbom_table",
+    "../controllers/get_qbom_datas.php?swap2=1",
+    swap2Columns
+  );
+
+  initializeDataTable(
+    "#swap3_qbom_table",
+    "../controllers/get_qbom_datas.php?swap3=1",
+    swap3Columns
+  );
+
+  initializeDataTable(
+    "#swap4_qbom_table",
+    "../controllers/get_qbom_datas.php?swap4=1",
+    swap4Columns
+  );
+
+  initializeDataTable(
+    "#swap5_qbom_table",
+    "../controllers/get_qbom_datas.php?swap5=1",
+    swap5Columns
+  );
+
+  initializeDataTable(
+    "#swap6_qbom_table",
+    "../controllers/get_qbom_datas.php?swap6=1",
+    swap6Columns
   );
 });

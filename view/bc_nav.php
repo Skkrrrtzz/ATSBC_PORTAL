@@ -55,6 +55,7 @@
 
           <style>
               h4,
+              h6,
               h5 {
                   font-family: 'Poppins', sans-serif;
               }
@@ -248,7 +249,7 @@
                               <img src="../assets/images/user.png" alt="Profile" width="42" height="42" class="rounded-circle">
                           </a>
                           <ul class="dropdown-menu dropdown-menu-end" id="profileDropdown">
-                              <li class="dropdown-item active fw-bold"><?php echo $Name; ?></li>
+                              <li class="dropdown-item text-bg-primary fw-bold"><?php echo $Name; ?></li>
                               <li><a class="dropdown-item " href="bc_profile.php"><i class="fa-regular fa-circle-user"></i> Profile</a></li>
                               <?php if ($Position === "Admin") { ?>
 
