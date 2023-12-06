@@ -1,97 +1,226 @@
 <?php
 require_once 'db.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Set the cache directory
+    $cacheDirectory = 'cache/';
+
+    // Check if data is in the cache file
+    $cacheAllQbomFile = $cacheDirectory . 'cached_allqboms.json';
+
     if (isset($_GET['allqboms'])) {
-        $tableMappings = [
-            'JLP' => 'jlp_qbom',
-            'JLP CABLE' => 'jlpcable_qbom',
-            'MTP' => 'mtp_qbom',
-            'FLIPPER' => 'flipper_qbom',
-            'HIGHMAG' => 'highmag_qbom',
-            'IONIZER' => 'ionizer_qbom',
-            'RCMTP' => 'rcmtp_qbom',
-            'JTP' => 'jtp_qbom',
-            'OLB' => 'olb_qbom',
-            'PNP' => 'pnp_qbom',
-            'PNP CABLE' => 'pnpcable_qbom',
-            // 'SWAP' => 'swap_qbom'
-            'SWAP Housing' => 'swap1_qbom',
-            'SWAP Preciser' => 'swap2_qbom',
-            'SWAP Robot Add On' => 'swap3_qbom',
-            'SWAP Gripper Robot' => 'swap4_qbom',
-            'SWAP Service Station' => 'swap5_qbom',
-            'SWAP Accessories' => 'swap6_qbom',
-        ];
 
-        // Initialize an empty array to store all the data
-        $allData = [];
+        if (file_exists($cacheAllQbomFile) && time() - filemtime($cacheAllQbomFile) < 3600) {
+            // Use cached data
+            $allData = json_decode(file_get_contents($cacheAllQbomFile), true);
+        } else {
+            // Data not in cache, fetch from the database
+            $tableMappings = [
+                'JLP' => 'jlp_qbom',
+                'JLP CABLE' => 'jlpcable_qbom',
+                'MTP' => 'mtp_qbom',
+                'FLIPPER' => 'flipper_qbom',
+                'HIGHMAG' => 'highmag_qbom',
+                'IONIZER' => 'ionizer_qbom',
+                'RCMTP' => 'rcmtp_qbom',
+                'JTP' => 'jtp_qbom',
+                'OLB' => 'olb_qbom',
+                'PNP' => 'pnp_qbom',
+                'PNP CABLE' => 'pnpcable_qbom',
+                'SWAP Housing' => 'swap1_qbom',
+                'SWAP Preciser' => 'swap2_qbom',
+                'SWAP Robot Add On' => 'swap3_qbom',
+                'SWAP Gripper Robot' => 'swap4_qbom',
+                'SWAP Service Station' => 'swap5_qbom',
+                'SWAP Accessories' => 'swap6_qbom',
+            ];
 
-        // Loop through table mappings and retrieve data
-        foreach ($tableMappings as $tableName => $table) {
-            // Construct the SQL query to select all columns from the table
-            $query = "SELECT * FROM $table";
+            // Initialize an empty array to store all the data
+            $allData = [];
 
-            $stmt = $pdo->query($query);
+            // Loop through table mappings and retrieve data
+            foreach ($tableMappings as $tableName => $table) {
+                // Construct the SQL query to select all columns from the table
+                $query = "SELECT * FROM $table";
 
-            if ($stmt) {
-                $tableData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                // Add the table name to each row
-                foreach ($tableData as &$row) {
-                    $row['QBOM'] = $tableName;
+                $stmt = $pdo->query($query);
+
+                if ($stmt) {
+                    $tableData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // Add the table name to each row
+                    foreach ($tableData as &$row) {
+                        $row['QBOM'] = $tableName;
+                    }
+                    // Merge the data into the allData array
+                    $allData = array_merge($allData, $tableData);
                 }
-                // Merge the data into the allData array
-                $allData = array_merge($allData, $tableData);
             }
+
+            // Store data in the cache file
+            file_put_contents($cacheAllQbomFile, json_encode($allData));
         }
+
+        // Return data to AJAX request
         echo json_encode($allData);
         exit();
-    } else {
+    }
+    // if (isset($_GET['allqboms'])) {
+    //     $tableMappings = [
+    //         'JLP' => 'jlp_qbom',
+    //         'JLP CABLE' => 'jlpcable_qbom',
+    //         'MTP' => 'mtp_qbom',
+    //         'FLIPPER' => 'flipper_qbom',
+    //         'HIGHMAG' => 'highmag_qbom',
+    //         'IONIZER' => 'ionizer_qbom',
+    //         'RCMTP' => 'rcmtp_qbom',
+    //         'JTP' => 'jtp_qbom',
+    //         'OLB' => 'olb_qbom',
+    //         'PNP' => 'pnp_qbom',
+    //         'PNP CABLE' => 'pnpcable_qbom',
+    //         'SWAP Housing' => 'swap1_qbom',
+    //         'SWAP Preciser' => 'swap2_qbom',
+    //         'SWAP Robot Add On' => 'swap3_qbom',
+    //         'SWAP Gripper Robot' => 'swap4_qbom',
+    //         'SWAP Service Station' => 'swap5_qbom',
+    //         'SWAP Accessories' => 'swap6_qbom',
+    //     ];
+
+    //     // Initialize an empty array to store all the data
+    //     $allData = [];
+
+    //     // Loop through table mappings and retrieve data
+    //     foreach ($tableMappings as $tableName => $table) {
+    //         // Construct the SQL query to select all columns from the table
+    //         $query = "SELECT * FROM $table";
+
+    //         $stmt = $pdo->query($query);
+
+    //         if ($stmt) {
+    //             $tableData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //             // Add the table name to each row
+    //             foreach ($tableData as &$row) {
+    //                 $row['QBOM'] = $tableName;
+    //             }
+    //             // Merge the data into the allData array
+    //             $allData = array_merge($allData, $tableData);
+    //         }
+    //     }
+    //     echo json_encode($allData);
+    //     exit();
+    // } 
+    else {
+        // Function to fetch data from the database or cache
+        function fetchData($pdo, $table, $cacheFile)
+        {
+            if (file_exists($cacheFile) && time() - filemtime($cacheFile) < 3600) {
+                // Use cached data
+                return json_decode(file_get_contents($cacheFile), true);
+            }
+
+            // Data not in cache, fetch from the database
+            $sql = "SELECT * FROM $table";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Store data in the cache file
+            file_put_contents($cacheFile, json_encode($data));
+
+            return $data;
+        }
+
         // Handle the case where a specific table is requested
         if (isset($_GET['pnp'])) {
-            $sql = "SELECT * FROM pnp_qbom";
+            $table = 'pnp_qbom';
         } elseif (isset($_GET['pnp_cable'])) {
-            $sql = "SELECT * FROM pnpcable_qbom";
+            $table = 'pnpcable_qbom';
         } elseif (isset($_GET['jlp'])) {
-            $sql = "SELECT * FROM jlp_qbom";
+            $table = 'jlp_qbom';
         } elseif (isset($_GET['jlp_cable'])) {
-            $sql = "SELECT * FROM jlpcable_qbom";
+            $table = 'jlpcable_qbom';
         } elseif (isset($_GET['jtp'])) {
-            $sql = "SELECT * FROM jtp_qbom";
+            $table = 'jtp_qbom';
         } elseif (isset($_GET['mtp'])) {
-            $sql = "SELECT * FROM mtp_qbom";
+            $table = 'mtp_qbom';
         } elseif (isset($_GET['olb'])) {
-            $sql = "SELECT * FROM olb_qbom";
+            $table = 'olb_qbom';
         } elseif (isset($_GET['flipper'])) {
-            $sql = "SELECT * FROM flipper_qbom";
+            $table = 'flipper_qbom';
         } elseif (isset($_GET['highmag'])) {
-            $sql = "SELECT * FROM highmag_qbom";
+            $table = 'highmag_qbom';
         } elseif (isset($_GET['ionizer'])) {
-            $sql = "SELECT * FROM ionizer_qbom";
+            $table = 'ionizer_qbom';
         } elseif (isset($_GET['rcmtp'])) {
-            $sql = "SELECT * FROM rcmtp_qbom";
+            $table = 'rcmtp_qbom';
         } elseif (isset($_GET['swap1'])) {
-            $sql = "SELECT * FROM swap1_qbom";
+            $table = 'swap1_qbom';
         } elseif (isset($_GET['swap2'])) {
-            $sql = "SELECT * FROM swap2_qbom";
+            $table = 'swap2_qbom';
         } elseif (isset($_GET['swap3'])) {
-            $sql = "SELECT * FROM swap3_qbom";
+            $table = 'swap3_qbom';
         } elseif (isset($_GET['swap4'])) {
-            $sql = "SELECT * FROM swap4_qbom";
+            $table = 'swap4_qbom';
         } elseif (isset($_GET['swap5'])) {
-            $sql = "SELECT * FROM swap5_qbom";
+            $table = 'swap5_qbom';
         } elseif (isset($_GET['swap6'])) {
-            $sql = "SELECT * FROM swap6_qbom";
+            $table = 'swap6_qbom';
         } else {
             // Handle the case where no specific table is requested
             die("Invalid request");
         }
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Set the cache file for the specific table
+        $cacheQbomFile = $cacheDirectory . "cached_$table.json";
+
+        // Fetch data from the database or cache
+        $data = fetchData($pdo, $table, $cacheQbomFile);
+
+        // Return data to AJAX request
         echo json_encode($data);
         exit();
+        // if (isset($_GET['pnp'])) {
+        //     $sql = "SELECT * FROM pnp_qbom";
+        // } elseif (isset($_GET['pnp_cable'])) {
+        //     $sql = "SELECT * FROM pnpcable_qbom";
+        // } elseif (isset($_GET['jlp'])) {
+        //     $sql = "SELECT * FROM jlp_qbom";
+        // } elseif (isset($_GET['jlp_cable'])) {
+        //     $sql = "SELECT * FROM jlpcable_qbom";
+        // } elseif (isset($_GET['jtp'])) {
+        //     $sql = "SELECT * FROM jtp_qbom";
+        // } elseif (isset($_GET['mtp'])) {
+        //     $sql = "SELECT * FROM mtp_qbom";
+        // } elseif (isset($_GET['olb'])) {
+        //     $sql = "SELECT * FROM olb_qbom";
+        // } elseif (isset($_GET['flipper'])) {
+        //     $sql = "SELECT * FROM flipper_qbom";
+        // } elseif (isset($_GET['highmag'])) {
+        //     $sql = "SELECT * FROM highmag_qbom";
+        // } elseif (isset($_GET['ionizer'])) {
+        //     $sql = "SELECT * FROM ionizer_qbom";
+        // } elseif (isset($_GET['rcmtp'])) {
+        //     $sql = "SELECT * FROM rcmtp_qbom";
+        // } elseif (isset($_GET['swap1'])) {
+        //     $sql = "SELECT * FROM swap1_qbom";
+        // } elseif (isset($_GET['swap2'])) {
+        //     $sql = "SELECT * FROM swap2_qbom";
+        // } elseif (isset($_GET['swap3'])) {
+        //     $sql = "SELECT * FROM swap3_qbom";
+        // } elseif (isset($_GET['swap4'])) {
+        //     $sql = "SELECT * FROM swap4_qbom";
+        // } elseif (isset($_GET['swap5'])) {
+        //     $sql = "SELECT * FROM swap5_qbom";
+        // } elseif (isset($_GET['swap6'])) {
+        //     $sql = "SELECT * FROM swap6_qbom";
+        // } else {
+        //     // Handle the case where no specific table is requested
+        //     die("Invalid request");
+        // }
+
+        // $stmt = $pdo->prepare($sql);
+        // $stmt->execute();
+        // $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // echo json_encode($data);
+        // exit();
     }
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // if (isset($_POST['Delta_PN']) && isset($_POST['projects'])) {
