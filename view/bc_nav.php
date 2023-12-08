@@ -214,11 +214,23 @@
                                   <a class="nav-link active text-white" aria-current="page" href="sor_dashboard.php"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
                               </li>
                           <?php } else { ?>
+                              <li class="nav-item">
+                                  <a class="nav-link active text-white" aria-current="page" href="bc_dashboard.php"><i class="bi bi-grid-1x2-fill"></i> Approver Dashboard</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link active text-white" aria-current="page" href="pur_dashboard.php"><i class="bi bi-grid-1x2-fill"></i> Requestor Dashboard</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link text-white" href="bc_requestor.php"><i class="fa-solid fa-file"></i> PPV Request</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link active text-white" aria-current="page" href="qbom.php"><i class="fa-solid fa-folder-open"></i> QBOM List</a>
+                              </li>
                               <li class="nav-item dropdown">
-                                  <a class="nav-link dropdown-toggle text-white" href="#" data-mdb-toggle="dropdown" aria-expanded="false">PPV</a>
+                                  <a class="nav-link dropdown-toggle text-white" href="#" data-mdb-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-sliders"></i> Updater</a>
                                   <ul class="dropdown-menu">
-                                      <li><a class="dropdown-item" href="bc_requestor.php">Requestor</a></li>
-                                      <li><a class="dropdown-item" href="bc_approver.php">Approver</a></li>
+                                      <li><a class="dropdown-item" aria-current="page" href="upload_qboms.php"><i class="fa-regular fa-rectangle-list"></i> Update QBOMS</a></li>
+                                      <li> <a class="dropdown-item" aria-current="page" href="upload_bu_list.php"><i class="fa-regular fa-rectangle-list"></i> Update BU List</a></li>
                                   </ul>
                               </li>
                           <?php } ?>
@@ -245,11 +257,14 @@
                       </div> -->
                       <!-- Avatar-->
                       <div class="dropdown">
-                          <a href="#" class="d-flex align-items-end link-body-emphasis hidden-arrow dropdown-toggle text-white" data-mdb-toggle="dropdown" data-mdb-display="static" aria-expanded="false">
-                              <img src="../assets/images/user.png" alt="Profile" width="42" height="42" class="rounded-circle">
-                          </a>
+                          <div class="d-flex align-items-end link-body-emphasis hidden-arrow dropdown-toggle text-white" data-mdb-toggle="dropdown" data-mdb-display="static" aria-expanded="false" type="button">
+                              <a href="#" class="">
+                                  <img src="../assets/images/user.png" alt="Profile" width="42" height="42" class="rounded-circle">
+                              </a>
+                              <h6 class="my-auto ms-2 d-none d-sm-block"><?php echo $Name; ?></h6>
+                          </div>
                           <ul class="dropdown-menu dropdown-menu-end" id="profileDropdown">
-                              <li class="dropdown-item text-bg-primary fw-bold"><?php echo $Name; ?></li>
+                              <li class="dropdown-item text-bg-primary fw-bold d-sm-block d-md-none d-lg-none d-xl-none"><?php echo $Name; ?></li>
                               <li><a class="dropdown-item " href="bc_profile.php"><i class="fa-regular fa-circle-user"></i> Profile</a></li>
                               <?php if ($Position === "Admin") { ?>
 

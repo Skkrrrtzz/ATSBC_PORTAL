@@ -1,7 +1,7 @@
 <?php
 require_once 'bc_nav.php';
 include_once '../controllers/requestor_dashboard_data.php';
-if ($Role === "Requestor") {
+if ($Role === "Requestor" || $Role === 'Admin') {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -190,7 +190,7 @@ if ($Role === "Requestor") {
                                             <td><?= $row['Date_Received'] ?></td>
                                             <td><?= $row['Requestor'] ?></td>
                                             <td><?= $row['Project'] ?></td>
-                                            <td><?= $row['Approver']; ?></td>
+                                            <td><?= $row['DisApprover_Name'] ?></td>
                                             <td><?= formatApprovalDate($row['Date_Approved_1']); ?></td>
                                             <td><button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button></td>
                                         </tr>

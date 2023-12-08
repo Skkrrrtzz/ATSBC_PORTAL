@@ -14,6 +14,10 @@ if ($Role === 'Approver 1') {
     $pendingCondition = "Approver = 'Approver 3' AND Date_Approved_3 IS NULL";
     $approverCondition = "Approver_Check_3 = 'true' AND Approver_Name_3 = :Name";
     $disapprovedCondition = "DisApproved = 'true' AND DisApprover_Name = :Name";
+} elseif ($Role === 'Admin') {
+    $pendingCondition = "Approver IN ('Approver 1','Approver 2','Approver 3') AND Date_Approved_1 IS NULL AND Date_Approved_2 IS NULL AND Date_Approved_2 IS NULL AND Date_Approved_3 IS NULL";
+    $approverCondition = "Approver_Check_1 = 'true' OR Approver_Check_2 = 'true' OR Approver_Check_3 = 'true'";
+    $disapprovedCondition = "DisApproved = 'true'";
 } else {
     // Handle the case for other roles or set a default condition if needed
     $pendingCondition = "";
