@@ -65,6 +65,13 @@
                                 <input type="text" id="Role" value="<?= $Role === 'Optional Approver' ? 'CCP Analyst' : $Role ?>" class="form-control bg-light" readonly />
                                 <label class="form-label" for="Role">Role</label>
                             </div>
+                            <?php
+                            if ($Position === 'Manager') { ?>
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="Role" value="<?= $Position; ?> " class="form-control bg-light" readonly />
+                                    <label class="form-label" for="Role">Position</label>
+                                </div>
+                            <?php } ?>
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" id="test-email-button" data-name="<?= $Name ?>" data-email="<?= $Email ?>"> <span class="spinner-border spinner-border-sm me-1 d-none" role="status" aria-hidden="true"></span>
                                     Test Email <i class="fa-regular fa-paper-plane"></i>

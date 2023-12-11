@@ -84,8 +84,16 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body bg-light rounded-bottom">
+                        <div class="d-flex justify-content-end ">
+                            <div class="form-group my-auto">
+                                <label for="partNumberSearch" class="form-label fw-bold">Search by Part Number: </label>
+                            </div>
+                            <div class="form-group mb-2 my-auto">
+                                <input type="text" class="form-control" id="partNumberSearch" placeholder="Enter Part Number">
+                            </div>
+                        </div>
                         <div class="table-responsive ">
-                            <table class="table table-bordered table-sm table-hover text-nowrap">
+                            <table class="table table-bordered table-sm table-hover text-nowrap" id="pendingTable">
                                 <thead class="table-warning">
                                     <tr>
                                         <th>Request No</th>
@@ -431,8 +439,9 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         <script>
             function viewModal(No) {
                 $.ajax({
-                    url: "../controllers/requestor_dashboard_data.php",
+                    url: "../controllers/ppv_data.php",
                     method: "POST",
+                    dataType: "json",
                     data: {
                         No: No
                     },
@@ -552,6 +561,21 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                     }
                 });
             }
+            $(document).ready(function() {
+                $('#partNumberSearch').on('input', function() {
+                    const searchTerm = $(this).val().toLowerCase();
+
+                    $('#pendingTable tbody tr').each(function() {
+                        const partNumber = $(this).find('td:eq(4)').text().toLowerCase(); // Adjust the index if needed
+
+                        if (partNumber.includes(searchTerm)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                });
+            });
         </script>
     </body>
 

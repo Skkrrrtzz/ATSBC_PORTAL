@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pwd = $_POST['password'];
         $dept = $_POST['dept'];
         $role = $_POST['role'];
+        $position = $_POST['position'];
 
         try {
             // Check if a user with the same name, email, and department already exists
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // User does not exist, proceed with insertion
                 $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-                $insertSql = "INSERT INTO users (username, password, name, email, dept, role) VALUES (:username, :password, :name, :email, :dept, :role)";
+                $insertSql = "INSERT INTO users (username, password, name, email, dept, role) VALUES (:username, :password, :name, :email, :dept, :role, :position)";
 
                 $stmt = $pdo->prepare($insertSql);
 
@@ -40,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':dept', $dept);
                 $stmt->bindParam(':role', $role);
+                $stmt->bindParam(':position', $position);
 
                 if ($stmt->execute()) {
                     $response = [
@@ -70,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pwd = $_POST['password'];
         $dept = $_POST['dept'];
         $role = $_POST['role'];
+        $position = $_POST['position'];
 
         // Hash the new password if it is provided
         if (!empty($pwd)) {
@@ -77,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         try {
             // Prepare and execute the SQL query to update the user
-            $updateSql = "UPDATE users SET username = :username, email = :email, dept = :dept, role = :role";
+            $updateSql = "UPDATE users SET username = :username, email = :email, dept = :dept, role = :role, position = :position ";
 
             // Include the password update only if a new password is provided
             if (!empty($pwd)) {
@@ -93,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':dept', $dept);
             $stmt->bindParam(':role', $role);
+            $stmt->bindParam(':position', $position);
 
             // Include the password binding only if a new password is provided
             if (!empty($pwd)) {

@@ -568,8 +568,9 @@ include_once '../controllers/approver_dashboard_data.php';
 
         function viewModal(No) {
             $.ajax({
-                url: "../controllers/requestor_dashboard_data.php",
+                url: "../controllers/ppv_data.php",
                 method: "POST",
+                dataType: "json",
                 data: {
                     No: No
                 },

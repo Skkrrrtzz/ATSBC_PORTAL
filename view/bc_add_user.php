@@ -28,6 +28,7 @@
                         <th>Email</th>
                         <th>Department</th>
                         <th>Role</th>
+                        <th>Position</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -80,7 +81,7 @@
                         </div>
                     </div>
                     <div class="row g-2">
-                        <div class="form-floating col-sm-6 mb-3">
+                        <div class="form-floating col-sm-4 mb-3">
                             <select class="form-select" id="addDeptField" name="department" required>
                                 <option value="">Choose Department</option>
                                 <option value="Business Control">Business Control</option>
@@ -90,9 +91,10 @@
                             </select>
                             <label class="form-label" for="addDeptField">Department</label>
                         </div>
-                        <div class="form-floating col-sm-6 mb-3">
+                        <div class="form-floating col-sm-4 mb-3">
                             <select class="form-select" id="addRoleField" name="role" required>
                                 <option value="">Choose role</option>
+                                <option value="Admin">Admin</option>
                                 <option value="Approver 1">Approver 1</option>
                                 <option value="Approver 2">Approver 2</option>
                                 <option value="Approver 3">Approver 3</option>
@@ -100,6 +102,14 @@
                                 <option value="Requestor">Requestor</option>
                             </select>
                             <label class="form-label" for="addRoleField">Role</label>
+                        </div>
+                        <div class="form-floating col-sm-4 mb-3">
+                            <select class="form-select" id="addPosField" name="position" required>
+                                <option value="">Choose position</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                            <label class="form-label" for="addPosField">Position</label>
                         </div>
                     </div>
                 </div>
@@ -122,7 +132,7 @@
                         <div class="row g-2">
                             <div class="col-sm-6 mb-3">
                                 <div class="form-outline">
-                                    <input type="text" class="form-control" id="editNameField" name="name" readonly />
+                                    <input type="text" class="form-control" id="editNameField" name="name" required />
                                     <label class="form-label" for="editNameField">Name</label>
                                 </div>
                             </div>
@@ -163,6 +173,7 @@
                             <div class="col-sm form-floating">
                                 <select class="form-select" id="editRoleField" name="role" required>
                                     <option value="">Choose role</option>
+                                    <option value="Admin">Admin</option>
                                     <option value="Approver 1">Approver 1</option>
                                     <option value="Approver 2">Approver 2</option>
                                     <option value="Approver 3">Approver 3</option>
@@ -170,6 +181,14 @@
                                     <option value="Requestor">Requestor</option>
                                 </select>
                                 <label for="editRoleField">Role</label>
+                            </div>
+                            <div class="form-floating col-sm-4 mb-3">
+                                <select class="form-select" id="editPosField" name="position" required>
+                                    <option value="">Choose position</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Manager">Manager</option>
+                                </select>
+                                <label class="form-label" for="editPosField">Position</label>
                             </div>
                         </div>
                 </div>
@@ -209,6 +228,21 @@
                                 return '<span class="badge badge-pill badge-warning">' + data + '</span>';
                             } else if (data === "Requestor") {
                                 return '<span class="badge badge-pill badge-danger">' + data + '</span>';
+                            } else {
+                                return '<span class="badge badge-pill badge-primary">' + data + '</span>';
+                            }
+                            return data;
+                        }
+                    },
+                    {
+                        "data": "position",
+                        "render": function(data, type, row) {
+                            if (data === "Admin") {
+                                return '<span class="badge badge-pill badge-primary">' + data + '</span>';
+                            } else if (data === "Manager") {
+                                return '<span class="badge badge-pill badge-secondary">' + data + '</span>';
+                            } else {
+                                return data;
                             }
                             return data;
                         }
@@ -244,6 +278,7 @@
                 var pass = $('#addPassField').val();
                 var dept = $('#addDeptField').val();
                 var role = $('#addRoleField').val();
+                var pos = $('#addPosField').val();
                 // Hide the alert by default
                 $('#alert').addClass('d-none');
 
@@ -276,7 +311,8 @@
                         employee_id: emp_id,
                         password: pass,
                         dept: dept,
-                        role: role
+                        role: role,
+                        position: pos
                     },
                     success: function(response) {
                         // Handle the success response
@@ -298,6 +334,7 @@
                                 $('#addPassField').val('');
                                 $('#addDeptField').val('');
                                 $('#addRoleField').val('');
+                                $('#addPosField').val('');
                                 // Close the modal
                                 $('#addUserModal').modal('hide');
                                 $('.modal-backdrop').remove();
@@ -332,6 +369,7 @@
                 $('#editEmailField').val(rowData.email);
                 $('#editDeptField').val(rowData.dept);
                 $('#editRoleField').val(rowData.role);
+                $('#editPosField').val(rowData.position);
 
             });
             // Handle submit button click inside the modal
@@ -345,6 +383,8 @@
                 var updatePass = $('#editPassField').val();
                 var updateDept = $('#editDeptField').val();
                 var updateRole = $('#editRoleField').val();
+                var updatePosition = $('#editPosField').val();
+
                 // Make an AJAX request to update the values in the database
                 $.ajax({
                     url: '../controllers/commands.php',
@@ -357,7 +397,8 @@
                         email: updateEmail,
                         password: updatePass,
                         dept: updateDept,
-                        role: updateRole
+                        role: updateRole,
+                        position: updatePosition
                     },
                     success: function(response) {
                         console.log(response);
@@ -383,6 +424,7 @@
                                 $('#editPassField').val('');
                                 $('#editDeptField').val('');
                                 $('#editRoleField').val('');
+                                $('#editPosField').val('');
                                 table.ajax.reload();
                             } else {
                                 // Display an error message
