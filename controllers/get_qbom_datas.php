@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'RCMTP' => 'rcmtp_qbom',
                 'JTP' => 'jtp_qbom',
                 'OLB' => 'olb_qbom',
+                'OLB CABLE' => 'olbcable_qbom',
                 'PNP' => 'pnp_qbom',
                 'PNP CABLE' => 'pnpcable_qbom',
                 'SWAP Housing' => 'swap1_qbom',
@@ -143,6 +144,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $table = 'mtp_qbom';
         } elseif (isset($_GET['olb'])) {
             $table = 'olb_qbom';
+        } elseif (isset($_GET['olb_cable'])) {
+            $table = 'olbcable_qbom';
         } elseif (isset($_GET['flipper'])) {
             $table = 'flipper_qbom';
         } elseif (isset($_GET['highmag'])) {
@@ -409,6 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'OLB' => 'olb_qbom',
             'PNP' => 'pnp_qbom',
             'PNP CABLE' => 'pnpcable_qbom',
+            'OLB CABLE' => 'olbcable_qbom',
         ];
 
         $swapTables = ['SWAP' => ['swap1_qbom', 'swap2_qbom', 'swap3_qbom', 'swap4_qbom', 'swap5_qbom', 'swap6_qbom']];

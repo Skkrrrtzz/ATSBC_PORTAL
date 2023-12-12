@@ -55,6 +55,9 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                 <button class="nav-link" id="olb-tab" data-mdb-toggle="tab" data-mdb-target="#olb_tab_pane" type="button" role="tab" aria-controls="olb_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> OLB QBOM</button>
             </li>
             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="olbcable-tab" data-mdb-toggle="tab" data-mdb-target="#olbcable_tab_pane" type="button" role="tab" aria-controls="olbcable_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> OLB CABLE QBOM</button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="flipper-tab" data-mdb-toggle="tab" data-mdb-target="#flipper_tab_pane" type="button" role="tab" aria-controls="flipper_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> FLIPPER QBOM</button>
             </li>
             <li class="nav-item" role="presentation">
@@ -659,6 +662,91 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
             <div class="tab-pane fade" id="olb_tab_pane" role="tabpanel" aria-labelledby="olb-tab" tabindex="0">
                 <div class="table-responsive my-2 mx-1">
                     <table class="table table-striped table-hover table-bordered text-nowrap table-sm" style="width:100%" id="olb_qbom_table">
+                        <thead class="table-primary fw-bold">
+                            <tr>
+                                <th>ID</th>
+                                <th>Changes Analysis</th>
+                                <th>Level</th>
+                                <th>Item</th>
+                                <th>Item Description</th>
+                                <th>Item class</th>
+                                <th>Qty</th>
+                                <th>EXT Qty</th>
+                                <th>QPA 0</th>
+                                <th>UoM</th>
+                                <th>Rev</th>
+                                <th>Drawing Sequence Number</th>
+                                <th>Sequence</th>
+                                <th>Original Unit Price</th>
+                                <th>Original Currency</th>
+                                <th>Unit Price USD before Mark Up</th>
+                                <th>Standard Part Price</th>
+                                <th>Purchase Identification</th>
+                                <th>Mark Up</th>
+                                <th>Unit Price USD after Mark Up</th>
+                                <th>Total Price USD</th>
+                                <th>Agreement</th>
+                                <th>Agreement Price</th>
+                                <th>Agreement Currency</th>
+                                <th>Spare Part Price USD</th>
+                                <th>Supplier MOQ</th>
+                                <th>Lead Time</th>
+                                <th>Supplier Vendor</th>
+                                <th>Supplier Vendor Reference</th>
+                                <th>Manufacturer</th>
+                                <th>Manufacturer Reference MPN</th>
+                                <th>Agreement Supplier Name</th>
+                                <th>Agreement Supplier Code</th>
+                                <th>Life Cycle</th>
+                                <th>Purchasing Restriction</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot class="table-primary fw-bold">
+                            <tr>
+                                <th>ID</th>
+                                <th>Changes Analysis</th>
+                                <th>Level</th>
+                                <th>Item</th>
+                                <th>Item Description</th>
+                                <th>Item class</th>
+                                <th>Qty</th>
+                                <th>EXT Qty</th>
+                                <th>QPA 0</th>
+                                <th>UoM</th>
+                                <th>Rev</th>
+                                <th>Drawing Sequence Number</th>
+                                <th>Sequence</th>
+                                <th>Original Unit Price</th>
+                                <th>Original Currency</th>
+                                <th>Unit Price USD before Mark Up</th>
+                                <th>Standard Part Price</th>
+                                <th>Purchase Identification</th>
+                                <th>Mark Up</th>
+                                <th>Unit Price USD after Mark Up</th>
+                                <th>Total Price USD</th>
+                                <th>Agreement</th>
+                                <th>Agreement Price</th>
+                                <th>Agreement Currency</th>
+                                <th>Spare Part Price USD</th>
+                                <th>Supplier MOQ</th>
+                                <th>Lead Time</th>
+                                <th>Supplier Vendor</th>
+                                <th>Supplier Vendor Reference</th>
+                                <th>Manufacturer</th>
+                                <th>Manufacturer Reference MPN</th>
+                                <th>Agreement Supplier Name</th>
+                                <th>Agreement Supplier Code</th>
+                                <th>Life Cycle</th>
+                                <th>Purchasing Restriction</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="olbcable_tab_pane" role="tabpanel" aria-labelledby="olbcable-tab" tabindex="0">
+                <div class="table-responsive my-2 mx-1">
+                    <table class="table table-striped table-hover table-bordered text-nowrap table-sm" style="width:100%" id="olbcable_qbom_table">
                         <thead class="table-primary fw-bold">
                             <tr>
                                 <th>ID</th>
@@ -1789,7 +1877,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "Item_class",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Item_class')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Item_class')) {
                                         return row.Item_class;
                                     }
                                     return null;
@@ -1801,7 +1889,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "EXT_Qty",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('EXT_Qty')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('EXT_Qty')) {
                                         return row.EXT_Qty;
                                     }
                                     return null;
@@ -1810,7 +1898,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "QPA_0",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('QPA_0')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('QPA_0')) {
                                         return row.QPA_0;
                                     }
                                     return null;
@@ -1819,7 +1907,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "UoM",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('UoM')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('UoM')) {
                                         return row.UoM;
                                     }
                                     return null;
@@ -1828,7 +1916,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "Rev",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Rev')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Rev')) {
                                         return row.Rev;
                                     }
                                     return null;
@@ -1837,7 +1925,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "Drawing_Sequence_Number",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Drawing_Sequence_Number')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Drawing_Sequence_Number')) {
                                         return row.Drawing_Sequence_Number;
                                     }
                                     return null;
@@ -1846,7 +1934,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "Sequence",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Sequence')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Sequence')) {
                                         return row.Sequence;
                                     }
                                     return null;
@@ -1896,7 +1984,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "Supplier_Vendor",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor')) {
                                         return row.Supplier_Vendor;
                                     }
                                     return null;
@@ -1905,7 +1993,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 data: "Supplier_Vendor_Reference",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor_Reference')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor_Reference')) {
                                         return row.Supplier_Vendor_Reference;
                                     }
                                     return null;
@@ -1934,8 +2022,8 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             [0, "asc"]
                         ],
                         columnDefs: [{
+                            targets: [1, 2, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
                             visible: false,
-                            targets: [1, 2, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]
                         }],
                         buttons: [{
                                 extend: "copyHtml5",
@@ -1959,9 +2047,9 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             {
                                 text: "<i class='fa-solid fa-arrow-rotate-left'></i> Reset",
                                 action: function(e, dt, button, config) {
-                                    dt.columns().visible(true);
+                                    dt.columns([1, 2, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]).visible(false);
                                     dt.colReorder.reset();
-                                },
+                                }
                             },
                         ],
                         colReorder: true,
@@ -1969,6 +2057,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                         scrollY: "50vh",
                         scrollCollapse: true,
                         deferRender: true,
+                        // stateSave: true,
                         searching: true,
                         initComplete: function() {
                             // Add a custom search input for the "QBOM" and "Item" columns

@@ -76,6 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $table = 'olb_qbom';
                         $insertQuery = "INSERT INTO `olb_qbom`(`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`, `Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         break;
+                    case 'OLB CABLE':
+                        $table = 'olbcable_qbom';
+                        $insertQuery = "INSERT INTO `olbcable_qbom`(`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`, `Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        break;
                     case 'FLIPPER':
                         $table = 'flipper_qbom';
                         $insertQuery = "INSERT INTO `flipper_qbom`(`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`, `Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -193,10 +197,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     }
                                 }
 
-                                // Remove the last element if it's empty
-                                // if (!empty($data) && end($data) === null && $qbomType !== "IONIZER") {
-                                //     array_pop($data);
-                                // }
                                 // print_r($data);
                                 // echo count($data);
                                 if (!$isRowEmpty) {
@@ -206,7 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         $stmt->bindParam($i, $data[$i - 1]);
                                     }
 
-                                    if (!$stmt->execute()) {
+                                    // Execute with an array of parameters
+                                    if (!$stmt->execute($data)) {
                                         throw new Exception("Error inserting data into the database.");
                                     }
                                 }
