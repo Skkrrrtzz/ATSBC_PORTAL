@@ -46,7 +46,7 @@
                             <option value="PNP">PNP</option>
                             <option value="PNP CABLE">PNP CABLE</option>
                             <option value="SWAP">SWAP</option>
-                            <!-- <option value="SPARES">SPARES</option> -->
+                            <option value="SPARES">SPARES</option>
                         </select>
                         <label class="form-label fw-bold text-black" for="projects">Project</label>
                     </div>

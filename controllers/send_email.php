@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['send']))) {
     $profile_email = $_POST['email'];
     $profile_name = $_POST['name'];
     $subject = "Email Confirmation";
-    $body = "If you receive this email, please note that it will be used for sending emails from ATS Business Control Portal. <br> Thank you!<i>***This is an auto generated message, please do not reply***<i>";
+    $body = "If you receive this email, please note that it will be used for sending emails from ATS Business Control Portal. <br> Thank you! <br><i>***This is an auto generated message, please do not reply***<i>";
 
     $profile = sendEmail($profile_name, $profile_email, $subject, $body);
     // Return a response as JSON

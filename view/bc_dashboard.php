@@ -89,7 +89,9 @@ include_once '../controllers/approver_dashboard_data.php';
                                     <th>Date Requested</th>
                                     <th>Requestor</th>
                                     <th>Project</th>
+                                    <th>Approver</th>
                                     <th>Approved Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,6 +101,7 @@ include_once '../controllers/approver_dashboard_data.php';
                                         <td><?= $row['Date_Received'] ?></td>
                                         <td><?= $row['Requestor'] ?></td>
                                         <td><?= $row['Project'] ?></td>
+                                        <td><?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?></td>
 
                                         <?php if ($Role === 'Approver 1') : ?>
                                             <td>
@@ -125,6 +128,9 @@ include_once '../controllers/approver_dashboard_data.php';
                                                 <?= formatApprovalDate($dateApproved); ?>
                                             </td>
                                         <?php endif; ?>
+                                        <td>
+                                            <i class="fa-solid fa-eye fa-2x text-primary" type="button" onclick="viewModal(<?= $row['No'] ?>)"></i>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -227,6 +233,7 @@ include_once '../controllers/approver_dashboard_data.php';
                                     <th>Project</th>
                                     <th>Disapproved by</th>
                                     <th>Disapproved Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -304,7 +311,9 @@ include_once '../controllers/approver_dashboard_data.php';
                                                 <?= formatApprovalDate($dateDisApproved); ?>
                                             </td>
                                         <?php endif; ?>
-
+                                        <td>
+                                            <i class="fa-solid fa-eye fa-2x text-primary" type="button" onclick="viewModal(<?= $row['No'] ?>)"></i>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -320,7 +329,7 @@ include_once '../controllers/approver_dashboard_data.php';
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header text-bg-primary">
-                    <h1 class="modal-title fs-5 fw-bold" id="viewModalLabel"><i class="fa-regular fa-file-lines"></i> View Request Form</h1>
+                    <h1 class="modal-title fs-5 fw-bold" id="viewRequest"></h1>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-secondary-subtle">
@@ -412,7 +421,7 @@ include_once '../controllers/approver_dashboard_data.php';
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-sm col-md-6 my-2" id="Vendor1">
                             <div class=" bg-secondary-subtle">
                                 <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Vendor 1</h5>
@@ -527,12 +536,116 @@ include_once '../controllers/approver_dashboard_data.php';
                                 <label class="form-label fw-bold text-black" for="Reason">Reason</label>
                             </div>
                         </div>
-                        <div class="row g-2">
-                            <div class="col ms-2 mb-2">
-                                <div class="form-outline">
-                                    <input type="text" class="form-control bg-light" id="Purchasing_Recom" value="<?= $Purchasing_Recom; ?>" readonly>
-                                    <label class="form-label fw-bold text-dark" for="Purchasing_Recom">Purchasing Recommendation</label>
+                        <div class="col mb-2">
+                            <div class="form-outline">
+                                <input type="text" class="form-control bg-light" id="Purchasing_Recom" readonly>
+                                <label class="form-label fw-bold text-dark" for="Purchasing_Recom">Purchasing Recommendation</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-2">
+                        <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Business Control Analysis</h5>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-8">
+                                <div class="row g-2 mb-2">
+                                    <div class="col-sm-4 col-md-6 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="QBOM_Unit_Price" readonly>
+                                            <label class="form-label fw-bold text-dark" for="QBOM_Unit_Price">QBOM Unit Price</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-6 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Total_QBOM_Price" readonly>
+                                            <label class="form-label fw-bold text-dark">Total QBOM Price </label>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Conversion_Rate_Vendor_1" readonly>
+                                            <label class="form-label fw-bold text-dark">Conversion Rate Vendor 1 </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Vendor_1_Converted_Price" readonly>
+                                            <label class="form-label fw-bold text-dark">Vendor 1 Converted Price </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Vendor_1_Variance_VS_QBOM" readonly>
+                                            <label class="form-label fw-bold text-dark">Vendor 1 Variance VS QBOM </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-2" id="CRV_2">
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Conversion_Rate_Vendor_2" readonly>
+                                            <label class="form-label fw-bold text-dark">Conversion Rate Vendor 2 </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Vendor_2_Converted_Price" readonly>
+                                            <label class="form-label fw-bold text-dark">Vendor 2 Converted Price </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control bg-light" id="Vendor_2_Variance_VS_QBOM" readonly>
+                                            <label class="form-label fw-bold text-dark">Vendor 2 Variance VS QBOM </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-4">
+                                <div class="row g-2 mb-2">
+                                    <div class="col-sm-4 col-md-6 col-lg-12" id="C2C">
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control bg-light" id="Chargable_to_Customer" readonly>
+                                            <label class="form-label fw-bold text-dark">Chargeable to Customer </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4 col-lg-12" id="CCP">
+                                    <div class="form-outline">
+                                        <input type="text" class="form-control bg-light" id="Remarks_from_CCP_analyst" readonly>
+                                        <label class="form-label fw-bold text-dark">Remarks from CCP Analyst </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-2">
+                        <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Approval</h5>
+                        <div class="row g-2 mb-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" id="Business_Control_Recommendation" readonly>
+                                    <label class="form-label fw-bold text-dark" for="Business_Control_Recommendation">Business Control Recommendation</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" id="Variance_VS_QBOM_Price" readonly>
+                                    <label class="form-label fw-bold text-dark" for="Variance_VS_QBOM_Price">Variance VS QBOM Price</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" id="Status" readonly>
+                                    <label class="form-label fw-bold text-dark" for="Status">Status</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                <input type="text" class="form-control bg-light" id="Remarks" readonly>
+                                <label class="form-label fw-bold text-dark" for="Remarks">Remarks</label>
                             </div>
                         </div>
                     </div>
@@ -575,6 +688,7 @@ include_once '../controllers/approver_dashboard_data.php';
                     No: No
                 },
                 success: function(response) {
+                    $("#viewRequest").html('<i class="fa-regular fa-file-lines"></i> View Request No. ' + response.No);
                     $("#date").val(response.Date_Received);
                     $("#name").val(response.Requestor);
                     $("#projects").val(response.Project);
@@ -599,7 +713,6 @@ include_once '../controllers/approver_dashboard_data.php';
                     $("#MOQ_1").val(response.MOQ_1);
                     $("#Qty_to_Purchase_from_Vendor_1").val(response.Qty2PurchasetoVendor_1);
                     $("#Total_Amt_1").val(response.Total_Amt_1);
-                    console.log(response.New_Vendor);
                     // Vendor 2
                     if (response.New_Vendor !== null && response.New_Vendor.trim() !== '') {
                         $("#New_Vendor").val(response.New_Vendor);
@@ -611,10 +724,12 @@ include_once '../controllers/approver_dashboard_data.php';
                         $("#Qty_to_Purchase_from_Vendor_2").val(response.Qty2PurchasetoVendor_2);
                         $("#Total_Amt_2").val(response.Total_Amt_2);
                         $("#Vendor2").show(); // Show the Vendor2 element
+                        $("#CRV_2").show();
                         $("#theReason").hide();
                     } else {
                         // Hide the Vendor2 element if New_Vendor is empty or null
                         $("#Vendor2").hide();
+                        $("#CRV_2").hide();
                         $("#Reason").val(response.reason);
                         $("#theReason").show();
                     }
@@ -631,6 +746,32 @@ include_once '../controllers/approver_dashboard_data.php';
                         // Hide the "other_ppv_type" input field if any other option is selected
                         $("#other_ppv_type").hide();
                     }
+                    $("#QBOM_Unit_Price").val(response.QBOM_Unit_Price);
+                    $("#Total_QBOM_Price").val(response.Total_QBOM_Price);
+                    $("#Conversion_Rate_Vendor_1").val(response.Conversion_Rate_V1);
+                    $("#Conversion_Rate_Vendor_2").val(response.Conversion_Rate_V2);
+                    $("#Vendor_1_Converted_Price").val(response.Conversion_Rate_V1);
+                    $("#Vendor_2_Converted_Price").val(response.Conversion_Rate_V2);
+                    $("#Vendor_1_Variance_VS_QBOM").val(response.V1_VarianceVSQBOM);
+                    $("#Vendor_2_Variance_VS_QBOM").val(response.V2_VarianceVSQBOM);
+                    $("#Business_Control_Recommendation").val(response.bc_recomm);
+                    $("#Variance_VS_QBOM_Price").val(response.variance_vs_qbomprice);
+                    $("#Status").val(response.Request_Status);
+
+                    if (response.Chargable2Customer === "true") {
+                        $("#C2C").show();
+                        $("#Chargable_to_Customer").val(response.VarianceChargable2Cohu);
+                    } else {
+                        $("#C2C").hide();
+                    }
+                    if (response.For_Checking_of_CCP_analyst === "true") {
+                        $("#CCP").show();
+                        $("#Remarks_from_CCP_analyst").val(response.Remarks_from_CCP_analyst);
+                    } else {
+                        $("#CCP").hide();
+                    }
+
+                    $("#Remarks").val(response.Remarks);
                     // Show the modal
                     $("#viewModal").modal("show");
                 },

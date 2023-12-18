@@ -4,8 +4,8 @@ include_once 'db.php';
 //REQUEST/S
 if ($Role === 'Approver 1') {
     $pendingCondition = "Approver = 'Approver 1' AND Date_Approved_1 IS NULL";
-    $approverCondition = "Approver_Check_1 = 'true' AND Approver_Name_1 = :Name";
-    $disapprovedCondition = "DisApproved = 'true' AND DisApprover_Name = :Name";
+    $approverCondition = "Approver_Check_1 = 'true'";
+    $disapprovedCondition = "DisApproved = 'true'";
 } elseif ($Role === 'Approver 2') {
     $pendingCondition = "Approver = 'Approver 2' AND Date_Approved_2 IS NULL AND Status !='DONE'";
     $approverCondition = "Approver_Check_2 = 'true' AND Approver_Name_2 = :Name";
