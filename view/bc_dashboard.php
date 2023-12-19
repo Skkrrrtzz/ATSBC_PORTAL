@@ -543,7 +543,7 @@ include_once '../controllers/approver_dashboard_data.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-2">
+                    <div class="col mb-2" id="BCA">
                         <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Business Control Analysis</h5>
                         <div class="row">
                             <div class="col-md-12 col-lg-8">
@@ -620,7 +620,7 @@ include_once '../controllers/approver_dashboard_data.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-2">
+                    <div class="col mb-2" id="APV">
                         <h5 class="fw-bold text-bg-primary border-bottom border-2 border-dark ps-2 rounded-top"> Approval</h5>
                         <div class="row g-2 mb-2">
                             <div class="col-sm-4 col-md-4 col-lg-4">
@@ -723,13 +723,11 @@ include_once '../controllers/approver_dashboard_data.php';
                         $("#MOQ_2").val(response.MOQ_2);
                         $("#Qty_to_Purchase_from_Vendor_2").val(response.Qty2PurchasetoVendor_2);
                         $("#Total_Amt_2").val(response.Total_Amt_2);
-                        $("#Vendor2").show(); // Show the Vendor2 element
-                        $("#CRV_2").show();
+                        $("#Vendor2,#CRV_2").show(); // Show the Vendor2 element
                         $("#theReason").hide();
                     } else {
                         // Hide the Vendor2 element if New_Vendor is empty or null
-                        $("#Vendor2").hide();
-                        $("#CRV_2").hide();
+                        $("#Vendor2,#CRV_2").hide();
                         $("#Reason").val(response.reason);
                         $("#theReason").show();
                     }
@@ -756,7 +754,21 @@ include_once '../controllers/approver_dashboard_data.php';
                     $("#Vendor_2_Variance_VS_QBOM").val(response.V2_VarianceVSQBOM);
                     $("#Business_Control_Recommendation").val(response.bc_recomm);
                     $("#Variance_VS_QBOM_Price").val(response.variance_vs_qbomprice);
-                    $("#Status").val(response.Request_Status);
+
+                    var status = $("#Status").val(response.Request_Status);
+
+                    if (status.val() !== null && status.val() !== "") {
+                        $("#BCA, #APV").show();
+                    } else {
+                        $("#BCA, #APV").hide();
+                    }
+                    // Remove all classes first
+                    status.removeClass("text-success text-danger");
+                    if (status.val() === "Approved") {
+                        status.addClass("text-success");
+                    } else if (response.Request_Status === "Disapproved") {
+                        status.addClass("text-danger");
+                    }
 
                     if (response.Chargable2Customer === "true") {
                         $("#C2C").show();

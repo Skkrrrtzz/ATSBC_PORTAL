@@ -246,6 +246,79 @@
             </div>
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Function to get URL parameters by name
+            function getUrlParameter(name) {
+                name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+                var results = regex.exec(location.search);
+                return results === null ?
+                    "" :
+                    decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+            // Get the No parameter from the URL
+            var No = getUrlParameter("No");
+
+            $.ajax({
+                url: "../controllers/ppv_data.php",
+                method: "POST",
+                data: {
+                    No: No
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    $("#projects").val(response.Project);
+                    $("#SAP_No").val(response.SAP_PN);
+                    $("#Delta_PN").val(response.Delta_PN);
+                    $("#desc").val(response.Description);
+                    $("#QPA").val(response.QPA);
+                    $("#PR_Qty").val(response.PR_Qty);
+                    $("#Purchase_Qty").val(response.Purchase_Qty);
+                    $("#UOM").val(response.UoM);
+                    $("#Prev_price").val(response.Prev_Price);
+                    $("#Currency").val(response.Currency);
+                    $("#PPV_Type").val(response.PPV_Type);
+                    $("#other_ppv_types").val(response.other_ppv_type);
+
+                    // Vendor 1
+                    $("#Current_Vendor").val(response.Current_Vendor);
+                    $("#Current_Vendor_Price").val(response.New_Price_1);
+                    $("#Currency1").val(response.Currency_1);
+                    $("#LT1").val(response.LT_1);
+                    $("#SPQ1").val(response.SPQ_1);
+                    $("#MOQ1").val(response.MOQ_1);
+                    $("#Qty_to_Purchase_from_Vendor_1").val(response.Qty2PurchasetoVendor_1);
+                    $("#Total_Amt_1").val(response.Total_Amt_1);
+                    console.log(response.New_Vendor);
+                    // Vendor 2
+                    if (response.New_Vendor !== null && response.New_Vendor.trim() !== '') {
+                        $("#New_Vendor").val(response.New_Vendor);
+                        $("#New_Vendor_Price").val(response.New_Price_2);
+                        $("#Currency_2").val(response.Currency_2);
+                        $("#LT_2").val(response.LT_2);
+                        $("#SPQ_2").val(response.SPQ_2);
+                        $("#MOQ_2").val(response.MOQ_2);
+                        $("#Qty_to_Purchase_from_Vendor_2").val(response.Qty2PurchasetoVendor_2);
+                        $("#Total_Amt_2").val(response.Total_Amt_2);
+                        $("#vendor2").show(); // Show the Vendor2 element
+                        $("#reasonCard").hide();
+                    } else {
+                        // Hide the Vendor2 element if New_Vendor is empty or null
+                        $("#vendor2").hide();
+                        $("#Reason").val(response.reason);
+                        $("#reasonCard").show();
+                    }
+
+                    $("#Purchasing_Recom").val(response.Purchasing_Recom);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Ajax request failed with status: " + status);
+                }
+            });
+        });
+    </script>
     <script src="../js/requestor.js"></script>
 </body>
 
