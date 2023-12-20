@@ -79,7 +79,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         <div class="modal fade" id="pendingModal" tabindex="-1" aria-labelledby="pendingModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header text-bg-warning">
+                    <div class="modal-header bg-warning text-white">
                         <h1 class="modal-title fs-5" id="pendingModalLabel">Pending Request/s</h1>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -130,7 +130,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header text-bg-success">
+                    <div class="modal-header bg-success text-white">
                         <h1 class="modal-title fs-5" id="approvedModalLabel">Approved Request/s</h1>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -157,7 +157,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                                             <td><?= $row['Requestor'] ?></td>
                                             <td><?= $row['Project'] ?></td>
                                             <td><span class="badge badge-success"><?= $row['Status'] ?></span></td>
-                                            <td><?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?></td>
+                                            <td><span class="badge badge-success"><?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?></span></td>
                                             <td><?= formatApprovalDate($row['Date_Approved_1']); ?></td>
                                             <td><button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button></td>
                                         </tr>
@@ -171,15 +171,15 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         </div>
         <!-- Disapproved Modal -->
         <div class="modal fade" id="disapprovedModal" tabindex="-1" aria-labelledby="disapprovedModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header text-bg-danger">
+                    <div class="modal-header bg-danger text-white">
                         <h1 class="modal-title fs-5" id="disapprovedModalLabel">Disapproved Request/s</h1>
                         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered table-sm text-nowrap">
                                 <thead class="table-danger">
                                     <tr>
                                         <th>Request No</th>
@@ -198,9 +198,16 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                                             <td><?= $row['Date_Received'] ?></td>
                                             <td><?= $row['Requestor'] ?></td>
                                             <td><?= $row['Project'] ?></td>
-                                            <td><?= $row['DisApprover_Name'] ?></td>
+                                            <td>
+                                                <span class="badge badge-danger">
+                                                    <?= $row['DisApprover_Name'] ?>
+                                                </span>
+                                            </td>
                                             <td><?= formatApprovalDate($row['Date_Approved_1']); ?></td>
-                                            <td><button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button></td>
+                                            <td>
+                                                <button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button>
+                                                <button class="btn btn-primary btn-sm" type="button" onclick="returnNo(<?= htmlspecialchars(json_encode($row['No'])) ?>)">Resubmit</button>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -560,6 +567,11 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                         });
                     }
                 });
+            }
+
+            function returnNo(No) {
+                // Navigate to a new page and pass the ID as a parameter
+                window.location.href = "bc_requestor.php?No=" + encodeURIComponent(No);
             }
             $(document).ready(function() {
                 $('#partNumberSearch').on('input', function() {

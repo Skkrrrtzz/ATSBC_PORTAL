@@ -74,21 +74,30 @@ include_once '../controllers/approver_dashboard_data.php';
     </div>
     <!-- Approved Modal -->
     <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header text-bg-success">
+                <div class="modal-header bg-success text-white">
                     <h1 class="modal-title fs-5" id="approvedModalLabel">Approved Request/s</h1>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="d-flex justify-content-end">
+                        <div class="form-group my-auto">
+                            <label for="partNumberSearch2" class="form-label fw-bold">Search by Part Number: </label>
+                        </div>
+                        <div class="form-group mb-2 my-auto">
+                            <input type="text" class="form-control" id="partNumberSearch2" placeholder="Enter Part Number">
+                        </div>
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm text-nowrap" id="approvedTable">
                             <thead class="table-success">
                                 <tr>
                                     <th>Request No</th>
                                     <th>Date Requested</th>
                                     <th>Requestor</th>
                                     <th>Project</th>
+                                    <th>Part Number</th>
                                     <th>Approver</th>
                                     <th>Approved Date</th>
                                     <th>Action</th>
@@ -101,7 +110,12 @@ include_once '../controllers/approver_dashboard_data.php';
                                         <td><?= $row['Date_Received'] ?></td>
                                         <td><?= $row['Requestor'] ?></td>
                                         <td><?= $row['Project'] ?></td>
-                                        <td><?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?></td>
+                                        <td><?= $row['Delta_PN'] ?></td>
+                                        <td>
+                                            <span class="badge badge-success">
+                                                <?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?>
+                                            </span>
+                                        </td>
 
                                         <?php if ($Role === 'Approver 1') : ?>
                                             <td>
@@ -142,19 +156,19 @@ include_once '../controllers/approver_dashboard_data.php';
     </div>
     <!-- Pending Modal -->
     <div class="modal fade" id="pendingModal" tabindex="-1" aria-labelledby="pendingModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header text-bg-warning">
+                <div class="modal-header bg-warning">
                     <h1 class="modal-title fs-5" id="pendingModalLabel">Pending Request/s</h1>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-flex justify-content-end ">
+                    <div class="d-flex justify-content-end">
                         <div class="form-group my-auto">
-                            <label for="partNumberSearch" class="form-label fw-bold">Search by Part Number: </label>
+                            <label for="partNumberSearch1" class="form-label fw-bold">Search by Part Number: </label>
                         </div>
                         <div class="form-group mb-2 my-auto">
-                            <input type="text" class="form-control" id="partNumberSearch" placeholder="Enter Part Number">
+                            <input type="text" class="form-control" id="partNumberSearch1" placeholder="Enter Part Number">
                         </div>
                     </div>
                     <div class="table-responsive rounded-1">
@@ -216,21 +230,30 @@ include_once '../controllers/approver_dashboard_data.php';
     </div>
     <!-- Disapproved Modal -->
     <div class="modal fade" id="disapprovedModal" tabindex="-1" aria-labelledby="disapprovedModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header text-bg-danger">
+                <div class="modal-header bg-danger text-white">
                     <h1 class="modal-title fs-5" id="disapprovedModalLabel">Disapproved Request/s</h1>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="d-flex justify-content-end">
+                        <div class="form-group my-auto">
+                            <label for="partNumberSearch3" class="form-label fw-bold">Search by Part Number: </label>
+                        </div>
+                        <div class="form-group mb-2 my-auto">
+                            <input type="text" class="form-control" id="partNumberSearch3" placeholder="Enter Part Number">
+                        </div>
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm text-nowrap" id="disapprovedTable">
                             <thead class="table-danger">
                                 <tr>
                                     <th>Request No</th>
                                     <th>Date Requested</th>
                                     <th>Requestor</th>
                                     <th>Project</th>
+                                    <th>Part Number</th>
                                     <th>Disapproved by</th>
                                     <th>Disapproved Date</th>
                                     <th>Action</th>
@@ -243,6 +266,7 @@ include_once '../controllers/approver_dashboard_data.php';
                                         <td><?= $row['Date_Received'] ?></td>
                                         <td><?= $row['Requestor'] ?></td>
                                         <td><?= $row['Project'] ?></td>
+                                        <td><?= $row['Delta_PN'] ?></td>
 
                                         <?php if ($Role === 'Approver 1') : ?>
                                             <td>
@@ -794,19 +818,25 @@ include_once '../controllers/approver_dashboard_data.php';
         }
 
         $(document).ready(function() {
-            $('#partNumberSearch').on('input', function() {
-                const searchTerm = $(this).val().toLowerCase();
+            function handleTableSearch(tableId, searchInputId, columnIndex) {
+                $(searchInputId).on('input', function() {
+                    const searchTerm = $(this).val().toLowerCase();
 
-                $('#pendingTable tbody tr').each(function() {
-                    const partNumber = $(this).find('td:eq(4)').text().toLowerCase(); // Adjust the index if needed
+                    $(tableId + ' tbody tr').each(function() {
+                        const partNumber = $(this).find('td:eq(' + columnIndex + ')').text().toLowerCase();
 
-                    if (partNumber.includes(searchTerm)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
+                        if (partNumber.includes(searchTerm)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
                 });
-            });
+            }
+
+            handleTableSearch('#pendingTable', '#partNumberSearch1', 4);
+            handleTableSearch('#approvedTable', '#partNumberSearch2', 4);
+            handleTableSearch('#disapprovedTable', '#partNumberSearch3', 4);
         });
     </script>
 </body>
