@@ -96,16 +96,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="search_qbom" role="tabpanel" aria-labelledby="qbom-tab" tabindex="0">
-                <!-- <div class="card m-4">
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" id="search-input" placeholder="Search Part Number" autocomplete="off" aria-label="Search" aria-describedby="search-addon" />
-                </div>
-                <!-- Loading indicator -->
-                <!-- <div id="loading-indicator" style="display: none;">Loading...</div>
-                <div id="search-results-content" style="max-height: 300px; overflow-y: auto;"></div>
-                <!-- Clear search results button placed outside of the container -->
-                <!-- <button class="btn btn-outline-primary" id="clear-results" style="display: none;">Clear Search Results</button> -->
-                <!-- </div> -->
                 <div class="container-fluid">
                     <div class="table-responsive">
                         <!-- <input type="text" placeholder="Search QBOM and Item" id="qbomSearch"> -->
@@ -339,6 +329,9 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Qty</th>
                                 <th>EXT Qty</th>
                                 <th>QPA 0</th>
+                                <th>UoM</th>
+                                <th>Rev</th>
+                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -376,6 +369,9 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Qty</th>
                                 <th>EXT Qty</th>
                                 <th>QPA 0</th>
+                                <th>UoM</th>
+                                <th>Rev</th>
+                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>

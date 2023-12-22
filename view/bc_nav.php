@@ -207,7 +207,7 @@
                                   <a class="nav-link active text-white" aria-current="page" href="pur_dashboard.php"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
                               </li>
                               <li class="nav-item">
-                                  <a class="nav-link text-white" href="bc_requestor.php"><i class="fa-solid fa-file"></i> PPV Request</a>
+                                  <a class="nav-link text-white" href="bc_requestor.php"><i class="fa-solid fa-file-lines"></i> PPV Request</a>
                               </li>
                           <?php } elseif ($Role === "Optional Approver") { ?>
                               <li class="nav-item">
@@ -220,8 +220,12 @@
                               <li class="nav-item">
                                   <a class="nav-link active text-white" aria-current="page" href="pur_dashboard.php"><i class="bi bi-grid-1x2-fill"></i> Requestor Dashboard</a>
                               </li>
-                              <li class="nav-item">
-                                  <a class="nav-link text-white" href="bc_requestor.php"><i class="fa-solid fa-file"></i> PPV Request</a>
+                              <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle text-white" href="#" data-mdb-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-file-lines"></i> PPV</a>
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" aria-current="page" href="bc_requestor.php"><i class="fa-regular fa-file-lines"></i> PPV Request</a></li>
+                                      <li><a class="dropdown-item" aria-current="page" href="ppv_files.php"><i class="fa-regular fa-circle-down"></i> PPV Files</a></li>
+                                  </ul>
                               </li>
                               <li class="nav-item">
                                   <a class="nav-link active text-white" aria-current="page" href="qbom.php"><i class="fa-solid fa-folder-open"></i> QBOM List</a>

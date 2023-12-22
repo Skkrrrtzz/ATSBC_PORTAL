@@ -35,9 +35,9 @@ $(document).ready(function () {
           text: "<i class='fa-solid fa-arrow-rotate-left'></i> Reset",
           action: function (e, dt, button, config) {
             dt.columns([
-              1, 2, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23,
-              24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-            ]).visible(false);
+              0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+              19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+            ]).visible(true);
             dt.colReorder.reset();
           },
         },
@@ -299,6 +299,15 @@ $(document).ready(function () {
     },
     {
       data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
     },
     {
       data: "Sequence",

@@ -59,7 +59,7 @@ if ($Role === "Optional Approver") {
         </div>
         <!-- Done Modal -->
         <div class="modal fade" id="doneModal" tabindex="-1" aria-labelledby="doneModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header text-bg-success">
                         <h1 class="modal-title fs-5" id="doneModalLabel">Done Items</h1>
