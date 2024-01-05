@@ -20,7 +20,7 @@ function sendEmail($Name, $Email, $subject, $body, $attachment = null)
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'noreply.atsbcportal@gmail.com';
-        $mail->Password = 'tppp ltjs kaai xavo'; //tppp ltjs kaai xavo
+        $mail->Password = 'lkhl cefq kmsm npjn';
         $mail->Port = 587; // $mail->Port = 465;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 

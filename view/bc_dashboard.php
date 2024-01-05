@@ -71,10 +71,43 @@ include_once '../controllers/approver_dashboard_data.php';
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 col-xl-6 my-2">
+                <div class="card ">
+                    <div class="card-body">
+                        <h6 class="card-title text-primary fw-bold">Summary per module</h6>
+                        <canvas id="sumPermodule"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content per module Modal -->
+    <div class="modal fade" id="sumpermoduleModal" tabindex="-1" aria-labelledby="sumpermoduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-bg-primary">
+                    <h5 class="modal-title" id="modal_product"></h5>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-light">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <canvas id="ppvTypeChart"></canvas>
+                        </div>
+                        <!-- <div class="col-xl-12">
+                            <canvas id="varianceVsQBOMChart"></canvas>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Approved Modal -->
     <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-success text-white">
                     <h1 class="modal-title fs-5" id="approvedModalLabel">Approved Request/s</h1>
@@ -156,7 +189,7 @@ include_once '../controllers/approver_dashboard_data.php';
     </div>
     <!-- Pending Modal -->
     <div class="modal fade" id="pendingModal" tabindex="-1" aria-labelledby="pendingModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h1 class="modal-title fs-5" id="pendingModalLabel">Pending Request/s</h1>
@@ -192,7 +225,10 @@ include_once '../controllers/approver_dashboard_data.php';
                                         <td><?= $row['Date_Received'] ?></td>
                                         <td><?= $row['Requestor'] ?></td>
                                         <td><?= $row['Project'] ?></td>
-                                        <td><?= $row['Delta_PN'] ?></td>
+                                        <!-- <td><?= $row['Delta_PN'] ?></td> -->
+                                        <td class="deltaPN-row" data-id="<?= $row['Delta_PN'] ?>">
+                                            <?= $row['Delta_PN'] ?>
+                                        </td>
                                         <td><span class="badge badge-success"><?= $row['Status'] ?></span></td>
 
                                         <?php
@@ -230,7 +266,7 @@ include_once '../controllers/approver_dashboard_data.php';
     </div>
     <!-- Disapproved Modal -->
     <div class="modal fade" id="disapprovedModal" tabindex="-1" aria-labelledby="disapprovedModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
                     <h1 class="modal-title fs-5" id="disapprovedModalLabel">Disapproved Request/s</h1>
@@ -677,6 +713,250 @@ include_once '../controllers/approver_dashboard_data.php';
             </div>
         </div>
     </div>
+    <script src="../assets/js/Chart.js"></script>
+    <script src="../assets/js/chartjs-plugin-datalabels.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: "POST",
+                url: "../controllers/get_ppv_data.php",
+                data: {
+                    PPV: true
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    // Your data for the bar chart
+                    const currentDate = new Date();
+                    const currentMonth = currentDate.toLocaleString("default", {
+                        month: "short",
+                    });
+                    // Define an array of colors for each dataset
+                    const datasetColors = [
+                        "#2587ff",
+                        "#444e86",
+                        "#955196",
+                        "#dd5182",
+                        "#ff6e54",
+                        "#ffa600",
+                    ];
+                    // Group response data by project and calculate the sum of variance_vs_qbomprice for each project
+                    const groupedData = response.reduce((accumulator, current) => {
+                        const project = current.project;
+                        const variance = parseFloat(current.variance_vs_qbomprice);
+
+                        if (!accumulator[project]) {
+                            accumulator[project] = 0;
+                        }
+
+                        // console.log(`Adding ${variance} to ${project}. Current sum: ${accumulator[project]}`);
+                        accumulator[project] += variance;
+
+                        return accumulator;
+                    }, {});
+
+                    // Round the sums to two decimal places
+                    for (const project in groupedData) {
+                        if (groupedData.hasOwnProperty(project)) {
+                            groupedData[project] = parseFloat(groupedData[project]).toFixed(2);
+                        }
+                    }
+
+                    // Log the final groupedData
+                    // console.log('Final groupedData:', groupedData);
+
+
+                    // Create an array to hold datasets for each project
+                    const datasets = Object.entries(groupedData).map(
+                        ([project, sumVariance], index) => {
+                            return {
+                                label: project,
+                                data: [sumVariance],
+                                backgroundColor: datasetColors[index],
+                                borderColor: datasetColors[index],
+                                borderWidth: 1,
+                            };
+                        }
+                    );
+
+                    // Get the canvas element
+                    const ctx = document.getElementById("sumPermodule").getContext("2d");
+
+                    // Create the bar chart
+                    const myBarChart = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: [currentMonth],
+                            datasets: datasets,
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                },
+                            },
+                            layout: {
+                                padding: {
+                                    top: 30,
+                                },
+                            },
+                            plugins: {
+                                datalabels: {
+                                    anchor: "end",
+                                    align: "end",
+                                    color: "black",
+                                    font: {
+                                        weight: "bold",
+                                    },
+                                    formatter: (value, context) => {
+                                        return "$" + value;
+                                    },
+                                },
+                                legend: {
+                                    labels: {
+                                        font: {
+                                            weight: "bold",
+                                        },
+                                    },
+                                    position: "bottom",
+                                },
+                            },
+                        },
+                        plugins: [ChartDataLabels],
+                    });
+
+                    // Group data by project and PPV_Type
+                    const grpData = response.reduce((acc, item) => {
+                        const key = `${item.project}_${item.PPV_Type}`;
+                        acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
+                        return acc;
+                    }, {});
+
+                    // Extract unique labels from the grouped data
+                    const uniqueLabels = Object.keys(grpData);
+
+                    // PPV Type Chart
+                    const ppvTypeChartCanvas = document.getElementById("ppvTypeChart").getContext("2d");
+                    const ppvTypeChart = new Chart(ppvTypeChartCanvas, {
+                        type: "bar",
+                        data: {
+                            labels: uniqueLabels.map(label => label.split('_').join(' - ')), // Use a separator for project and PPV_Type
+                            datasets: [{
+                                label: "Sum of Vendor 1 VarianceVSQBOM",
+                                data: uniqueLabels.map(label => grpData[label]),
+                                backgroundColor: "rgba(75, 192, 192, 0.5)",
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                },
+                            },
+                            layout: {
+                                padding: {
+                                    top: 30,
+                                },
+                            },
+                            plugins: {
+                                datalabels: {
+                                    anchor: "end",
+                                    align: "end",
+                                    color: "black",
+                                    font: {
+                                        weight: "bold",
+                                    },
+                                    formatter: (value, context) => {
+                                        return "$" + value;
+                                    },
+                                },
+                                legend: {
+                                    labels: {
+                                        font: {
+                                            weight: "bold",
+                                        },
+                                    },
+                                    position: "bottom",
+                                },
+                            },
+                        },
+                        plugins: [ChartDataLabels],
+                    });
+                    // Function to update ppvTypeChart based on selected project
+                    function updatePpvTypeChart(selectedProject) {
+                        const filteredData = response.filter(item => item.project === selectedProject);
+
+                        // Group filtered data by project and PPV_Type
+                        const grpData = filteredData.reduce((acc, item) => {
+                            const key = `${item.project}_${item.PPV_Type}`;
+                            acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
+                            return acc;
+                        }, {});
+
+                        // Extract unique PPV_Type values from the grouped data
+                        const uniquePPVTypes = [...new Set(filteredData.map(item => item.PPV_Type))];
+
+                        // Update ppvTypeChart data and labels
+                        ppvTypeChart.data.labels = uniquePPVTypes;
+                        ppvTypeChart.data.datasets[0].data = uniquePPVTypes.map(ppvType => parseFloat(grpData[`${selectedProject}_${ppvType}`]).toFixed(2));
+
+                        // Update the chart
+                        ppvTypeChart.update();
+                    }
+                    // Add click event listener to the "sumPermodule" chart
+                    document.getElementById("sumPermodule").onclick = function(event) {
+                        const activePoints = myBarChart.getElementsAtEventForMode(
+                            event,
+                            "nearest", {
+                                intersect: true
+                            },
+                            false
+                        );
+
+                        if (activePoints.length > 0) {
+                            const clickedDatasetIndex = activePoints[0].datasetIndex;
+
+                            if (myBarChart.data.datasets[clickedDatasetIndex]) {
+                                const clickedProject = myBarChart.data.datasets[clickedDatasetIndex].label;
+
+                                console.log(`Project clicked: ${clickedProject}`);
+
+                                // Update the ppvTypeChart based on the selected project
+                                updatePpvTypeChart(clickedProject);
+
+                                // Display the modal
+                                showModal(clickedProject);
+                            }
+                        }
+                    };
+
+                },
+            });
+
+            function showModal(product, value) {
+                // Implement this function to display a modal with the clicked product and value
+                console.log(`Showing modal for ${product} with value ${value}`);
+            }
+
+            function showModal(product, value) {
+                // Replace this with your modal display logic (e.g., show a Bootstrap modal)
+                $("#sumpermoduleModal").modal("show");
+
+                // You can also update the modal content based on the clicked data
+                $("#modal_product").html(`${product}`);
+            }
+
+            // // Function to display the modal (replace this with your actual modal logic)
+            // function showModal(product, value) {
+            //     // Replace this with your modal display logic (e.g., show a Bootstrap modal)
+            //     $("#sumpermoduleModal").modal("show");
+            //     // You can also update the modal content based on the clicked data
+            //     $("#modal_product").html(`${product}`);
+            // }
+        });
+    </script>
     <script>
         function viewStatus(button) {
             // Get the data-id attribute (ID of the selected row)
@@ -837,6 +1117,30 @@ include_once '../controllers/approver_dashboard_data.php';
             handleTableSearch('#pendingTable', '#partNumberSearch1', 4);
             handleTableSearch('#approvedTable', '#partNumberSearch2', 4);
             handleTableSearch('#disapprovedTable', '#partNumberSearch3', 4);
+
+            $('.deltaPN-row').each(function() {
+                var deltaPN = $(this).data('id');
+                var cell = $(this);
+
+                // Perform AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: '../controllers/get_ppv_data.php',
+                    dataType: "JSON",
+                    data: {
+                        check: true,
+                        deltaPN: deltaPN
+                    },
+                    success: function(response) {
+                        var data = response;
+                        if (data.status === 'exists') {
+                            cell.addClass('text-danger fw-bold');
+                        } else {
+                            cell.removeClass('text-danger fw-bold');
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>

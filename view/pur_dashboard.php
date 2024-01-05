@@ -77,7 +77,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         </div>
         <!-- Pending Modal -->
         <div class="modal fade" id="pendingModal" tabindex="-1" aria-labelledby="pendingModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header bg-warning text-white">
                         <h1 class="modal-title fs-5" id="pendingModalLabel">Pending Request/s</h1>
@@ -128,7 +128,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         </div>
         <!-- Approved Modal -->
         <div class="modal fade" id="approvedModal" tabindex="-1" aria-labelledby="approvedModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header bg-success text-white">
                         <h1 class="modal-title fs-5" id="approvedModalLabel">Approved Request/s</h1>
@@ -171,7 +171,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
         </div>
         <!-- Disapproved Modal -->
         <div class="modal fade" id="disapprovedModal" tabindex="-1" aria-labelledby="disapprovedModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header bg-danger text-white">
                         <h1 class="modal-title fs-5" id="disapprovedModalLabel">Disapproved Request/s</h1>
