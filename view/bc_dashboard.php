@@ -114,12 +114,17 @@ include_once '../controllers/approver_dashboard_data.php';
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-flex justify-content-end">
-                        <div class="form-group my-auto">
-                            <label for="partNumberSearch2" class="form-label fw-bold">Search by Part Number: </label>
-                        </div>
-                        <div class="form-group mb-2 my-auto">
-                            <input type="text" class="form-control" id="partNumberSearch2" placeholder="Enter Part Number">
+                    <div class="row">
+                        <div class="d-lg-flex justify-content-between">
+                            <div class="mb-2 my-auto">
+                                <button class="btn btn-success btn-sm" data-mdb-ripple-color="dark" id="exportApproved">Export to Excel</button>
+                            </div>
+                            <div class="mb-2 my-auto">
+                                <div class="form-outline">
+                                    <input type="text" class="form-control bg-light" id="partNumberSearch2">
+                                    <label class="form-label fw-bold text-dark" for="partNumberSearch2">Search by Part Number</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -390,7 +395,7 @@ include_once '../controllers/approver_dashboard_data.php';
             <div class="modal-content">
                 <div class="modal-header text-bg-primary">
                     <h1 class="modal-title fs-5 fw-bold" id="viewRequest"></h1>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" id="close"></button>
                 </div>
                 <div class="modal-body bg-secondary-subtle">
                     <div class="row g-2 justify-content-between mb-2">
@@ -697,7 +702,7 @@ include_once '../controllers/approver_dashboard_data.php';
                             </div>
                             <div class="col-sm-4 col-md-4 col-lg-4">
                                 <div class="form-outline">
-                                    <input type="text" class="form-control bg-light" id="Status" readonly>
+                                    <input type="text" class="form-control bg-light fw-bold" id="Status" readonly>
                                     <label class="form-label fw-bold text-dark" for="Status">Status</label>
                                 </div>
                             </div>
@@ -1090,6 +1095,7 @@ include_once '../controllers/approver_dashboard_data.php';
                     $("#Remarks").val(response.Remarks);
                     // Show the modal
                     $("#viewModal").modal("show");
+                    $("#approvedModal").modal("hide");
                 },
                 error: function(xhr, status, error) {
                     console.error("Ajax request failed with status: " + status);
@@ -1113,6 +1119,11 @@ include_once '../controllers/approver_dashboard_data.php';
                     });
                 });
             }
+
+            $("#close").on('click', function() {
+                $("#viewModal").modal("hide");
+                $("#approvedModal").modal("show");
+            });
 
             handleTableSearch('#pendingTable', '#partNumberSearch1', 4);
             handleTableSearch('#approvedTable', '#partNumberSearch2', 4);
@@ -1138,6 +1149,33 @@ include_once '../controllers/approver_dashboard_data.php';
                         } else {
                             cell.removeClass('text-danger fw-bold');
                         }
+                    }
+                });
+            });
+            // EXPORT APPROVED DATA TO EXCEL
+            $('#exportApproved').on('click', function() {
+                // AJAX request to call the PHP function and pass values
+                $.ajax({
+                    type: 'POST',
+                    url: '../controllers/export2excel.php',
+                    data: {
+                        export: true,
+                    },
+                    success: function(response) {
+                        // Handle the response from the PHP function
+                        console.log(response);
+
+                        // Check if the response indicates success
+                        if (response === 'success') {
+                            // Trigger the file download
+                            window.location.href = '../controllers/download.php';
+                        } else {
+                            // Handle error
+                            console.error('Error:', response);
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
                     }
                 });
             });

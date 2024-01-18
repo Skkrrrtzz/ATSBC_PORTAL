@@ -165,7 +165,7 @@
                                     <label class="form-label fw-bold text-black" for="Qty_to_Purchase_from_Vendor_1">Qty to Purchase from Vendor 1</label>
                                 </div>
                                 <div class="col-5 col-md-2 col-lg-2 form-floating">
-                                    <input type="text" class="form-control" name="Total_Amt_1" id="Total_Amt_1">
+                                    <input type="text" class="form-control" name="Total_Amt_1" id="Total_Amt_1" readonly>
                                     <label class="form-label fw-bold text-black" for="Total_Amt_1">Total Amt</label>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                                     <label class="form-label fw-bold text-black" for="Qty_to_Purchase_from_Vendor_2">Qty to Purchase from Vendor 2</label>
                                 </div>
                                 <div class="col-5 col-md-2 col-lg-2 form-floating">
-                                    <input type="text" class="form-control" name="Total_Amt_2" id="Total_Amt_2">
+                                    <input type="text" class="form-control" name="Total_Amt_2" id="Total_Amt_2" readonly>
                                     <label class="form-label fw-bold text-black" for="Total_Amt_2">Total Amt</label>
                                 </div>
                             </div>

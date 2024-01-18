@@ -573,7 +573,7 @@ include_once '../controllers/apv_commands.php';
                             $("#QBOM_Unit_Price").val(response.message);
 
                             let QBOM_Unit_Price = parseFloat(response.message);
-
+                            // let QBOM_Unit_Price = parseFloat(response.message.toFixed(2));
                             // get the purchase qty
                             let Purchase_Qty = parseFloat($("#Purchase_Qty").val()) || 0;
 
