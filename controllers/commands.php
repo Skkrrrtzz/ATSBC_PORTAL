@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // User does not exist, proceed with insertion
                 $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-                $insertSql = "INSERT INTO users (username, password, name, email, dept, role) VALUES (:username, :password, :name, :email, :dept, :role, :position)";
+                $insertSql = "INSERT INTO users (username, password, name, email, dept, role, position) VALUES (:username, :password, :name, :email, :dept, :role, :position)";
 
                 $stmt = $pdo->prepare($insertSql);
 

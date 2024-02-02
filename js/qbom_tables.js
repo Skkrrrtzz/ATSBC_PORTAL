@@ -1502,9 +1502,6 @@ $(document).ready(function () {
       data: "Rev",
     },
     {
-      data: "Drawing_Sequence_Number",
-    },
-    {
       data: "Sequence",
     },
     {
@@ -1609,9 +1606,6 @@ $(document).ready(function () {
     },
     {
       data: "Rev",
-    },
-    {
-      data: "Drawing_Sequence_Number",
     },
     {
       data: "Sequence",
@@ -1720,9 +1714,6 @@ $(document).ready(function () {
       data: "Rev",
     },
     {
-      data: "Drawing_Sequence_Number",
-    },
-    {
       data: "Sequence",
     },
     {
@@ -1827,9 +1818,6 @@ $(document).ready(function () {
     },
     {
       data: "Rev",
-    },
-    {
-      data: "Drawing_Sequence_Number",
     },
     {
       data: "Sequence",
@@ -1938,9 +1926,6 @@ $(document).ready(function () {
       data: "Rev",
     },
     {
-      data: "Drawing_Sequence_Number",
-    },
-    {
       data: "Sequence",
     },
     {
@@ -2045,9 +2030,6 @@ $(document).ready(function () {
     },
     {
       data: "Rev",
-    },
-    {
-      data: "Drawing_Sequence_Number",
     },
     {
       data: "Sequence",

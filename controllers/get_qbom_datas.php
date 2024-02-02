@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Function to fetch data from the database or cache
         function fetchData($pdo, $table, $cacheFile)
         {
-            if (file_exists($cacheFile) && time() - filemtime($cacheFile) < 3600) {
+            if (file_exists($cacheFile) && time() - filemtime($cacheFile) < 1) {
                 // Use cached data
                 return json_decode(file_get_contents($cacheFile), true);
             }

@@ -138,7 +138,7 @@ $("#Current_Vendor_Price, #Qty_to_Purchase_from_Vendor_1").on(
     // Get the values from the input fields
     var currentVendorPrice = parseFloat($("#Current_Vendor_Price").val()) || 0;
     var qtyToPurchaseFromVendor =
-      parseInt($("#Qty_to_Purchase_from_Vendor_1").val()) || 0;
+      parseFloat($("#Qty_to_Purchase_from_Vendor_1").val()) || 0;
     // Calculate the total amount
     var totalAmt = currentVendorPrice * qtyToPurchaseFromVendor;
 
@@ -151,7 +151,7 @@ $("#New_Vendor_Price, #Qty_to_Purchase_from_Vendor_2").on("input", function () {
   // Get the values from the input fields
   var NewVendorPrice = parseFloat($("#New_Vendor_Price").val()) || 0;
   var qtyToPurchaseFromVendor2 =
-    parseInt($("#Qty_to_Purchase_from_Vendor_2").val()) || 0;
+    parseFloat($("#Qty_to_Purchase_from_Vendor_2").val()) || 0;
   // Calculate the total amount
   var totalAmt2 = NewVendorPrice * qtyToPurchaseFromVendor2;
 

@@ -293,7 +293,7 @@
                     $("#Total_Amt_1").val(response.Total_Amt_1);
                     console.log(response.New_Vendor);
                     // Vendor 2
-                    if (response.New_Vendor !== null && response.New_Vendor.trim() !== '') {
+                    if (response.New_Vendor !== null) {
                         $("#New_Vendor").val(response.New_Vendor);
                         $("#New_Vendor_Price").val(response.New_Price_2);
                         $("#Currency_2").val(response.Currency_2);

@@ -75,7 +75,7 @@ include_once '../controllers/approver_dashboard_data.php';
             <div class="col-md-12 col-xl-6 my-2">
                 <div class="card ">
                     <div class="card-body">
-                        <h6 class="card-title text-primary fw-bold">Summary per module</h6>
+                        <h6 class="card-title text-primary fw-bold">Summary per module for month of <?= date('F'); ?></h6>
                         <canvas id="sumPermodule"></canvas>
                     </div>
                 </div>
@@ -395,7 +395,7 @@ include_once '../controllers/approver_dashboard_data.php';
             <div class="modal-content">
                 <div class="modal-header text-bg-primary">
                     <h1 class="modal-title fs-5 fw-bold" id="viewRequest"></h1>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" id="close"></button>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close" id="closeModal"></button>
                 </div>
                 <div class="modal-body bg-secondary-subtle">
                     <div class="row g-2 justify-content-between mb-2">
@@ -1095,7 +1095,18 @@ include_once '../controllers/approver_dashboard_data.php';
                     $("#Remarks").val(response.Remarks);
                     // Show the modal
                     $("#viewModal").modal("show");
-                    $("#approvedModal").modal("hide");
+                    // check the status then open the modal accordingly
+                    if (status.val() === "Approved") {
+                        $("#approvedModal").modal("hide");
+                        $("#viewModal").modal("show");
+                    } else if (status.val() === "Disapproved") {
+                        $("#disapprovedModal").modal("hide");
+                        $("#viewModal").modal("show");
+                    } else {
+                        $("#pendingModal").modal("hide");
+                        $("#viewModal").modal("show");
+                    }
+
                 },
                 error: function(xhr, status, error) {
                     console.error("Ajax request failed with status: " + status);
@@ -1119,11 +1130,6 @@ include_once '../controllers/approver_dashboard_data.php';
                     });
                 });
             }
-
-            $("#close").on('click', function() {
-                $("#viewModal").modal("hide");
-                $("#approvedModal").modal("show");
-            });
 
             handleTableSearch('#pendingTable', '#partNumberSearch1', 4);
             handleTableSearch('#approvedTable', '#partNumberSearch2', 4);
@@ -1152,6 +1158,18 @@ include_once '../controllers/approver_dashboard_data.php';
                     }
                 });
             });
+            // OPEN APPROVED AND DISAPPROVED MODAL
+            $("#closeModal").on("click", function() {
+                var status = $("#Status").val();
+                if ($("#viewModal").is(':visible') && status == "Approved") {
+                    $("#approvedModal").modal("show");
+                } else if ($("#viewModal").is(':visible') && status === "Disapproved") {
+                    $("#disapprovedModal").modal("show");
+                } else {
+                    $("#pendingModal").modal("show");
+                }
+            });
+
             // EXPORT APPROVED DATA TO EXCEL
             $('#exportApproved').on('click', function() {
                 // AJAX request to call the PHP function and pass values
