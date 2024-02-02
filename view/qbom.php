@@ -1264,7 +1264,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1304,7 +1303,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1349,7 +1347,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1389,7 +1386,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1434,7 +1430,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1474,7 +1469,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1519,7 +1513,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1559,7 +1552,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1604,7 +1596,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1644,7 +1635,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1689,7 +1679,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
@@ -1729,7 +1718,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>QPA 0</th>
                                 <th>UoM</th>
                                 <th>Rev</th>
-                                <th>Drawing Sequence Number</th>
                                 <th>Sequence</th>
                                 <th>Original Unit Price</th>
                                 <th>Original Currency</th>
