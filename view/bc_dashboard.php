@@ -256,6 +256,9 @@ include_once '../controllers/approver_dashboard_data.php';
                                         <td>
                                             <?php if ($showButton) : ?>
                                                 <button class="btn btn-outline-primary btn-sm" data-mdb-ripple-color="dark" data-id="<?= $row['No'] ?>" onclick="viewStatus(this)">View</button>
+                                                <?php if ($showButton && $row['Status'] == 'IN-PROCESS') : ?>
+                                                    <i class="fa-solid fa-reply fa-2x text-primary" type="button" data-mdb-ripple-color="dark" onclick="transferApv(<?= $row['No'] ?>)" title="Click to transfer"></i>
+                                                <?php endif; ?>
                                             <?php else : ?>
                                                 <i class="fa-solid fa-eye fa-2x text-primary" type="button" onclick="viewModal(<?= $row['No'] ?>)"></i>
                                             <?php endif; ?>
@@ -987,6 +990,61 @@ include_once '../controllers/approver_dashboard_data.php';
                 }
             });
         }
+
+        function transferApv(No) {
+            // SWEET ALERT 2 FOR CONFIRMATION
+            Swal.fire({
+                title: 'Return this PPV Request #' + No + '?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Proceed',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../controllers/apv_commands.php",
+                        data: {
+                            No: No,
+                            return: true
+                        },
+                        dataType: "JSON",
+                        success: function(response) {
+                            console.log(response);
+
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Return Successful',
+                                    text: response.message,
+                                    toast: true,
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                }).then(function() {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Return Failed',
+                                    text: response.message,
+                                    toast: true,
+                                    position: "top-end",
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX error: ' + status + ', ' + error);
+                        }
+                    });
+                }
+            });
+        }
+
 
         function viewModal(No) {
             $.ajax({

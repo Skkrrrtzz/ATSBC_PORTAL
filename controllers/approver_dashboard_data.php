@@ -39,7 +39,7 @@ if (!empty($pendingCondition)) {
 
 // Query the database with the appropriate condition
 if (!empty($approverCondition)) {
-    $sql_aprvd_dashboard = "SELECT * FROM `ppv` WHERE $approverCondition";
+    $sql_aprvd_dashboard = "SELECT * FROM `ppv` WHERE $approverCondition ORDER BY No DESC";
     $stmt_aprvd_dashboard = $pdo->prepare($sql_aprvd_dashboard);
     $stmt_aprvd_dashboard->bindParam(':Name', $Name, PDO::PARAM_STR);
     $stmt_aprvd_dashboard->execute();

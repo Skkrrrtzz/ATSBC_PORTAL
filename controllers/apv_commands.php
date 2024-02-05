@@ -925,6 +925,36 @@ if (isset($_GET['No'])) {
         }
         echo json_encode($response);
         exit();
+    } elseif (isset($_POST['return'])) {
+        $No = $_POST['No'];
+        $Status = null;
+
+        try {
+
+            $updateApvSql = "UPDATE ppv SET Status = :status, Approver_Name_1 = NULL WHERE No = :No";
+            $stmt = $pdo->prepare($updateApvSql);
+            if (!$stmt) {
+                die('Error preparing SQL statement: ' . $pdo->errorInfo()[2]);
+            }
+            $stmt->bindParam(':status', $Status);
+            $stmt->bindParam(':No', $No);
+            // Return the result as JSON response
+            if ($stmt->execute()) {
+                $response = [
+                    'success' => true,
+                    'message' => 'No ' . $No . ' has been returned by Approver 1'
+                ];
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => 'Failed to return Request No ' . $No . ', Please contact the admin. Thanks!'
+                ];
+            }
+        } catch (PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+        }
+        echo json_encode($response);
+        exit();
     } else {
         echo "Error: Command not available, Please contact administrator.";
     }
