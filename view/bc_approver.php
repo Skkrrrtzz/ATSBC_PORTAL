@@ -537,6 +537,19 @@ include_once '../controllers/apv_commands.php';
                 $('#approved_check1').change(handleCheckboxChange('#approved_check1', '#approved_by_1', '#date_1', '#disapproved', '#disapproved_by', '#Disapproved'));
                 $('#disapproved').change(handleCheckboxChange('#disapproved', '#disapproved_by', '#date_1', '#approved_check1', '#approved_by_1', '#Approved'));
 
+                $('#disapproved').on('click', function() {
+                    var disapproved_check = $(this).is(':checked');
+                    // console.log('disapproved_check:', disapproved_check);
+
+                    if (disapproved_check) {
+                        // console.log('Removing "required" attribute');
+                        $("#Business_Control_Recommendation").removeAttr("required");
+                    } else {
+                        // console.log('Setting "required" attribute');
+                        $("#Business_Control_Recommendation").prop("required", true);
+                    }
+                });
+
                 // Initially hide the "other_ppv_type" input field
                 $("#other_ppv_type").hide();
                 let PPV_type = $("#PPV_Type").val();
@@ -774,15 +787,26 @@ include_once '../controllers/apv_commands.php';
                     let Variance_VS_QBOM_Price = $('#Variance_VS_QBOM_Price').val();
                     let approved_check1 = $('#approved_check1').is(':checked');
                     let disapproved_check = $('#disapproved').is(':checked');
+
+                    if (Conversion_Rate_Vendor_1 === "" || Conversion_Rate_Vendor_2 === "") {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Alert!',
+                            html: 'Please check the <span style="font-weight: bold;">Conversion Rate</span> before submitting.',
+                        });
+                        return false;
+                    }
+
                     if (!approved_check1 && !disapproved_check) {
                         // If checkbox is not checked, show a SweetAlert toast
                         Swal.fire({
                             icon: 'info',
                             title: 'Alert!',
-                            text: 'Please check the approval checkbox before submitting.',
+                            html: 'Please check the <span style="font-weight: bold;">Approval Checkbox</span> before submitting.',
                         });
-                        return false; // Prevent form submission
+                        return false;
                     }
+
                     let approved_by_1 = $('#approved_by_1').val();
                     let disapproved_by = $('#disapproved_by').val();
                     let date_1 = $('#date_1').val();

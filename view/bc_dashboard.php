@@ -74,9 +74,31 @@ include_once '../controllers/approver_dashboard_data.php';
         <div class="row">
             <div class="col-md-12 col-xl-6 my-2">
                 <div class="card ">
+                    <div class="card-header bg-primary">
+                        <div class="row mx-0">
+                            <div class="d-flex align-items-center">
+                                <h6 class="card-title text-white" id="month"></h6>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <h6 class="card-title text-primary fw-bold">Summary per module for month of <?= date('F'); ?></h6>
+                        <!-- <h6 class="card-title text-primary fw-bold">Summary per module for month of <?= date('F'); ?></h6> -->
+                        <div class="input-group mb-3">
+                            <label class="input-group-text text-bg-primary" for="monthFilter"><i class="fa-regular fa-calendar"></i></label>
+                            <input type="month" name="month" id="monthFilter">
+                        </div>
                         <canvas id="sumPermodule"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-6 my-2">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h6 class="card-title text-white">Summary of Chargeable to Cohu</h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- <h6 class="card-title text-primary fw-bold">Summary of Chargeable to Cohu</h6> -->
+                        <canvas id="sumPerProject"></canvas>
                     </div>
                 </div>
             </div>
@@ -725,223 +747,500 @@ include_once '../controllers/approver_dashboard_data.php';
     <script src="../assets/js/chartjs-plugin-datalabels.min.js"></script>
     <script>
         $(document).ready(function() {
-            $.ajax({
-                type: "POST",
-                url: "../controllers/get_ppv_data.php",
-                data: {
-                    PPV: true
-                },
-                dataType: "JSON",
-                success: function(response) {
-                    // Your data for the bar chart
-                    const currentDate = new Date();
-                    const currentMonth = currentDate.toLocaleString("default", {
-                        month: "short",
-                    });
-                    // Define an array of colors for each dataset
-                    const datasetColors = [
-                        "#2587ff",
-                        "#444e86",
-                        "#955196",
-                        "#dd5182",
-                        "#ff6e54",
-                        "#ffa600",
-                    ];
-                    // Group response data by project and calculate the sum of variance_vs_qbomprice for each project
-                    const groupedData = response.reduce((accumulator, current) => {
-                        const project = current.project;
-                        const variance = parseFloat(current.variance_vs_qbomprice);
+            // $.ajax({
+            //     type: "POST",
+            //     url: "../controllers/get_ppv_data.php",
+            //     data: {
+            //         PPV: true
+            //     },
+            //     dataType: "JSON",
+            //     success: function(response) {
+            //         // Your data for the bar chart
+            //         const currentDate = new Date();
+            //         const currentMonth = currentDate.toLocaleString("default", {
+            //             month: "short",
+            //         });
+            //         // Define an array of colors for each dataset
+            //         const datasetColors = [
+            //             "#2587ff",
+            //             "#444e86",
+            //             "#955196",
+            //             "#dd5182",
+            //             "#ff6e54",
+            //             "#ffa600",
+            //         ];
+            //         // Group response data by project and calculate the sum of variance_vs_qbomprice for each project
+            //         const groupedData = response.reduce((accumulator, current) => {
+            //             const project = current.project;
+            //             const variance = parseFloat(current.variance_vs_qbomprice);
 
-                        if (!accumulator[project]) {
-                            accumulator[project] = 0;
-                        }
+            //             if (!accumulator[project]) {
+            //                 accumulator[project] = 0;
+            //             }
 
-                        // console.log(`Adding ${variance} to ${project}. Current sum: ${accumulator[project]}`);
-                        accumulator[project] += variance;
+            //             // console.log(`Adding ${variance} to ${project}. Current sum: ${accumulator[project]}`);
+            //             accumulator[project] += variance;
 
-                        return accumulator;
-                    }, {});
+            //             return accumulator;
+            //         }, {});
 
-                    // Round the sums to two decimal places
-                    for (const project in groupedData) {
-                        if (groupedData.hasOwnProperty(project)) {
-                            groupedData[project] = parseFloat(groupedData[project]).toFixed(2);
-                        }
-                    }
+            //         // Round the sums to two decimal places
+            //         for (const project in groupedData) {
+            //             if (groupedData.hasOwnProperty(project)) {
+            //                 groupedData[project] = parseFloat(groupedData[project]).toFixed(2);
+            //             }
+            //         }
 
-                    // Log the final groupedData
-                    // console.log('Final groupedData:', groupedData);
+            //         // Log the final groupedData
+            //         // console.log('Final groupedData:', groupedData);
 
 
-                    // Create an array to hold datasets for each project
-                    const datasets = Object.entries(groupedData).map(
-                        ([project, sumVariance], index) => {
-                            return {
-                                label: project,
-                                data: [sumVariance],
-                                backgroundColor: datasetColors[index],
-                                borderColor: datasetColors[index],
-                                borderWidth: 1,
-                            };
-                        }
-                    );
+            //         // Create an array to hold datasets for each project
+            //         const datasets = Object.entries(groupedData).map(
+            //             ([project, sumVariance], index) => {
+            //                 return {
+            //                     label: project,
+            //                     data: [sumVariance],
+            //                     backgroundColor: datasetColors[index],
+            //                     borderColor: datasetColors[index],
+            //                     borderWidth: 1,
+            //                 };
+            //             }
+            //         );
 
-                    // Get the canvas element
-                    const ctx = document.getElementById("sumPermodule").getContext("2d");
+            //         // Get the canvas element
+            //         const ctx = document.getElementById("sumPermodule").getContext("2d");
 
-                    // Create the bar chart
-                    const myBarChart = new Chart(ctx, {
-                        type: "bar",
-                        data: {
-                            labels: [currentMonth],
-                            datasets: datasets,
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                },
-                            },
-                            layout: {
-                                padding: {
-                                    top: 30,
-                                },
-                            },
-                            plugins: {
-                                datalabels: {
-                                    anchor: "end",
-                                    align: "end",
-                                    color: "black",
-                                    font: {
-                                        weight: "bold",
-                                    },
-                                    formatter: (value, context) => {
-                                        return "$" + value;
-                                    },
-                                },
-                                legend: {
-                                    labels: {
-                                        font: {
-                                            weight: "bold",
-                                        },
-                                    },
-                                    position: "bottom",
-                                },
-                            },
-                        },
-                        plugins: [ChartDataLabels],
-                    });
+            //         // Create the bar chart
+            //         const myBarChart = new Chart(ctx, {
+            //             type: "bar",
+            //             data: {
+            //                 labels: [currentMonth],
+            //                 datasets: datasets,
+            //             },
+            //             options: {
+            //                 scales: {
+            //                     y: {
+            //                         beginAtZero: true,
+            //                     },
+            //                 },
+            //                 layout: {
+            //                     padding: {
+            //                         top: 30,
+            //                     },
+            //                 },
+            //                 plugins: {
+            //                     datalabels: {
+            //                         anchor: "end",
+            //                         align: "end",
+            //                         color: "black",
+            //                         font: {
+            //                             weight: "bold",
+            //                         },
+            //                         formatter: (value, context) => {
+            //                             const sign = value < 0 ? "-$" : "$";
+            //                             return sign + Math.abs(value);
+            //                         },
+            //                     },
+            //                     legend: {
+            //                         labels: {
+            //                             font: {
+            //                                 weight: "bold",
+            //                             },
+            //                         },
+            //                         position: "bottom",
+            //                     },
+            //                 },
+            //             },
+            //             plugins: [ChartDataLabels],
+            //         });
 
-                    // Group data by project and PPV_Type
-                    const grpData = response.reduce((acc, item) => {
-                        const key = `${item.project}_${item.PPV_Type}`;
-                        acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
-                        return acc;
-                    }, {});
+            //         // Group data by project and PPV_Type
+            //         const grpData = response.reduce((acc, item) => {
+            //             const key = `${item.project}_${item.PPV_Type}`;
+            //             acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
+            //             return acc;
+            //         }, {});
 
-                    // Extract unique labels from the grouped data
-                    const uniqueLabels = Object.keys(grpData);
+            //         // Extract unique labels from the grouped data
+            //         const uniqueLabels = Object.keys(grpData);
 
-                    // PPV Type Chart
-                    const ppvTypeChartCanvas = document.getElementById("ppvTypeChart").getContext("2d");
-                    const ppvTypeChart = new Chart(ppvTypeChartCanvas, {
-                        type: "bar",
-                        data: {
-                            labels: uniqueLabels.map(label => label.split('_').join(' - ')), // Use a separator for project and PPV_Type
-                            datasets: [{
-                                label: "Sum of Vendor 1 VarianceVSQBOM",
-                                data: uniqueLabels.map(label => grpData[label]),
-                                backgroundColor: "rgba(75, 192, 192, 0.5)",
-                                borderColor: "rgba(75, 192, 192, 1)",
-                                borderWidth: 1,
-                            }],
-                        },
-                        options: {
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                },
-                            },
-                            layout: {
-                                padding: {
-                                    top: 30,
-                                },
-                            },
-                            plugins: {
-                                datalabels: {
-                                    anchor: "end",
-                                    align: "end",
-                                    color: "black",
-                                    font: {
-                                        weight: "bold",
-                                    },
-                                    formatter: (value, context) => {
-                                        return "$" + value;
-                                    },
-                                },
-                                legend: {
-                                    labels: {
-                                        font: {
-                                            weight: "bold",
-                                        },
-                                    },
-                                    position: "bottom",
-                                },
-                            },
-                        },
-                        plugins: [ChartDataLabels],
-                    });
-                    // Function to update ppvTypeChart based on selected project
-                    function updatePpvTypeChart(selectedProject) {
-                        const filteredData = response.filter(item => item.project === selectedProject);
+            //         // PPV Type Chart
+            //         const ppvTypeChartCanvas = document.getElementById("ppvTypeChart").getContext("2d");
+            //         const ppvTypeChart = new Chart(ppvTypeChartCanvas, {
+            //             type: "bar",
+            //             data: {
+            //                 labels: uniqueLabels.map(label => label.split('_').join(' - ')), // Use a separator for project and PPV_Type
+            //                 datasets: [{
+            //                     label: "Sum of Vendor 1 VarianceVSQBOM",
+            //                     data: uniqueLabels.map(label => grpData[label]),
+            //                     backgroundColor: "rgba(75, 192, 192, 0.5)",
+            //                     borderColor: "rgba(75, 192, 192, 1)",
+            //                     borderWidth: 1,
+            //                 }],
+            //             },
+            //             options: {
+            //                 maintainAspectRatio: false,
+            //                 scales: {
+            //                     y: {
+            //                         beginAtZero: true,
+            //                     },
+            //                 },
+            //                 layout: {
+            //                     padding: {
+            //                         top: 30,
+            //                     },
+            //                 },
+            //                 plugins: {
+            //                     datalabels: {
+            //                         anchor: "end",
+            //                         align: "end",
+            //                         color: "black",
+            //                         font: {
+            //                             weight: "bold",
+            //                         },
+            //                         formatter: (value, context) => {
+            //                             const sign = value < 0 ? "-$" : "$";
+            //                             return sign + Math.abs(value);
+            //                         },
+            //                     },
+            //                     legend: {
+            //                         labels: {
+            //                             font: {
+            //                                 weight: "bold",
+            //                             },
+            //                         },
+            //                         position: "bottom",
+            //                     },
+            //                 },
+            //             },
+            //             plugins: [ChartDataLabels],
+            //         });
+            //         // Function to update ppvTypeChart based on selected project
+            //         function updatePpvTypeChart(selectedProject) {
+            //             const filteredData = response.filter(item => item.project === selectedProject);
 
-                        // Group filtered data by project and PPV_Type
-                        const grpData = filteredData.reduce((acc, item) => {
-                            const key = `${item.project}_${item.PPV_Type}`;
-                            acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
-                            return acc;
-                        }, {});
+            //             // Group filtered data by project and PPV_Type
+            //             const grpData = filteredData.reduce((acc, item) => {
+            //                 const key = `${item.project}_${item.PPV_Type}`;
+            //                 acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
+            //                 return acc;
+            //             }, {});
 
-                        // Extract unique PPV_Type values from the grouped data
-                        const uniquePPVTypes = [...new Set(filteredData.map(item => item.PPV_Type))];
+            //             // Extract unique PPV_Type values from the grouped data
+            //             const uniquePPVTypes = [...new Set(filteredData.map(item => item.PPV_Type))];
 
-                        // Update ppvTypeChart data and labels
-                        ppvTypeChart.data.labels = uniquePPVTypes;
-                        ppvTypeChart.data.datasets[0].data = uniquePPVTypes.map(ppvType => parseFloat(grpData[`${selectedProject}_${ppvType}`]).toFixed(2));
+            //             // Update ppvTypeChart data and labels
+            //             ppvTypeChart.data.labels = uniquePPVTypes;
+            //             ppvTypeChart.data.datasets[0].data = uniquePPVTypes.map(ppvType => parseFloat(grpData[`${selectedProject}_${ppvType}`]).toFixed(2));
 
-                        // Update the chart
-                        ppvTypeChart.update();
-                    }
-                    // Add click event listener to the "sumPermodule" chart
-                    document.getElementById("sumPermodule").onclick = function(event) {
-                        const activePoints = myBarChart.getElementsAtEventForMode(
-                            event,
-                            "nearest", {
-                                intersect: true
-                            },
-                            false
-                        );
+            //             // Update the chart
+            //             ppvTypeChart.update();
+            //         }
+            //         // Add click event listener to the "sumPermodule" chart
+            //         document.getElementById("sumPermodule").onclick = function(event) {
+            //             const activePoints = myBarChart.getElementsAtEventForMode(
+            //                 event,
+            //                 "nearest", {
+            //                     intersect: true
+            //                 },
+            //                 false
+            //             );
 
-                        if (activePoints.length > 0) {
-                            const clickedDatasetIndex = activePoints[0].datasetIndex;
+            //             if (activePoints.length > 0) {
+            //                 const clickedDatasetIndex = activePoints[0].datasetIndex;
 
-                            if (myBarChart.data.datasets[clickedDatasetIndex]) {
-                                const clickedProject = myBarChart.data.datasets[clickedDatasetIndex].label;
+            //                 if (myBarChart.data.datasets[clickedDatasetIndex]) {
+            //                     const clickedProject = myBarChart.data.datasets[clickedDatasetIndex].label;
 
-                                console.log(`Project clicked: ${clickedProject}`);
+            //                     console.log(`Project clicked: ${clickedProject}`);
 
-                                // Update the ppvTypeChart based on the selected project
-                                updatePpvTypeChart(clickedProject);
+            //                     // Update the ppvTypeChart based on the selected project
+            //                     updatePpvTypeChart(clickedProject);
 
-                                // Display the modal
-                                showModal(clickedProject);
-                            }
-                        }
-                    };
+            //                     // Display the modal
+            //                     showModal(clickedProject);
+            //                 }
+            //             }
+            //         };
 
-                },
+            //     },
+            // });
+            // Populate the month dropdown
+            const monthFilter = $('#monthFilter');
+            // console.log(monthFilter);
+            const currentDate = new Date();
+            const currentMonthYear = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`;
+
+            // console.log('Current Month and Year:', currentMonthYear);
+            monthFilter.val(currentMonthYear);
+
+            // Function to get the month name from the "YYYY-MM" format
+            function getMonthNameFromYearMonth(currentMonthYear) {
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+
+                // Split the year and month
+                const [year, month] = currentMonthYear.split('-');
+
+                // Get the month name
+                const monthName = monthNames[parseInt(month) - 1];
+                $("#month").text("Summary per module for month of " +
+                    monthName);
+                // Return the month name
+                return monthName;
+            }
+            // Fetch data initially
+            fetchData(currentMonthYear);
+
+            // Fetch data when the month filter is changed
+            monthFilter.on('change', function() {
+                const selectedMonth = $(this).val();
+                fetchData(selectedMonth);
             });
+
+            // Function to perform AJAX request
+            function fetchData(selectedMonth) {
+                $.ajax({
+                    type: "POST",
+                    url: "../controllers/get_ppv_data.php",
+                    data: {
+                        PPV: true,
+                        selectedMonthYear: selectedMonth
+                    },
+                    dataType: "JSON",
+                    success: function(response) {
+                        // console.log(response);
+                        updateMyBarChart(response, selectedMonth);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Ajax request failed with status: " + status);
+                    }
+                });
+            }
+
+            let groupedData = {};
+            let datasets = [];
+            let grpData = {};
+            let projects = [];
+
+            function updateMyBarChart(response, selectedMonth) {
+                // console.log(response);
+                projects = response;
+                // Define an array of colors for each dataset
+                const datasetColors = [
+                    "#2587ff",
+                    "#444e86",
+                    "#955196",
+                    "#dd5182",
+                    "#ff6e54",
+                    "#ffa600",
+                ];
+                // Group response data by project and calculate the sum of variance_vs_qbomprice for each project
+                groupedData = response.reduce((accumulator, current) => {
+                    const project = current.project;
+                    const variance = parseFloat(current.variance_vs_qbomprice);
+
+                    if (!accumulator[project]) {
+                        accumulator[project] = 0;
+                    }
+
+                    // console.log(`Adding ${variance} to ${project}. Current sum: ${accumulator[project]}`);
+                    accumulator[project] += variance;
+
+                    return accumulator;
+                }, {});
+
+                // Round the sums to two decimal places
+                for (const project in groupedData) {
+                    if (groupedData.hasOwnProperty(project)) {
+                        groupedData[project] = parseFloat(groupedData[project]).toFixed(2);
+                    }
+                }
+
+                // Log the final groupedData
+                // console.log('Final groupedData:', groupedData);
+
+
+                // Create an array to hold datasets for each project
+                datasets = Object.entries(groupedData).map(
+                    ([project, sumVariance], index) => {
+                        return {
+                            label: project,
+                            data: [sumVariance],
+                            backgroundColor: datasetColors[index],
+                            borderColor: datasetColors[index],
+                            borderWidth: 1,
+                        };
+                    }
+                );
+
+                // Update the labels and datasets of myBarChart
+                myBarChart.data.labels = [getMonthNameFromYearMonth(selectedMonth)];
+                myBarChart.data.datasets = datasets;
+                myBarChart.update();
+
+                // Group data by project and PPV_Type
+                grpData = response.reduce((acc, item) => {
+                    const key = `${item.project}_${item.PPV_Type}`;
+                    acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
+                    return acc;
+                }, {});
+
+            }
+
+            // Function to update ppvTypeChart based on selected project
+            function updatePpvTypeChart(selectedProject) {
+                // Filter data based on selected project
+                const filteredData = projects.filter(item => item.project === selectedProject);
+
+                // Group filtered data by project and PPV_Type
+                const grpData = filteredData.reduce((acc, item) => {
+                    const key = `${item.project}_${item.PPV_Type}`;
+                    acc[key] = (acc[key] || 0) + parseFloat(item.variance_vs_qbomprice);
+                    return acc;
+                }, {});
+
+                // Extract unique PPV_Type values from the grouped data
+                const uniquePPVTypes = [...new Set(filteredData.map(item => item.PPV_Type))];
+
+                // Update ppvTypeChart data and labels
+                ppvTypeChart.data.labels = uniquePPVTypes;
+                ppvTypeChart.data.datasets[0].data = uniquePPVTypes.map(ppvType => parseFloat(grpData[`${selectedProject}_${ppvType}`]).toFixed(2));
+
+                ppvTypeChart.update();
+            }
+
+            // Get the canvas element
+            const ctx = document.getElementById("sumPermodule").getContext("2d");
+
+            // Create the bar chart
+            const myBarChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: [getMonthNameFromYearMonth(currentMonthYear)],
+                    datasets: datasets,
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                    layout: {
+                        padding: {
+                            top: 30,
+                        },
+                    },
+                    plugins: {
+                        datalabels: {
+                            anchor: "end",
+                            align: "end",
+                            color: "black",
+                            font: {
+                                weight: "bold",
+                            },
+                            formatter: (value, context) => {
+                                const sign = value < 0 ? "-$" : "$";
+                                return sign + Math.abs(value);
+                            },
+                        },
+                        legend: {
+                            labels: {
+                                font: {
+                                    weight: "bold",
+                                },
+                            },
+                            position: "bottom",
+                        },
+                    },
+                },
+                plugins: [ChartDataLabels],
+            });
+
+            // Extract unique labels from the grouped data
+            const uniqueLabels = Object.keys(grpData);
+
+            // PPV Type Chart
+            const ppvTypeChartCanvas = document.getElementById("ppvTypeChart").getContext("2d");
+            const ppvTypeChart = new Chart(ppvTypeChartCanvas, {
+                type: "bar",
+                data: {
+                    labels: uniqueLabels.map(label => label.split('_').join(' - ')), // Use a separator for project and PPV_Type
+                    datasets: [{
+                        label: "Sum of Vendor 1 VarianceVSQBOM",
+                        data: uniqueLabels.map(label => grpData[label]),
+                        backgroundColor: "rgba(75, 192, 192, 0.5)",
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        borderWidth: 1,
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                    layout: {
+                        padding: {
+                            top: 30,
+                        },
+                    },
+                    plugins: {
+                        datalabels: {
+                            anchor: "end",
+                            align: "end",
+                            color: "black",
+                            font: {
+                                weight: "bold",
+                            },
+                            formatter: (value, context) => {
+                                const sign = value < 0 ? "-$" : "$";
+                                return sign + Math.abs(value);
+                            },
+                        },
+                        legend: {
+                            labels: {
+                                font: {
+                                    weight: "bold",
+                                },
+                            },
+                            position: "bottom",
+                        },
+                    },
+                },
+                plugins: [ChartDataLabels],
+            });
+
+            // Add click event listener to the "sumPermodule" chart
+            document.getElementById("sumPermodule").onclick = function(event) {
+                const activePoints = myBarChart.getElementsAtEventForMode(
+                    event,
+                    "nearest", {
+                        intersect: true
+                    },
+                    false
+                );
+
+                if (activePoints.length > 0) {
+                    const clickedDatasetIndex = activePoints[0].datasetIndex;
+
+                    if (myBarChart.data.datasets[clickedDatasetIndex]) {
+                        const clickedProject = myBarChart.data.datasets[clickedDatasetIndex].label;
+
+                        console.log(`Project clicked: ${clickedProject}`);
+
+                        // Update the ppvTypeChart based on the selected project
+                        updatePpvTypeChart(clickedProject);
+
+                        // Display the modal
+                        showModal(clickedProject);
+                    }
+                }
+            };
 
             function showModal(product, value) {
                 // Implement this function to display a modal with the clicked product and value
@@ -963,6 +1262,81 @@ include_once '../controllers/approver_dashboard_data.php';
             //     // You can also update the modal content based on the clicked data
             //     $("#modal_product").html(`${product}`);
             // }
+
+            $.ajax({
+                type: "POST",
+                url: "../controllers/get_ppv_data.php",
+                data: {
+                    Charge2Cohu: true
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    // console.log(response);
+
+                    const projects = response.map(item => item.Project); // Extracting project names
+                    const VC2CValues = response.map(item => parseFloat(item.VC2C)); // Extracting VC2C values as floats
+                    // Define an array of colors for each dataset
+                    const datasetColors = [
+                        "#2587ff",
+                        "#444e86",
+                        "#955196",
+                        "#dd5182",
+                        "#ff6e54",
+                        "#ffa600",
+                    ];
+                    // Get the canvas element
+                    const ctx = document.getElementById("sumPerProject").getContext("2d");
+
+                    // Create the bar chart
+                    const myBarChart = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: projects,
+                            datasets: [{
+                                label: 'Variance Chargeable to COHU',
+                                data: VC2CValues,
+                                backgroundColor: datasetColors,
+                                borderColor: datasetColors,
+                                borderWidth: 1,
+                            }],
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                },
+                            },
+                            layout: {
+                                padding: {
+                                    top: 30,
+                                },
+                            },
+                            plugins: {
+                                datalabels: {
+                                    anchor: "end",
+                                    align: "end",
+                                    color: "black",
+                                    font: {
+                                        weight: "bold",
+                                    },
+                                    formatter: (value, context) => {
+                                        return "$" + value;
+                                    },
+                                },
+                                legend: {
+                                    labels: {
+                                        font: {
+                                            weight: "bold",
+                                        },
+                                    },
+                                    position: "bottom",
+                                },
+                            },
+                        },
+                        plugins: [ChartDataLabels],
+                    });
+                }
+            });
         });
     </script>
     <script>
@@ -1209,9 +1583,9 @@ include_once '../controllers/approver_dashboard_data.php';
                     success: function(response) {
                         var data = response;
                         if (data.status === 'exists') {
-                            cell.addClass('text-danger fw-bold');
+                            cell.addClass('bg-danger text-white fw-bold');
                         } else {
-                            cell.removeClass('text-danger fw-bold');
+                            cell.removeClass('bg-danger text-white fw-bold');
                         }
                     }
                 });
