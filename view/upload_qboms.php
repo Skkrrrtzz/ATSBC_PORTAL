@@ -42,7 +42,7 @@ if ($Role !== "Requestor" || $Role !== "Approver 2" || $Role !== "Approver 3") :
                                         <option value="IONIZER">IONIZER</option>
                                         <option value="RCMTP">RCMTP</option>
                                         <option value="SWAP">SWAP</option>
-                                        <!-- <option value="SWAP CABLE">SWAP CABLE</option> -->
+                                        <option value="SWAP CABLE">SWAP CABLE</option>
                                     </select>
                                     <label for="selectProduct">Product</label>
                                 </div>

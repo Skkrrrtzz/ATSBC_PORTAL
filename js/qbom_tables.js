@@ -34,10 +34,7 @@ $(document).ready(function () {
         {
           text: "<i class='fa-solid fa-arrow-rotate-left'></i> Reset",
           action: function (e, dt, button, config) {
-            dt.columns([
-              0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-              19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
-            ]).visible(true);
+            dt.columns().visible(true);
             dt.colReorder.reset();
           },
         },
@@ -1358,116 +1355,8 @@ $(document).ready(function () {
     },
   ];
 
-  // Define columns for swap_qbom_table
-  // var swapColumns = [
-  //   {
-  //     data: "ID",
-  //   },
-  //   {
-  //     data: "Changes_Analysis",
-  //   },
-  //   {
-  //     data: "Level",
-  //   },
-  //   {
-  //     data: "Item",
-  //   },
-  //   {
-  //     data: "Item_Description",
-  //   },
-  //   {
-  //     data: "Item_class",
-  //   },
-  //   {
-  //     data: "Qty",
-  //   },
-  //   {
-  //     data: "EXT_Qty",
-  //   },
-  //   {
-  //     data: "QPA_0",
-  //   },
-  //   {
-  //     data: "UoM",
-  //   },
-  //   {
-  //     data: "Rev",
-  //   },
-  //   {
-  //     data: "Drawing_Sequence_Number",
-  //   },
-  //   {
-  //     data: "Sequence",
-  //   },
-  //   {
-  //     data: "Original_Unit_Price",
-  //   },
-  //   {
-  //     data: "Original_Currency",
-  //   },
-  //   {
-  //     data: "Unit_Price_USD_before_Mark_Up",
-  //   },
-  //   {
-  //     data: "Standard_Part_Price",
-  //   },
-  //   {
-  //     data: "Purchase_Identification",
-  //   },
-  //   {
-  //     data: "Mark_Up",
-  //   },
-  //   {
-  //     data: "Unit_Price_USD_after_Mark_Up",
-  //   },
-  //   {
-  //     data: "Total_Price_USD",
-  //   },
-  //   {
-  //     data: "Agreement",
-  //   },
-  //   {
-  //     data: "Agreement_Price",
-  //   },
-  //   {
-  //     data: "Agreement_Currency",
-  //   },
-  //   {
-  //     data: "Spare_Part_Price_USD",
-  //   },
-  //   {
-  //     data: "Supplier_MOQ",
-  //   },
-  //   {
-  //     data: "Lead_Time",
-  //   },
-  //   {
-  //     data: "Supplier_Vendor",
-  //   },
-  //   {
-  //     data: "Supplier_Vendor_Reference",
-  //   },
-  //   {
-  //     data: "Manufacturer",
-  //   },
-  //   {
-  //     data: "Manufacturer_Reference_MPN",
-  //   },
-  //   {
-  //     data: "Agreement_Supplier_Name",
-  //   },
-  //   {
-  //     data: "Agreement_Supplier_Code",
-  //   },
-  //   {
-  //     data: "Life_Cycle",
-  //   },
-  //   {
-  //     data: "Purchasing_Restriction",
-  //   },
-  // ];
-  // Define columns for swap1_qbom_table
-  var swap1Columns = [
+  //Define columns for swapcable_qbom_table
+  var swapCableColumns = [
     {
       data: "ID",
     },
@@ -1558,12 +1447,105 @@ $(document).ready(function () {
     {
       data: "Manufacturer_Reference_MPN",
     },
+  ];
+  // Define columns for swap1_qbom_table
+  var swap1Columns = [
     {
-      data: "Agreement_Supplier_Name",
+      data: "ID",
     },
     {
-      data: "Agreement_Supplier_Code",
+      data: "Changes_Analysis",
     },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Agreement",
+    },
+    {
+      data: "Agreement_Price",
+    },
+    {
+      data: "Agreement_Currency",
+    },
+    {
+      data: "Spare_Part_Price_USD",
+    },
+    {
+      data: "Supplier_MOQ",
+    },
+    {
+      data: "Lead_Time",
+    },
+    // {
+    //   data: "Supplier_Vendor",
+    // },
+    // {
+    //   data: "Supplier_Vendor_Reference",
+    // },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    // {
+    //   data: "Agreement_Supplier_Name",
+    // },
+    // {
+    //   data: "Agreement_Supplier_Code",
+    // },
     {
       data: "Life_Cycle",
     },
@@ -1652,12 +1634,12 @@ $(document).ready(function () {
     {
       data: "Lead_Time",
     },
-    {
-      data: "Supplier_Vendor",
-    },
-    {
-      data: "Supplier_Vendor_Reference",
-    },
+    // {
+    //   data: "Supplier_Vendor",
+    // },
+    // {
+    //   data: "Supplier_Vendor_Reference",
+    // },
     {
       data: "Manufacturer",
     },
@@ -1758,24 +1740,24 @@ $(document).ready(function () {
     {
       data: "Lead_Time",
     },
-    {
-      data: "Supplier_Vendor",
-    },
-    {
-      data: "Supplier_Vendor_Reference",
-    },
+    // {
+    //   data: "Supplier_Vendor",
+    // },
+    // {
+    //   data: "Supplier_Vendor_Reference",
+    // },
     {
       data: "Manufacturer",
     },
     {
       data: "Manufacturer_Reference_MPN",
     },
-    {
-      data: "Agreement_Supplier_Name",
-    },
-    {
-      data: "Agreement_Supplier_Code",
-    },
+    // {
+    //   data: "Agreement_Supplier_Name",
+    // },
+    // {
+    //   data: "Agreement_Supplier_Code",
+    // },
     {
       data: "Life_Cycle",
     },
@@ -1864,12 +1846,12 @@ $(document).ready(function () {
     {
       data: "Lead_Time",
     },
-    {
-      data: "Supplier_Vendor",
-    },
-    {
-      data: "Supplier_Vendor_Reference",
-    },
+    // {
+    //   data: "Supplier_Vendor",
+    // },
+    // {
+    //   data: "Supplier_Vendor_Reference",
+    // },
     {
       data: "Manufacturer",
     },
@@ -1970,24 +1952,24 @@ $(document).ready(function () {
     {
       data: "Lead_Time",
     },
-    {
-      data: "Supplier_Vendor",
-    },
-    {
-      data: "Supplier_Vendor_Reference",
-    },
+    // {
+    //   data: "Supplier_Vendor",
+    // },
+    // {
+    //   data: "Supplier_Vendor_Reference",
+    // },
     {
       data: "Manufacturer",
     },
     {
       data: "Manufacturer_Reference_MPN",
     },
-    {
-      data: "Agreement_Supplier_Name",
-    },
-    {
-      data: "Agreement_Supplier_Code",
-    },
+    // {
+    //   data: "Agreement_Supplier_Name",
+    // },
+    // {
+    //   data: "Agreement_Supplier_Code",
+    // },
     {
       data: "Life_Cycle",
     },
@@ -2076,12 +2058,12 @@ $(document).ready(function () {
     {
       data: "Lead_Time",
     },
-    {
-      data: "Supplier_Vendor",
-    },
-    {
-      data: "Supplier_Vendor_Reference",
-    },
+    // {
+    //   data: "Supplier_Vendor",
+    // },
+    // {
+    //   data: "Supplier_Vendor_Reference",
+    // },
     {
       data: "Manufacturer",
     },
@@ -2162,11 +2144,7 @@ $(document).ready(function () {
     "../controllers/get_qbom_datas.php?rcmtp=1",
     rcmtpColumns
   );
-  // initializeDataTable(
-  //   "#swap_qbom_table",
-  //   "../controllers/get_qbom_datas.php?swap=1",
-  //   swapColumns
-  // );
+
   initializeDataTable(
     "#swap1_qbom_table",
     "../controllers/get_qbom_datas.php?swap1=1",
@@ -2201,5 +2179,11 @@ $(document).ready(function () {
     "#swap6_qbom_table",
     "../controllers/get_qbom_datas.php?swap6=1",
     swap6Columns
+  );
+
+  initializeDataTable(
+    "#swapcable_qbom_table",
+    "../controllers/get_qbom_datas.php?swapcable=1",
+    swapCableColumns
   );
 });

@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'OLB CABLE' => 'olbcable_qbom',
                 'PNP' => 'pnp_qbom',
                 'PNP CABLE' => 'pnpcable_qbom',
+                'SWAP CABLE' => 'swapcable_qbom',
                 'SWAP Housing' => 'swap1_qbom',
                 'SWAP Preciser' => 'swap2_qbom',
                 'SWAP Robot Add On' => 'swap3_qbom',
@@ -166,6 +167,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $table = 'swap5_qbom';
         } elseif (isset($_GET['swap6'])) {
             $table = 'swap6_qbom';
+        } elseif (isset($_GET['swapcable'])) {
+            $table = 'swapcable_qbom';
         } else {
             // Handle the case where no specific table is requested
             die("Invalid request");
@@ -413,6 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'PNP' => 'pnp_qbom',
             'PNP CABLE' => 'pnpcable_qbom',
             'OLB CABLE' => 'olbcable_qbom',
+            'SWAP CABLE' => 'swapcable_qbom',
         ];
 
         $swapTables = ['SWAP' => ['swap1_qbom', 'swap2_qbom', 'swap3_qbom', 'swap4_qbom', 'swap5_qbom', 'swap6_qbom']];

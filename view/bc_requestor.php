@@ -180,15 +180,15 @@
                             </div>
                             <div class="row g-2 mx-2 mb-2">
                                 <div class="col-sm-2 col-md-6 col-lg-4 form-floating">
-                                    <input type="text" class="form-control" name="New_Vendor" id="New_Vendor">
+                                    <input type="text" class="form-control" name="New_Vendor" id="New_Vendor" autocomplete="off">
                                     <label class="form-label fw-bold text-black" for="New_Vendor">New Vendor</label>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-lg-4 form-floating">
-                                    <input type="text" class="form-control" name="New_Vendor_Price" id="New_Vendor_Price">
+                                    <input type="text" class="form-control" name="New_Vendor_Price" id="New_Vendor_Price" autocomplete="off">
                                     <label class="form-label fw-bold text-black" for="New_Vendor_Price">New Vendor Price</label>
                                 </div>
                                 <div class="col-7 col-md-3 col-lg-4 form-floating">
-                                    <select class="form-select" name="Currency2" id="Currency2">
+                                    <select class="form-select" name="Currency2" id="Currency2" autocomplete="off">
                                         <option value="" selected>Select Currency</option>
                                         <option value="USD">USD</option>
                                         <option value="PHP">PHP</option>
@@ -197,23 +197,23 @@
                                     <label class="form-label fw-bold text-black" for="Currency2">Currency</label>
                                 </div>
                                 <div class="col-5 col-md-2 form-floating">
-                                    <input type="number" class="form-control" name="LT2" id="LT2">
+                                    <input type="number" class="form-control" name="LT2" id="LT2" autocomplete="off">
                                     <label class="form-label fw-bold text-black" for="LT2">LT</label>
                                 </div>
                                 <div class="col-6 col-md-2 form-floating">
-                                    <input type="number" class="form-control" name="SPQ2" id="SPQ2">
+                                    <input type="number" class="form-control" name="SPQ2" id="SPQ2" autocomplete="off">
                                     <label class="form-label fw-bold text-black" for="SPQ2">SPQ</label>
                                 </div>
                                 <div class="col-6 col-md-2 form-floating">
-                                    <input type="number" class="form-control" name="MOQ2" id="MOQ2">
+                                    <input type="number" class="form-control" name="MOQ2" id="MOQ2" autocomplete="off">
                                     <label class="form-label fw-bold text-black" for="MOQ2">MOQ</label>
                                 </div>
                                 <div class="col-7 col-md-4 col-lg-4 form-floating">
-                                    <input type="number" class="form-control" name="Qty_to_Purchase_from_Vendor_2" id="Qty_to_Purchase_from_Vendor_2">
+                                    <input type="number" class="form-control" name="Qty_to_Purchase_from_Vendor_2" id="Qty_to_Purchase_from_Vendor_2" autocomplete="off">
                                     <label class="form-label fw-bold text-black" for="Qty_to_Purchase_from_Vendor_2">Qty to Purchase from Vendor 2</label>
                                 </div>
                                 <div class="col-5 col-md-2 col-lg-2 form-floating">
-                                    <input type="text" class="form-control" name="Total_Amt_2" id="Total_Amt_2" readonly>
+                                    <input type="text" class="form-control" name="Total_Amt_2" id="Total_Amt_2" autocomplete="off" readonly>
                                     <label class="form-label fw-bold text-black" for="Total_Amt_2">Total Amt</label>
                                 </div>
                             </div>

@@ -249,7 +249,12 @@ include_once '../controllers/approver_dashboard_data.php';
                                 <?php foreach ($pending_result as $row) : ?>
                                     <tr>
                                         <td><?= $row['No'] ?></td>
-                                        <td><?= $row['Date_Received'] ?></td>
+                                        <td>
+                                            <?= $row['Date_Received'] ?>
+                                            <?php if (!empty($row['Date_Updated'])) : ?>
+                                                <span class="badge badge-danger" type="button" data-mdb-placement="right" title="<?= $row['Date_Updated']; ?>">UPDATED</span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td><?= $row['Requestor'] ?></td>
                                         <td><?= $row['Project'] ?></td>
                                         <!-- <td><?= $row['Delta_PN'] ?></td> -->
@@ -276,14 +281,18 @@ include_once '../controllers/approver_dashboard_data.php';
 
                                         <td><span class="badge badge-success"><?= $approverName ?></span></td>
                                         <td>
-                                            <?php if ($showButton) : ?>
+                                            <i class="fa-solid fa-eye fa-2x text-primary" type="button" onclick="viewModal(<?= $row['No'] ?>)" title="Click to view"></i>
+                                            <?php if ($row['Status'] == 'IN-PROCESS') : ?>
+                                                <i class="fa-solid fa-reply fa-2x text-primary" type="button" data-mdb-ripple-color="dark" onclick="transferApv(<?= $row['No'] ?>)" title="Click to transfer"></i>
+                                            <?php endif; ?>
+                                            <!-- <?php if ($showButton) : ?>
                                                 <button class="btn btn-outline-primary btn-sm" data-mdb-ripple-color="dark" data-id="<?= $row['No'] ?>" onclick="viewStatus(this)">View</button>
                                                 <?php if ($showButton && $row['Status'] == 'IN-PROCESS') : ?>
                                                     <i class="fa-solid fa-reply fa-2x text-primary" type="button" data-mdb-ripple-color="dark" onclick="transferApv(<?= $row['No'] ?>)" title="Click to transfer"></i>
                                                 <?php endif; ?>
                                             <?php else : ?>
                                                 <i class="fa-solid fa-eye fa-2x text-primary" type="button" onclick="viewModal(<?= $row['No'] ?>)"></i>
-                                            <?php endif; ?>
+                                            <?php endif; ?> -->
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -739,6 +748,9 @@ include_once '../controllers/approver_dashboard_data.php';
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer" id="OpenPPV">
+                    <button class="btn btn-primary btn-sm fw-bold" data-mdb-ripple-color="dark" id="Open" title="Click to view">OPEN</button>
                 </div>
             </div>
         </div>
@@ -1340,9 +1352,8 @@ include_once '../controllers/approver_dashboard_data.php';
         });
     </script>
     <script>
-        function viewStatus(button) {
-            // Get the data-id attribute (ID of the selected row)
-            var No = button.getAttribute("data-id");
+        function viewStatus(No) {
+            // AJAX request to call the PHP function and pass values
             let status = "IN-PROCESS";
             let apv_Name = "<?php echo $Name; ?>";
             let apv_Role = "<?php echo $Role; ?>";
@@ -1538,6 +1549,15 @@ include_once '../controllers/approver_dashboard_data.php';
                         $("#pendingModal").modal("hide");
                         $("#viewModal").modal("show");
                     }
+                    $("#OpenPPV").show();
+                    if (response.Status === 'DONE') {
+                        $("#OpenPPV").hide();
+                    }
+                    // Open the PPV
+                    $("#Open").on("click", function() {
+                        viewStatus(response.No);
+                    });
+
 
                 },
                 error: function(xhr, status, error) {

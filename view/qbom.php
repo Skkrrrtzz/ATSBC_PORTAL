@@ -69,9 +69,9 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="rcmtp-tab" data-mdb-toggle="tab" data-mdb-target="#rcmtp_tab_pane" type="button" role="tab" aria-controls="rcmtp_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> RCMTP QBOM</button>
             </li>
-            <!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="swap-tab" data-mdb-toggle="tab" data-mdb-target="#swap_tab_pane" type="button" role="tab" aria-controls="swap_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> SWAP QBOM</button>
-        </li> -->
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="swapcable-tab" data-mdb-toggle="tab" data-mdb-target="#swapcable_tab_pane" type="button" role="tab" aria-controls="swapcable_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> SWAP CABLE</button>
+            </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="swap1-tab" data-mdb-toggle="tab" data-mdb-target="#swap1_tab_pane" type="button" role="tab" aria-controls="swap1_tab_pane" aria-selected="false"><i class="fa-regular fa-folder-open"></i> SWAP Housing QBOM</button>
             </li>
@@ -1163,6 +1163,81 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                     </table>
                 </div>
             </div>
+            <div class="tab-pane fade" id="swapcable_tab_pane" role="tabpanel" aria-labelledby="swapcable-tab" tabindex="0">
+                <div class="table-responsive my-2 mx-1">
+                    <table class="table table-striped table-hover table-bordered table-sm text-nowrap" style="width:100%" id="swapcable_qbom_table">
+                        <thead class="table-primary fw-bold">
+                            <tr>
+                                <th>ID</th>
+                                <th>Changes Analysis</th>
+                                <th>Level</th>
+                                <th>Item</th>
+                                <th>Item Description</th>
+                                <th>Item class</th>
+                                <th>Qty</th>
+                                <th>EXT Qty</th>
+                                <th>QPA 0</th>
+                                <th>UoM</th>
+                                <th>Rev</th>
+                                <th>Sequence</th>
+                                <th>Original Unit Price</th>
+                                <th>Original Currency</th>
+                                <th>Unit Price USD before Mark Up</th>
+                                <th>Standard Part Price</th>
+                                <th>Purchase Identification</th>
+                                <th>Mark Up</th>
+                                <th>Unit Price USD after Mark Up</th>
+                                <th>Total Price USD</th>
+                                <th>Agreement</th>
+                                <th>Agreement Price</th>
+                                <th>Agreement Currency</th>
+                                <th>Spare Part Price USD</th>
+                                <th>Supplier MOQ</th>
+                                <th>Lead Time</th>
+                                <th>Supplier Vendor</th>
+                                <th>Supplier Vendor Reference</th>
+                                <th>Manufacturer</th>
+                                <th>Manufacturer Reference MPN</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot class="table-primary fw-bold">
+                            <tr>
+                                <th>ID</th>
+                                <th>Changes Analysis</th>
+                                <th>Level</th>
+                                <th>Item</th>
+                                <th>Item Description</th>
+                                <th>Item class</th>
+                                <th>Qty</th>
+                                <th>EXT Qty</th>
+                                <th>QPA 0</th>
+                                <th>UoM</th>
+                                <th>Rev</th>
+                                <th>Sequence</th>
+                                <th>Original Unit Price</th>
+                                <th>Original Currency</th>
+                                <th>Unit Price USD before Mark Up</th>
+                                <th>Standard Part Price</th>
+                                <th>Purchase Identification</th>
+                                <th>Mark Up</th>
+                                <th>Unit Price USD after Mark Up</th>
+                                <th>Total Price USD</th>
+                                <th>Agreement</th>
+                                <th>Agreement Price</th>
+                                <th>Agreement Currency</th>
+                                <th>Spare Part Price USD</th>
+                                <th>Supplier MOQ</th>
+                                <th>Lead Time</th>
+                                <th>Supplier Vendor</th>
+                                <th>Supplier Vendor Reference</th>
+                                <th>Manufacturer</th>
+                                <th>Manufacturer Reference MPN</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
             <!-- <div class="tab-pane fade" id="swap_tab_pane" role="tabpanel" aria-labelledby="swap-tab" tabindex="0">
             <div class="table-responsive my-2 mx-1">
                 <table class="table table-striped table-hover table-bordered table-sm text-nowrap" style="width:100%" id="swap_qbom_table">
@@ -1279,55 +1354,13 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Spare Part Price USD</th>
                                 <th>Supplier MOQ</th>
                                 <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
                                 <th>Manufacturer</th>
                                 <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
                                 <th>Life Cycle</th>
                                 <th>Purchasing Restriction</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot class="table-primary fw-bold">
-                            <tr>
-                                <th>ID</th>
-                                <th>Changes Analysis</th>
-                                <th>Level</th>
-                                <th>Item</th>
-                                <th>Item Description</th>
-                                <th>Item class</th>
-                                <th>Qty</th>
-                                <th>EXT Qty</th>
-                                <th>QPA 0</th>
-                                <th>UoM</th>
-                                <th>Rev</th>
-                                <th>Sequence</th>
-                                <th>Original Unit Price</th>
-                                <th>Original Currency</th>
-                                <th>Unit Price USD before Mark Up</th>
-                                <th>Standard Part Price</th>
-                                <th>Purchase Identification</th>
-                                <th>Mark Up</th>
-                                <th>Unit Price USD after Mark Up</th>
-                                <th>Total Price USD</th>
-                                <th>Agreement</th>
-                                <th>Agreement Price</th>
-                                <th>Agreement Currency</th>
-                                <th>Spare Part Price USD</th>
-                                <th>Supplier MOQ</th>
-                                <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
-                                <th>Manufacturer</th>
-                                <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
-                                <th>Life Cycle</th>
-                                <th>Purchasing Restriction</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -1362,8 +1395,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Spare Part Price USD</th>
                                 <th>Supplier MOQ</th>
                                 <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
                                 <th>Manufacturer</th>
                                 <th>Manufacturer Reference MPN</th>
                                 <th>Agreement Supplier Name</th>
@@ -1373,44 +1404,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot class="table-primary fw-bold">
-                            <tr>
-                                <th>ID</th>
-                                <th>Changes Analysis</th>
-                                <th>Level</th>
-                                <th>Item</th>
-                                <th>Item Description</th>
-                                <th>Item class</th>
-                                <th>Qty</th>
-                                <th>EXT Qty</th>
-                                <th>QPA 0</th>
-                                <th>UoM</th>
-                                <th>Rev</th>
-                                <th>Sequence</th>
-                                <th>Original Unit Price</th>
-                                <th>Original Currency</th>
-                                <th>Unit Price USD before Mark Up</th>
-                                <th>Standard Part Price</th>
-                                <th>Purchase Identification</th>
-                                <th>Mark Up</th>
-                                <th>Unit Price USD after Mark Up</th>
-                                <th>Total Price USD</th>
-                                <th>Agreement</th>
-                                <th>Agreement Price</th>
-                                <th>Agreement Currency</th>
-                                <th>Spare Part Price USD</th>
-                                <th>Supplier MOQ</th>
-                                <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
-                                <th>Manufacturer</th>
-                                <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
-                                <th>Life Cycle</th>
-                                <th>Purchasing Restriction</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -1445,55 +1438,13 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Spare Part Price USD</th>
                                 <th>Supplier MOQ</th>
                                 <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
                                 <th>Manufacturer</th>
                                 <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
                                 <th>Life Cycle</th>
                                 <th>Purchasing Restriction</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot class="table-primary fw-bold">
-                            <tr>
-                                <th>ID</th>
-                                <th>Changes Analysis</th>
-                                <th>Level</th>
-                                <th>Item</th>
-                                <th>Item Description</th>
-                                <th>Item class</th>
-                                <th>Qty</th>
-                                <th>EXT Qty</th>
-                                <th>QPA 0</th>
-                                <th>UoM</th>
-                                <th>Rev</th>
-                                <th>Sequence</th>
-                                <th>Original Unit Price</th>
-                                <th>Original Currency</th>
-                                <th>Unit Price USD before Mark Up</th>
-                                <th>Standard Part Price</th>
-                                <th>Purchase Identification</th>
-                                <th>Mark Up</th>
-                                <th>Unit Price USD after Mark Up</th>
-                                <th>Total Price USD</th>
-                                <th>Agreement</th>
-                                <th>Agreement Price</th>
-                                <th>Agreement Currency</th>
-                                <th>Spare Part Price USD</th>
-                                <th>Supplier MOQ</th>
-                                <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
-                                <th>Manufacturer</th>
-                                <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
-                                <th>Life Cycle</th>
-                                <th>Purchasing Restriction</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -1528,8 +1479,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Spare Part Price USD</th>
                                 <th>Supplier MOQ</th>
                                 <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
                                 <th>Manufacturer</th>
                                 <th>Manufacturer Reference MPN</th>
                                 <th>Agreement Supplier Name</th>
@@ -1539,44 +1488,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot class="table-primary fw-bold">
-                            <tr>
-                                <th>ID</th>
-                                <th>Changes Analysis</th>
-                                <th>Level</th>
-                                <th>Item</th>
-                                <th>Item Description</th>
-                                <th>Item class</th>
-                                <th>Qty</th>
-                                <th>EXT Qty</th>
-                                <th>QPA 0</th>
-                                <th>UoM</th>
-                                <th>Rev</th>
-                                <th>Sequence</th>
-                                <th>Original Unit Price</th>
-                                <th>Original Currency</th>
-                                <th>Unit Price USD before Mark Up</th>
-                                <th>Standard Part Price</th>
-                                <th>Purchase Identification</th>
-                                <th>Mark Up</th>
-                                <th>Unit Price USD after Mark Up</th>
-                                <th>Total Price USD</th>
-                                <th>Agreement</th>
-                                <th>Agreement Price</th>
-                                <th>Agreement Currency</th>
-                                <th>Spare Part Price USD</th>
-                                <th>Supplier MOQ</th>
-                                <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
-                                <th>Manufacturer</th>
-                                <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
-                                <th>Life Cycle</th>
-                                <th>Purchasing Restriction</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -1611,55 +1522,13 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Spare Part Price USD</th>
                                 <th>Supplier MOQ</th>
                                 <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
                                 <th>Manufacturer</th>
                                 <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
                                 <th>Life Cycle</th>
                                 <th>Purchasing Restriction</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot class="table-primary fw-bold">
-                            <tr>
-                                <th>ID</th>
-                                <th>Changes Analysis</th>
-                                <th>Level</th>
-                                <th>Item</th>
-                                <th>Item Description</th>
-                                <th>Item class</th>
-                                <th>Qty</th>
-                                <th>EXT Qty</th>
-                                <th>QPA 0</th>
-                                <th>UoM</th>
-                                <th>Rev</th>
-                                <th>Sequence</th>
-                                <th>Original Unit Price</th>
-                                <th>Original Currency</th>
-                                <th>Unit Price USD before Mark Up</th>
-                                <th>Standard Part Price</th>
-                                <th>Purchase Identification</th>
-                                <th>Mark Up</th>
-                                <th>Unit Price USD after Mark Up</th>
-                                <th>Total Price USD</th>
-                                <th>Agreement</th>
-                                <th>Agreement Price</th>
-                                <th>Agreement Currency</th>
-                                <th>Spare Part Price USD</th>
-                                <th>Supplier MOQ</th>
-                                <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
-                                <th>Manufacturer</th>
-                                <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
-                                <th>Life Cycle</th>
-                                <th>Purchasing Restriction</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -1694,8 +1563,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                                 <th>Spare Part Price USD</th>
                                 <th>Supplier MOQ</th>
                                 <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
                                 <th>Manufacturer</th>
                                 <th>Manufacturer Reference MPN</th>
                                 <th>Agreement Supplier Name</th>
@@ -1705,44 +1572,6 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
                             </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot class="table-primary fw-bold">
-                            <tr>
-                                <th>ID</th>
-                                <th>Changes Analysis</th>
-                                <th>Level</th>
-                                <th>Item</th>
-                                <th>Item Description</th>
-                                <th>Item class</th>
-                                <th>Qty</th>
-                                <th>EXT Qty</th>
-                                <th>QPA 0</th>
-                                <th>UoM</th>
-                                <th>Rev</th>
-                                <th>Sequence</th>
-                                <th>Original Unit Price</th>
-                                <th>Original Currency</th>
-                                <th>Unit Price USD before Mark Up</th>
-                                <th>Standard Part Price</th>
-                                <th>Purchase Identification</th>
-                                <th>Mark Up</th>
-                                <th>Unit Price USD after Mark Up</th>
-                                <th>Total Price USD</th>
-                                <th>Agreement</th>
-                                <th>Agreement Price</th>
-                                <th>Agreement Currency</th>
-                                <th>Spare Part Price USD</th>
-                                <th>Supplier MOQ</th>
-                                <th>Lead Time</th>
-                                <th>Supplier Vendor</th>
-                                <th>Supplier Vendor Reference</th>
-                                <th>Manufacturer</th>
-                                <th>Manufacturer Reference MPN</th>
-                                <th>Agreement Supplier Name</th>
-                                <th>Agreement Supplier Code</th>
-                                <th>Life Cycle</th>
-                                <th>Purchasing Restriction</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

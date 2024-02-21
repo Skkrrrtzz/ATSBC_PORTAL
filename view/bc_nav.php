@@ -67,6 +67,18 @@
                   font-size: 16px;
               }
 
+              /* Chrome, Safari, Edge, Opera */
+              input::-webkit-outer-spin-button,
+              input::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+              }
+
+              /* Firefox */
+              input[type=number] {
+                  -moz-appearance: textfield;
+              }
+
               .dot-spinner {
                   --uib-size: 2.8rem;
                   --uib-speed: .9s;

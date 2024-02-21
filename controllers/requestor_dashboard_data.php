@@ -29,7 +29,7 @@ if (!empty($pendingCondition)) {
 
 // Query the database with the appropriate condition for approved records
 if (!empty($approvedCondition)) {
-    $sql_approved = "SELECT * FROM `ppv` WHERE $approvedCondition";
+    $sql_approved = "SELECT * FROM `ppv` WHERE $approvedCondition ORDER BY No DESC";
     $stmt_approved = $pdo->prepare($sql_approved);
     if ($Position !== "Manager") {
         $stmt_approved->bindParam(':requestor', $Name, PDO::PARAM_STR);
