@@ -749,9 +749,11 @@ include_once '../controllers/approver_dashboard_data.php';
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" id="OpenPPV">
-                    <button class="btn btn-primary btn-sm fw-bold" data-mdb-ripple-color="dark" id="Open" title="Click to view">OPEN</button>
-                </div>
+                <? if ($Role != 'Viewer') { ?>
+                    <div class="modal-footer" id="OpenPPV">
+                        <button class="btn btn-primary btn-sm fw-bold" data-mdb-ripple-color="dark" id="Open" title="Click to view">OPEN</button>
+                    </div>
+                <? } ?>
             </div>
         </div>
     </div>

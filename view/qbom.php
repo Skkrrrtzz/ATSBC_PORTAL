@@ -1,6 +1,6 @@
 <?php require_once 'bc_nav.php';
 
-if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin') { ?>
+if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Role === 'Viewer') { ?>
     <!DOCTYPE html>
     <html lang="en">
 

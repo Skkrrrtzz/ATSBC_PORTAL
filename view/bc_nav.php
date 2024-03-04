@@ -198,11 +198,11 @@
                           <img src="/ATS/ATSPROD_PORTAL/assets/images/ATS logoa.png" alt="Logo" width="70" height="40" class="rounded">
                       </a>
                       <ul class="navbar-nav me-1 mb-2 mb-lg-0">
-                          <?php if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === "Approver 3") { ?>
+                          <?php if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === "Approver 3" || $Role === "Viewer") { ?>
                               <li class="nav-item">
                                   <a class="nav-link active text-white" aria-current="page" href="bc_dashboard.php"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
                               </li>
-                              <?php if ($Role === "Approver 1" || $Role === "Approver 2") { ?>
+                              <?php if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === "Viewer") { ?>
                                   <li class="nav-item">
                                       <a class="nav-link active text-white" aria-current="page" href="qbom.php"><i class="fa-solid fa-folder-open"></i> QBOM List</a>
                                   </li>

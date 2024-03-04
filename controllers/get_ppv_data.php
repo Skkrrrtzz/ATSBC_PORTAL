@@ -9,11 +9,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         list($selectedYear, $selectedMonth) = explode('-', $selectedMonthYear);
 
         // Adjust the SQL query to include the selected month and year conditions
-        $ppv_query = "SELECT Date_Received, project, Currency, PPV_Type, variance_vs_qbomprice 
-              FROM ppv 
-              WHERE Request_Status='Approved' 
-              AND YEAR(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = :selectedYear
-              AND MONTH(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = :selectedMonth";
+        // $ppv_query = "SELECT Date_Received, project, Currency, PPV_Type, variance_vs_qbomprice 
+        //       FROM ppv 
+        //       WHERE Request_Status='Approved' 
+        //       AND YEAR(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = :selectedYear
+        //       AND MONTH(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = :selectedMonth";
+
+        $ppv_query = "SELECT 
+            MAX(STR_TO_DATE(Date_Received, '%m/%d/%Y')) AS Date_Received,
+            project,
+            Delta_PN,
+            Currency,
+            PPV_Type,
+            variance_vs_qbomprice
+        FROM 
+            ppv
+        WHERE 
+            Request_Status = 'Approved'
+            AND YEAR(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = $selectedYear
+            AND MONTH(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = $selectedMonth
+        GROUP BY 
+            Delta_PN,PPV_Type;";
 
         $ppv_result = $pdo->prepare($ppv_query);
         $ppv_result->bindParam(':selectedYear', $selectedYear, PDO::PARAM_INT);
