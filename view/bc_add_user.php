@@ -96,6 +96,7 @@ if ($Role === "Admin") : ?>
                                 <select class="form-select" id="addRoleField" name="role" required>
                                     <option value="">Choose role</option>
                                     <option value="Admin">Admin</option>
+                                    <option value="Viewer">Viewer</option>
                                     <option value="Approver 1">Approver 1</option>
                                     <option value="Approver 2">Approver 2</option>
                                     <option value="Approver 3">Approver 3</option>
@@ -175,6 +176,7 @@ if ($Role === "Admin") : ?>
                                     <select class="form-select" id="editRoleField" name="role" required>
                                         <option value="">Choose role</option>
                                         <option value="Admin">Admin</option>
+                                        <option value="Viewer">Viewer</option>
                                         <option value="Approver 1">Approver 1</option>
                                         <option value="Approver 2">Approver 2</option>
                                         <option value="Approver 3">Approver 3</option>

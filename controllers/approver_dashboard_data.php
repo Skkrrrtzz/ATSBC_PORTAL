@@ -8,8 +8,8 @@ if ($Role === 'Approver 1') {
     $disapprovedCondition = "DisApproved = 'true'";
 } elseif ($Role === 'Approver 2') {
     $pendingCondition = "Approver = 'Approver 2' AND Date_Approved_2 IS NULL AND Status !='DONE'";
-    $approverCondition = "Approver_Check_2 = 'true' AND Approver_Name_2 = :Name";
-    $disapprovedCondition = "DisApproved = 'true' AND DisApprover_Name = :Name";
+    $approverCondition = "Approver_Check_1 = 'true' OR Approver_Check_2 = 'true' OR Approver_Check_3 = 'true'";
+    $disapprovedCondition = "DisApproved = 'true'";
 } elseif ($Role === 'Approver 3') {
     $pendingCondition = "Approver = 'Approver 3' AND Date_Approved_3 IS NULL";
     $approverCondition = "Approver_Check_3 = 'true' AND Approver_Name_3 = :Name";

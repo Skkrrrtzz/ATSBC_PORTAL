@@ -28,8 +28,11 @@
         // $firstName = $words[0];
         function formatApprovalDate($date)
         {
-            $timestamp = strtotime($date);
-            return date('m/d/Y h:i A', $timestamp);
+            if (!empty($date)) {
+                $timestamp = strtotime($date);
+                return date('m/d/Y h:i A', $timestamp);
+            }
+            return '';
         }
     ?>
       <!DOCTYPE html>
@@ -206,13 +209,15 @@
                                   <li class="nav-item">
                                       <a class="nav-link active text-white" aria-current="page" href="qbom.php"><i class="fa-solid fa-folder-open"></i> QBOM List</a>
                                   </li>
-                                  <li class="nav-item dropdown">
-                                      <a class="nav-link dropdown-toggle text-white" href="#" data-mdb-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-sliders"></i> Updater</a>
-                                      <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" aria-current="page" href="upload_qboms.php"><i class="fa-regular fa-rectangle-list"></i> Update QBOMS</a></li>
-                                          <li> <a class="dropdown-item" aria-current="page" href="upload_bu_list.php"><i class="fa-regular fa-rectangle-list"></i> Update BU List</a></li>
-                                      </ul>
-                                  </li>
+                                  <?php if ($Role != 'Viewer' && $Role != 'Approver 2') { ?>
+                                      <li class="nav-item dropdown">
+                                          <a class="nav-link dropdown-toggle text-white" href="#" data-mdb-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-sliders"></i> Updater</a>
+                                          <ul class="dropdown-menu">
+                                              <li><a class="dropdown-item" aria-current="page" href="upload_qboms.php"><i class="fa-regular fa-rectangle-list"></i> Update QBOMS</a></li>
+                                              <li> <a class="dropdown-item" aria-current="page" href="upload_bu_list.php"><i class="fa-regular fa-rectangle-list"></i> Update BU List</a></li>
+                                          </ul>
+                                      </li>
+                                  <?php } ?>
                               <?php } ?>
                           <?php } elseif ($Role === "Requestor") { ?>
                               <li class="nav-item">

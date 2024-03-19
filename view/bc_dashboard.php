@@ -181,10 +181,20 @@ include_once '../controllers/approver_dashboard_data.php';
                                             <td>
                                                 <?= formatApprovalDate($row['Date_Approved_1']); ?>
                                             </td>
-                                        <?php elseif ($Role === 'Approver 2') : ?>
+                                        <?php elseif ($Role === 'Approver 2') :
+                                            $dates = [$row['Date_Approved_1'], $row['Date_Approved_2']];
+
+                                            $nonEmptyDates = array_filter($dates, function ($date) {
+                                                return !empty($date);
+                                            });
+
+                                            $formattedDates = array_map('formatApprovalDate', $nonEmptyDates);
+                                            $formattedDateStr = implode(', ', $formattedDates);
+                                        ?>
                                             <td>
-                                                <?= formatApprovalDate($row['Date_Approved_2']); ?>
+                                                <?= $formattedDateStr; ?>
                                             </td>
+
                                         <?php elseif ($Role === 'Approver 3') : ?>
                                             <td>
                                                 <?= formatApprovalDate($row['Date_Approved_3']); ?>
@@ -196,10 +206,11 @@ include_once '../controllers/approver_dashboard_data.php';
                                                 return !empty($date);
                                             });
 
-                                            $dateApproved = implode(', ', array_map('formatApprovalDate', $nonEmptyDates));
+                                            $formattedDates = array_map('formatApprovalDate', $nonEmptyDates);
+                                            $formattedDateStr = implode(', ', $formattedDates);
                                         ?>
                                             <td>
-                                                <?= formatApprovalDate($dateApproved); ?>
+                                                <?= $formattedDateStr; ?>
                                             </td>
                                         <?php endif; ?>
                                         <td>
@@ -282,7 +293,7 @@ include_once '../controllers/approver_dashboard_data.php';
                                         <td><span class="badge badge-success"><?= $approverName ?></span></td>
                                         <td>
                                             <i class="fa-solid fa-eye fa-2x text-primary" type="button" onclick="viewModal(<?= $row['No'] ?>)" title="Click to view"></i>
-                                            <?php if ($row['Status'] == 'IN-PROCESS') : ?>
+                                            <?php if ($row['Status'] == 'IN-PROCESS' && $Role != 'Viewer') : ?>
                                                 <i class="fa-solid fa-reply fa-2x text-primary" type="button" data-mdb-ripple-color="dark" onclick="transferApv(<?= $row['No'] ?>)" title="Click to transfer"></i>
                                             <?php endif; ?>
                                             <!-- <?php if ($showButton) : ?>
@@ -369,8 +380,17 @@ include_once '../controllers/approver_dashboard_data.php';
                                                     <!-- Display something else if it's not true, or leave it empty -->
                                                 <?php endif; ?>
                                             </td>
+                                            <?php $disdates = [$row['Date_Approved_1'], $row['Date_Approved_2'], $row['Date_Approved_3']];
+
+                                            $nonEmptyDates = array_filter($disdates, function ($date) {
+                                                return !empty($date);
+                                            });
+
+                                            $formattedDates = array_map('formatApprovalDate', $nonEmptyDates);
+                                            $formattedDateStr = implode(', ', $formattedDates);
+                                            ?>
                                             <td>
-                                                <?= formatApprovalDate($row['Date_Approved_2']); ?>
+                                                <?= $formattedDateStr; ?>
                                             </td>
                                         <?php elseif ($Role === 'Approver 3') : ?>
                                             <td>
@@ -404,10 +424,11 @@ include_once '../controllers/approver_dashboard_data.php';
                                                 return !empty($date);
                                             });
 
-                                            $dateDisApproved = implode(', ', array_map('formatApprovalDate', $nonEmptyDates));
+                                            $formattedDates = array_map('formatApprovalDate', $nonEmptyDates);
+                                            $formattedDateStr = implode(', ', $formattedDates);
                                             ?>
                                             <td>
-                                                <?= formatApprovalDate($dateDisApproved); ?>
+                                                <?= $formattedDateStr; ?>
                                             </td>
                                         <?php endif; ?>
                                         <td>
@@ -749,11 +770,11 @@ include_once '../controllers/approver_dashboard_data.php';
                         </div>
                     </div>
                 </div>
-                <? if ($Role != 'Viewer') { ?>
+                <?php if ($Role != 'Viewer') { ?>
                     <div class="modal-footer" id="OpenPPV">
                         <button class="btn btn-primary btn-sm fw-bold" data-mdb-ripple-color="dark" id="Open" title="Click to view">OPEN</button>
                     </div>
-                <? } ?>
+                <?php } ?>
             </div>
         </div>
     </div>
