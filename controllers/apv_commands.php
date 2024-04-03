@@ -1,6 +1,55 @@
 <?php
 require_once 'db.php';
 include_once 'send_email.php';
+function checkApprover($No, $pdo)
+{
+    try {
+
+        $selectPPVSql = "SELECT u.name, u.email FROM ppv p LEFT JOIN users u ON p.Approver_Name_1 = u.name WHERE p.No = :No";
+
+        $stmt1 = $pdo->prepare($selectPPVSql);
+        if (!$stmt1) {
+            die('Error preparing SQL statement: ' . $pdo->errorInfo()[2]);
+        }
+        $stmt1->bindParam(':No', $No);
+
+        if ($stmt1->execute()) {
+            $row = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+            if ($row) {
+                $Name = $row['name'];
+                $Email = $row['email'];
+
+                if ($Name && $Email) {
+                    $subject = "CPP Analyst Remarks";
+                    $body = "Item Request No.$No in ATS Business Control Portal has a remarks from CCP Analyst.<br> Please log in to <a href='http://192.168.6.144/ATS/ATSBC_PORTAL/view/bc_login.php'>ATS Business Control Portal</a> to review it. 
+                Thank you! <br><i>***This is an auto generated message, please do not reply***<i>";
+
+                    $message = sendEmail($Name, $Email, $subject, $body);
+                    $msg = ($message !== "Email has been Sent!") ? "Email not sent!" : "Email has been Sent!";
+
+                    $response = [
+                        'success' => true,
+                        'message' => $msg
+                    ];
+                } else {
+                    $response = [
+                        'success' => false,
+                        'message' => 'Failed to send email, Please contact the admin. Thanks!'
+                    ];
+                }
+            } else {
+                echo "No records found for No: $No";
+            }
+        } else {
+            echo "Query execution failed";
+        }
+    } catch (PDOException $e) {
+        echo "Database error: " . $e->getMessage();
+    }
+    return $response;
+    exit();
+}
 if (isset($_GET['No'])) {
     $No = $_GET['No'];
 
@@ -306,11 +355,12 @@ if (isset($_GET['No'])) {
             $stmt->bindParam(':checked_date', $check_date);
             $stmt->bindParam(':No', $No);
 
+            $msg = checkApprover($No, $pdo);
             // Use the $message variable in your response array
             if ($stmt->execute()) {
                 $response = [
                     'success' => true,
-                    'message' => 'Form has been submitted!',
+                    'message' => $msg,
                     'redirect' => 'sor_dashboard.php'
                 ];
             } else {
