@@ -20,7 +20,7 @@
         $Role = $_SESSION['Role'];
         $Email = $_SESSION['Email'];
         $Position = $_SESSION['Position'];
-        $currentDate = date("m/d/Y");
+        $currentDate = date("m/d/Y h:i A");
         $ccp_checked_date = date('Y-m-d H:i:s');
         $ini_time = strtotime($ccp_checked_date);
         $date_time = date('m/d/y h:i A', $ini_time);
