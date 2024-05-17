@@ -100,6 +100,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $table = 'rcmtp_qbom';
                         $insertQuery = "INSERT INTO `rcmtp_qbom`(`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`, `Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         break;
+                    case 'ECLIPSE XTA':
+                        $table = 'eclipse_xta_qbom';
+                        $insertQuery = "INSERT INTO `eclipse_xta_qbom`(`Changes_Analysis`, `Level`, `Item`, `Item_Description`, `Item_class`, `Qty`, `EXT_Qty`, `QPA_0`, `UoM`, `Rev`, `Drawing_Sequence_Number`, `Sequence`, `Original_Unit_Price`, `Original_Currency`, `Unit_Price_USD_before_Mark_Up`, `Standard_Part_Price`, `Purchase_Identification`, `Mark_Up`, `Unit_Price_USD_after_Mark_Up`, `Total_Price_USD`, `Agreement`, `Agreement_Price`, `Agreement_Currency`, `Spare_Part_Price_USD`, `Supplier_MOQ`, `Lead_Time`, `Supplier_Vendor`, `Supplier_Vendor_Reference`, `Manufacturer`, `Manufacturer_Reference_MPN`, `Agreement_Supplier_Name`, `Agreement_Supplier_Code`, `Life_Cycle`, `Purchasing_Restriction`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        break;
                     default:
                         $table = '';
                         $insertQuery = '';

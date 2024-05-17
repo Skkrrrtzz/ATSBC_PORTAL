@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'HIGHMAG' => 'highmag_qbom',
                 'IONIZER' => 'ionizer_qbom',
                 'RCMTP' => 'rcmtp_qbom',
+                'ECLIPSE XTA' => 'eclipse_xta_qbom',
                 'JTP' => 'jtp_qbom',
                 'OLB' => 'olb_qbom',
                 'OLB CABLE' => 'olbcable_qbom',
@@ -155,6 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $table = 'ionizer_qbom';
         } elseif (isset($_GET['rcmtp'])) {
             $table = 'rcmtp_qbom';
+        } elseif (isset($_GET['eclipse-xta'])) {
+            $table = 'eclipse_xta_qbom';
         } elseif (isset($_GET['swap1'])) {
             $table = 'swap1_qbom';
         } elseif (isset($_GET['swap2'])) {
@@ -411,6 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'HIGHMAG' => 'highmag_qbom',
             'IONIZER' => 'ionizer_qbom',
             'RCMTP' => 'rcmtp_qbom',
+            'ECLIPSE XTA' => 'eclipse_xta_qbom',
             'JTP' => 'jtp_qbom',
             'OLB' => 'olb_qbom',
             'PNP' => 'pnp_qbom',

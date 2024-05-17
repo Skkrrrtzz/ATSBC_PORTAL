@@ -41,6 +41,7 @@ if ($Role !== "Requestor" || $Role !== "Approver 2" || $Role !== "Approver 3") :
                                         <option value="HIGHMAG">HIGHMAG</option>
                                         <option value="IONIZER">IONIZER</option>
                                         <option value="RCMTP">RCMTP</option>
+                                        <option value="ECLIPSE XTA">ECLIPSE XTA</option>
                                         <option value="SWAP">SWAP</option>
                                         <option value="SWAP CABLE">SWAP CABLE</option>
                                     </select>
