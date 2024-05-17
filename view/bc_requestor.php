@@ -42,6 +42,7 @@
                             <option value="HIGHMAG">HIGHMAG</option>
                             <option value="IONIZER">IONIZER</option>
                             <option value="RCMTP">RCMTP</option>
+                            <option value="ECLIPSE XTA">ECLIPSE XTA</option>
                             <option value="JTP">JTP</option>
                             <option value="PNP">PNP</option>
                             <option value="PNP CABLE">PNP CABLE</option>
