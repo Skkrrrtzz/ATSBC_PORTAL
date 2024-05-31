@@ -581,7 +581,10 @@ include_once '../controllers/apv_commands.php';
                                 timerProgressBar: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 5000
+                                timer: 3000
+                            }).then(function() {
+                                // Execute showQPA after the SweetAlert is closed
+                                showQPA(Delta_PN, projects);
                             });
                             $("#QBOM_Unit_Price").val(response.message);
 
@@ -603,7 +606,10 @@ include_once '../controllers/apv_commands.php';
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                timer: 5000
+                                timer: 3000
+                            }).then(function() {
+                                // Execute showQPA after the SweetAlert is closed
+                                showQPA(Delta_PN, projects);
                             });
                             // Remove the readonly attribute
                             $("#QBOM_Unit_Price").prop("readonly", false);
@@ -1033,6 +1039,65 @@ include_once '../controllers/apv_commands.php';
                         }
                     });
                 });
+
+                function showQPA(deltaPN, projects) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../controllers/get_bu_data.php",
+                        dataType: "json",
+                        data: {
+                            deltaPN: deltaPN
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // Format the QPAList into a string
+                                let qpaHtml = Object.entries(response.QPAList)
+                                    .map(([project, qpa]) => `${project}: ${qpa}`)
+                                    .join('<br>');
+
+                                Swal.fire({
+                                    title: "List of QPA found in the following projects:",
+                                    html: qpaHtml,
+                                    toast: true,
+                                    width: 500,
+                                    color: "white",
+                                    background: "#4074cc",
+                                    position: 'bottom-end',
+                                    showCloseButton: true,
+                                    showConfirmButton: false
+                                });
+
+                                // Iterate over the QPAList entries
+                                Object.entries(response.QPAList).forEach(([project, qpa]) => {
+                                    // Check if the project matches the desired project
+                                    if (projects === project) {
+                                        // Update the value of #QPA with the corresponding QPA value
+                                        $("#QPA").val(qpa);
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "Warning",
+                                    text: response.message || "An error occurred while fetching the QPA data.",
+                                    toast: true,
+                                    position: 'bottom-end',
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX request failed with status: " + status);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Please contact the admin. Thanks!",
+                                toast: true,
+                                position: 'bottom-end',
+                            });
+                        },
+                    });
+                }
             });
         </script>
     </body>

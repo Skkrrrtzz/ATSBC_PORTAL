@@ -97,6 +97,7 @@ $(document).ready(function () {
 $("#SAP_No").on("change", function () {
   var sapNo = $(this).val(); // Get the SAP_No entered by the user
   //   console.log(sapNo);
+  let project = $("#projects").val();
   // Make an AJAX request to your server-side script
   $.ajax({
     url: "../controllers/get_bu_data.php",
@@ -110,8 +111,8 @@ $("#SAP_No").on("change", function () {
         // Update the Delta_PN and Description fields with the data from the response
         $("#Delta_PN").val(response.deltaPN);
         $("#desc").val(response.description);
-        // let project = $("#projects").val();
-        // showQPA(response.deltaPN, project);
+        // ACTIVATE THIS ON MONDAY!
+        showQPA(response.deltaPN, project);
       } else {
         // Handle the case where no matching SAP_No was found
         $("#Delta_PN").val(""); // Clear Delta_PN field
@@ -146,8 +147,8 @@ function showQPA(deltaPN, project) {
           icon: "info",
           toast: true,
           position: "top-end",
+          showCloseButton: true,
           showConfirmButton: false,
-          timer: 3000,
         });
         $("#QPA").val(data.QPA);
       } else {

@@ -2,18 +2,17 @@
 require_once 'db.php';
 function checkTableQPA($pdo, $table, $deltaPN)
 {
-    $selectSql = "SELECT QPA_0 FROM $table WHERE Item = :deltaPN";
+    $selectSql = "SELECT SUM(QPA_0) AS total_QPA FROM $table WHERE Item = :deltaPN";
     $stmt = $pdo->prepare($selectSql);
     $stmt->bindParam(':deltaPN', $deltaPN);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($row && $row['QPA_0'] !== null) {
-        return $row['QPA_0'];
+    if ($row && $row['total_QPA'] !== null) {
+        return $row['total_QPA'];
     }
-
     return null;
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Prepare and execute the SQL query using PDO
@@ -103,6 +102,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo json_encode([
                 'success' => false,
                 'message' => 'QPA not found for the given project.'
+            ]);
+        }
+    } elseif (isset($_POST['deltaPN'])) {
+        $deltaPN = $_POST['deltaPN'];
+        $totalQPA = [];
+        $projectContributions = [];
+
+        $definedTables = [
+            'JLP' => 'jlp_qbom',
+            'ECLIPSE XTA' => 'eclipse_xta_qbom',
+            'JTP' => 'jtp_qbom',
+            'OLB' => 'olb_qbom',
+            'PNP' => 'pnp_qbom',
+            'JLP CABLE' => 'jlpcable_qbom',
+            'PNP CABLE' => 'pnpcable_qbom',
+            'OLB CABLE' => 'olbcable_qbom',
+            'SWAP CABLE' => 'swapcable_qbom',
+            'SWAP Housing' => 'swap1_qbom',
+            'SWAP Preciser' => 'swap2_qbom',
+            'SWAP Robot Add On' => 'swap3_qbom',
+            'SWAP Gripper Robot' => 'swap4_qbom',
+            'SWAP Service Station' => 'swap5_qbom',
+            'SWAP Accessories' => 'swap6_qbom'
+        ];
+
+        // Iterate over all tables in definedTables and store the QPA
+        foreach ($definedTables as $project => $table) {
+            $qpa = checkTableQPA($pdo, $table, $deltaPN);
+            if ($qpa !== null) {
+                $projectContributions[$project] = $qpa;
+            }
+        }
+
+        // Check if any QPA was found
+        if (!empty($projectContributions)) {
+            // Return the result as JSON response
+            echo json_encode([
+                'success' => true,
+                'QPAList' => $projectContributions
+            ]);
+        } else {
+            // Return an error response if no matching QPA is found
+            echo json_encode([
+                'success' => false,
+                'message' => 'QPA not found.'
             ]);
         }
     } else {

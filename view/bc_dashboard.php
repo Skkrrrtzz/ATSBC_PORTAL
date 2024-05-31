@@ -1072,6 +1072,8 @@ include_once '../controllers/approver_dashboard_data.php';
                     "#dd5182",
                     "#ff6e54",
                     "#ffa600",
+                    "#18a44c",
+                    "#FF0032",
                 ];
                 // Group response data by project and calculate the sum of variance_vs_qbomprice for each project
                 groupedData = response.reduce((accumulator, current) => {
