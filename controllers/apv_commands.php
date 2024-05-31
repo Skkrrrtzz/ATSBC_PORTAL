@@ -21,7 +21,7 @@ function checkApprover($No, $pdo)
                 $Email = $row['email'];
 
                 if ($Name && $Email) {
-                    $subject = "CPP Analyst Remarks";
+                    $subject = "CCP Analyst Remarks";
                     $body = "Item Request No.$No in ATS Business Control Portal has a remarks from CCP Analyst.<br> Please log in to <a href='http://192.168.6.144/ATS/ATSBC_PORTAL/view/bc_login.php'>ATS Business Control Portal</a> to review it. 
                 Thank you! <br><i>***This is an auto generated message, please do not reply***<i>";
 

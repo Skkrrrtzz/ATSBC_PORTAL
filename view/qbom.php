@@ -1778,7 +1778,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "Item_class",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Item_class')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Item_class')) {
                                         return row.Item_class;
                                     }
                                     return null;
@@ -1790,7 +1790,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "EXT_Qty",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('EXT_Qty')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('EXT_Qty')) {
                                         return row.EXT_Qty;
                                     }
                                     return null;
@@ -1799,7 +1799,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "QPA_0",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('QPA_0')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('QPA_0')) {
                                         return row.QPA_0;
                                     }
                                     return null;
@@ -1808,7 +1808,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "UoM",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('UoM')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('UoM')) {
                                         return row.UoM;
                                     }
                                     return null;
@@ -1817,7 +1817,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "Rev",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Rev')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Rev')) {
                                         return row.Rev;
                                     }
                                     return null;
@@ -1826,7 +1826,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "Drawing_Sequence_Number",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Drawing_Sequence_Number')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Drawing_Sequence_Number')) {
                                         return row.Drawing_Sequence_Number;
                                     }
                                     return null;
@@ -1835,7 +1835,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "Sequence",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Sequence')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Sequence')) {
                                         return row.Sequence;
                                     }
                                     return null;
@@ -1885,7 +1885,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "Supplier_Vendor",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor')) {
                                         return row.Supplier_Vendor;
                                     }
                                     return null;
@@ -1894,7 +1894,7 @@ if ($Role === "Approver 1" || $Role === "Approver 2" || $Role === 'Admin' || $Ro
                             {
                                 data: "Supplier_Vendor_Reference",
                                 render: function(data, type, row) {
-                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor_Reference')) {
+                                    if (['HIGHMAG', 'FLIPPER', 'MTP', 'OLB', 'OLB CABLE', 'PNP', 'JLP', 'JLP CABLE', 'PNP CABLE', 'JTP', 'RCMTP', 'IONIZER', 'ECLIPSE XTA', 'SWAP Housing', 'SWAP Preciser', 'SWAP Robot Add On', 'SWAP Gripper Robot', 'SWAP Service Station', 'SWAP Accessories'].includes(row.QBOM) && row.hasOwnProperty('Supplier_Vendor_Reference')) {
                                         return row.Supplier_Vendor_Reference;
                                     }
                                     return null;

@@ -2257,7 +2257,7 @@ $(document).ready(function () {
   initializeDataTable(
     "#eclipsexta_qbom_table",
     "../controllers/get_qbom_datas.php?eclipse-xta=1",
-    rcmtpColumns
+    eclipsextaColumns
   );
 
   initializeDataTable(
