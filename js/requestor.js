@@ -110,6 +110,8 @@ $("#SAP_No").on("change", function () {
         // Update the Delta_PN and Description fields with the data from the response
         $("#Delta_PN").val(response.deltaPN);
         $("#desc").val(response.description);
+        // let project = $("#projects").val();
+        // showQPA(response.deltaPN, project);
       } else {
         // Handle the case where no matching SAP_No was found
         $("#Delta_PN").val(""); // Clear Delta_PN field
@@ -131,6 +133,51 @@ $("#SAP_No").on("change", function () {
     },
   });
 });
+function showQPA(deltaPN, project) {
+  $.ajax({
+    url: "../controllers/get_bu_data.php",
+    type: "POST",
+    data: { deltaPN: deltaPN, project: project },
+    dataType: "json",
+    success: function (data) {
+      if (data.success) {
+        Swal.fire({
+          title: "QPA found in selected project.",
+          icon: "info",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        $("#QPA").val(data.QPA);
+      } else {
+        Swal.fire({
+          title: "Warning",
+          text: data.message,
+          icon: "warning",
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        $("#QPA").val("");
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error:", error);
+      Swal.fire({
+        title: "Error",
+        text: "An error occurred while fetching the QPA data: " + error,
+        icon: "error",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      $("#QPA").val("");
+    },
+  });
+}
 // Add event listeners to the input fields
 $("#Current_Vendor_Price, #Qty_to_Purchase_from_Vendor_1").on(
   "input",
