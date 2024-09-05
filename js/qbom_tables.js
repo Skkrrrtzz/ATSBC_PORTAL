@@ -486,6 +486,176 @@ $(document).ready(function () {
     },
   ];
 
+  // Define columns for jrs_qbom_table
+  var jrsColumns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
+  // Define columns for jrscable_qbom_table
+  var jrsCableColumns = [
+    {
+      data: "ID",
+    },
+    {
+      data: "Changes_Analysis",
+    },
+    {
+      data: "Level",
+    },
+    {
+      data: "Item",
+    },
+    {
+      data: "Item_Description",
+    },
+    {
+      data: "Item_class",
+    },
+    {
+      data: "Qty",
+    },
+    {
+      data: "EXT_Qty",
+    },
+    {
+      data: "QPA_0",
+    },
+    {
+      data: "UoM",
+    },
+    {
+      data: "Rev",
+    },
+    {
+      data: "Drawing_Sequence_Number",
+    },
+    {
+      data: "Sequence",
+    },
+    {
+      data: "Original_Unit_Price",
+    },
+    {
+      data: "Original_Currency",
+    },
+    {
+      data: "Unit_Price_USD_before_Mark_Up",
+    },
+    {
+      data: "Standard_Part_Price",
+    },
+    {
+      data: "Purchase_Identification",
+    },
+    {
+      data: "Mark_Up",
+    },
+    {
+      data: "Unit_Price_USD_after_Mark_Up",
+    },
+    {
+      data: "Total_Price_USD",
+    },
+    {
+      data: "Manufacturer",
+    },
+    {
+      data: "Manufacturer_Reference_MPN",
+    },
+    {
+      data: "Agreement_Supplier_Name",
+    },
+    {
+      data: "Agreement_Supplier_Code",
+    },
+    {
+      data: "Life_Cycle",
+    },
+    {
+      data: "Purchasing_Restriction",
+    },
+  ];
+
   // Define columns for jtp_qbom_table
   var jtpColumns = [
     {
@@ -2212,6 +2382,16 @@ $(document).ready(function () {
     "#jlpcable_qbom_table",
     "../controllers/get_qbom_datas.php?jlp_cable=1",
     jlpCableColumns
+  );
+  initializeDataTable(
+    "#jrs_qbom_table",
+    "../controllers/get_qbom_datas.php?jrs=1",
+    jrsColumns
+  );
+  initializeDataTable(
+    "#jrscable_qbom_table",
+    "../controllers/get_qbom_datas.php?jrs_cable=1",
+    jrsCableColumns
   );
   initializeDataTable(
     "#jtp_qbom_table",

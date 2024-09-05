@@ -33,6 +33,8 @@ if ($Role !== "Requestor" || $Role !== "Approver 2" || $Role !== "Approver 3") :
                                         <option value="PNP CABLE">PNP CABLE</option>
                                         <option value="JLP">JLP</option>
                                         <option value="JLP CABLE">JLP CABLE</option>
+                                        <option value="JRS">JRS</option>
+                                        <option value="JRS CABLE">JRS CABLE</option>
                                         <option value="JTP">JTP</option>
                                         <option value="MTP">MTP</option>
                                         <option value="OLB">OLB</option>

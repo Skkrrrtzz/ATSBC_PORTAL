@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             AND YEAR(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = $selectedYear
             AND MONTH(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = $selectedMonth
         GROUP BY 
-            Delta_PN,PPV_Type;";
+            Delta_PN,PPV_Type HAVING variance_vs_qbomprice != 0;";
 
         $ppv_result = $pdo->prepare($ppv_query);
         $ppv_result->bindParam(':selectedYear', $selectedYear, PDO::PARAM_INT);
@@ -64,7 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode($response);
     } elseif (isset($_POST['Charge2Cohu'])) {
-        $charge2cohu_query = "SELECT SUM(VarianceChargable2Cohu) AS VC2C,Project FROM ppv WHERE Request_Status='Approved' GROUP BY Project;";
+        $charge2cohu_query = "SELECT SUM(VarianceChargable2Cohu) AS VC2C, Project FROM ppv WHERE Request_Status = 'Approved' GROUP BY Project HAVING SUM(VarianceChargable2Cohu) > 0;";
+        //SELECT SUM(VarianceChargable2Cohu) AS VC2C,Project FROM ppv WHERE Request_Status='Approved' GROUP BY Project;
         //MONTH(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(STR_TO_DATE(Date_Received, '%m/%d/%Y')) = YEAR(CURDATE() - INTERVAL 1 MONTH)
         $charge2cohu_result = $pdo->prepare($charge2cohu_query);
         $charge2cohu_result->execute();

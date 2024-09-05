@@ -59,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $tableMappings = [
             'JLP' => 'jlp_qbom',
             'JLP CABLE' => 'jlpcable_qbom',
+            'JRS' => 'jrs_qbom',
+            'JRS CABLE' => 'jrscable_qbom',
             'MTP' => 'mtp_qbom',
             'FLIPPER' => 'flipper_qbom',
             'HIGHMAG' => 'highmag_qbom',
@@ -111,11 +113,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $definedTables = [
             'JLP' => 'jlp_qbom',
+            'JRS' => 'jrs_qbom',
             'ECLIPSE XTA' => 'eclipse_xta_qbom',
             'JTP' => 'jtp_qbom',
             'OLB' => 'olb_qbom',
             'PNP' => 'pnp_qbom',
             'JLP CABLE' => 'jlpcable_qbom',
+            'JRS CABLE' => 'jrscable_qbom',
             'PNP CABLE' => 'pnpcable_qbom',
             'OLB CABLE' => 'olbcable_qbom',
             'SWAP CABLE' => 'swapcable_qbom',

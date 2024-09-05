@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $tableMappings = [
                 'JLP' => 'jlp_qbom',
                 'JLP CABLE' => 'jlpcable_qbom',
+                'JRS' => 'jrs_qbom',
+                'JRS CABLE' => 'jrscable_qbom',
                 'MTP' => 'mtp_qbom',
                 'FLIPPER' => 'flipper_qbom',
                 'HIGHMAG' => 'highmag_qbom',
@@ -140,6 +142,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $table = 'jlp_qbom';
         } elseif (isset($_GET['jlp_cable'])) {
             $table = 'jlpcable_qbom';
+        } elseif (isset($_GET['jrs'])) {
+            $table = 'jrs_qbom';
+        } elseif (isset($_GET['jrs_cable'])) {
+            $table = 'jrscable_qbom';
         } elseif (isset($_GET['jtp'])) {
             $table = 'jtp_qbom';
         } elseif (isset($_GET['mtp'])) {
@@ -409,6 +415,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $tableMappings = [
             'JLP' => 'jlp_qbom',
             'JLP CABLE' => 'jlpcable_qbom',
+            'JRS' => 'jrs_qbom',
+            'JRS CABLE' => 'jrscable_qbom',
             'MTP' => 'mtp_qbom',
             'FLIPPER' => 'flipper_qbom',
             'HIGHMAG' => 'highmag_qbom',

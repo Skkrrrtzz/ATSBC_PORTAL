@@ -151,6 +151,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                                         <th>Status</th>
                                         <th>Approved By</th>
                                         <th>Approved Date</th>
+                                        <th>Remarks</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -164,6 +165,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                                             <td><span class="badge badge-success"><?= $row['Status'] ?></span></td>
                                             <td><span class="badge badge-success"><?= $row['Approver_Name_1']; ?><?= $row['Approver_Name_2'] ? ', ' . $row['Approver_Name_2'] : ''; ?><?= $row['Approver_Name_3'] ? ', ' . $row['Approver_Name_3'] : ''; ?></span></td>
                                             <td><?= formatApprovalDate($row['Date_Approved_1']); ?></td>
+                                            <td class="text-wrap"><?= $row['Remarks'] ?></td>
                                             <td><button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -193,6 +195,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                                         <th>Project</th>
                                         <th>Disapproved By</th>
                                         <th>Disapproved Date</th>
+                                        <th>Remarks</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -209,6 +212,7 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                                                 </span>
                                             </td>
                                             <td><?= formatApprovalDate($row['Date_Approved_1']); ?></td>
+                                            <td class="text-wrap"><?= $row['Remarks'] ?></td>
                                             <td>
                                                 <button class="btn btn-outline-primary btn-sm" type="button" onclick="viewModal(<?= $row['No'] ?>)"> View</button>
                                                 <button class="btn btn-primary btn-sm" type="button" onclick="returnNo(<?= htmlspecialchars(json_encode($row['No'])) ?>)">Resubmit</button>
@@ -437,8 +441,16 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                             <div class="row g-2">
                                 <div class="col ms-2 mb-2">
                                     <div class="form-outline">
-                                        <input type="text" class="form-control bg-light" id="Purchasing_Recom" value="<?= $Purchasing_Recom; ?>" readonly>
+                                        <input type="text" class="form-control bg-light" id="Purchasing_Recom" readonly>
                                         <label class="form-label fw-bold text-dark" for="Purchasing_Recom">Purchasing Recommendation</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 d-none" id="remarks">
+                                <div class="col ms-2 mb-2">
+                                    <div class="form-outline">
+                                        <input type="text" class="form-control bg-light text-danger fw-bold" id="remarksfromApprover" readonly>
+                                        <label class="form-label fw-bold text-dark" for="remarksfromApprover">Remarks from Approver</label>
                                     </div>
                                 </div>
                             </div>
@@ -762,6 +774,12 @@ if ($Role === "Requestor" || $Role === 'Admin') {
                             $("#theReason").show();
                         }
                         $("#Purchasing_Recom").val(response.Purchasing_Recom);
+                        let isDisapproved = response.DisApproved;
+
+                        if (isDisapproved) {
+                            $("#remarks").removeClass("d-none");
+                            $("#remarksfromApprover").val(response.Remarks);
+                        }
                         // Initially hide the "other_ppv_type" input field
                         $("#other_ppv_type").hide();
                         let PPV_type = $("#PPV_Type").val();
